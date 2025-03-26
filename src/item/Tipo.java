@@ -1,0 +1,3 @@
+package item;
+
+public enum Tipo {AGUA,COMIDA,MADERA,CARBON,MENA_HIERRO,MENA_ORO,HIERRO,ORO}
