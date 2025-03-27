@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<recetas>
+    <receta>
+        <nombre>Escudo</nombre>
+        <ingredientes>
+            <ingrediente>madera</ingrediente>
+            <ingrediente>hierro</ingrediente>
+            <ingrediente>hierro</ingrediente>
+        </ingredientes>
+    </receta>
+    <receta>
+        <nombre>daga</nombre>
+        <ingredientes>
+            <ingrediente>madera</ingrediente>
+            <ingrediente>hierro</ingrediente>
+        </ingredientes>
+    </receta>
+</recetas>
