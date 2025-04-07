@@ -17,7 +17,7 @@ public class Ventana extends javax.swing.JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         int width = 1920;
         int height = 700;
-        Dibujar dibus = new Dibujar();
+        Dibujar dibus = new Dibujar(1920,700);
         add(dibus);
         setSize(1920,1080);
     }

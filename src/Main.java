@@ -13,7 +13,7 @@ public class Main {
         jp.craftear("escudo");
         jp.craftear("escudo");
         n.mostrarInventario();
-
+        jp.guardarJugador(jp,"C:\\Users\\diego\\IdeaProjects\\Survival_Dungeons\\src\\gestores\\guardarPartida.xml\\");
 
     }
 }

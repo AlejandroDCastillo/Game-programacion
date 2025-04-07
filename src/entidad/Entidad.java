@@ -25,6 +25,9 @@ public class Entidad {
         this.mana=mana;
         this.destreza=destreza;
     }
+    public Entidad(){
+
+    }
 
 //    public Entidad() {
 //    }
@@ -40,6 +43,7 @@ public class Entidad {
     }
 
     //getter y setter
+
     public int getVida() {
         return vida;
     }
@@ -48,12 +52,36 @@ public class Entidad {
         this.vida = vida;
     }
 
-    public int getDefensa() {
+    public int getArmadura() {
         return armadura;
     }
 
     public void setArmadura(int armadura) {
         this.armadura = armadura;
+    }
+
+    public int getMagia() {
+        return magia;
+    }
+
+    public void setMagia(int magia) {
+        this.magia = magia;
+    }
+
+    public int getMana() {
+        return mana;
+    }
+
+    public void setMana(int mana) {
+        this.mana = mana;
+    }
+
+    public int getDestreza() {
+        return destreza;
+    }
+
+    public void setDestreza(int destreza) {
+        this.destreza = destreza;
     }
 
     public Raza getRaza() {
@@ -70,5 +98,13 @@ public class Entidad {
 
     public void setCalse(Clase calse) {
         this.calse = calse;
+    }
+
+    public int getDx() {
+        return dx;
+    }
+
+    public void setDx(int dx) {
+        this.dx = dx;
     }
 }

@@ -1,4 +1,4 @@
-package clases;
+package ventana;
 
 public class PruebasPanelSobrePanel extends javax.swing.JFrame {
     /*

@@ -16,10 +16,11 @@
         </ingredientes>
     </receta>
     <receta>
-        <nombre>escudo</nombre>
+        <nombre>escudoOro</nombre>
         <ingredientes>
             <ingrediente>madera</ingrediente>
-            <ingrediente>hierro</ingrediente>
+            <ingrediente>oro</ingrediente>
+            <ingrediente>oro</ingrediente>
         </ingredientes>
     </receta>
 </recetas>

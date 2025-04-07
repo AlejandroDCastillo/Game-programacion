@@ -47,6 +47,7 @@ public class Inventario {
         Item hierro = new Item("hierro", 2, Tipo.HIERRO);
         Item oro = new Item("mena_oro", 0, Tipo.ORO);
         Item escudo = new Item("escudo", 0, Tipo.ESCUDO);
+        Item espada = new Item("espada", 0, Tipo.ESPADA);
         inventario.add(agua);
         inventario.add(comida);
         inventario.add(madera);
@@ -56,6 +57,7 @@ public class Inventario {
         inventario.add(hierro);
         inventario.add(oro);
         inventario.add(escudo);
+        inventario.add(espada);
         return inventario;
     }
 
@@ -142,5 +144,17 @@ public class Inventario {
 
     public ArrayList<Item> getInventario() {
         return inventario;
+    }
+
+    public void setInventario(ArrayList<Item> inventario) {
+        this.inventario = inventario;
+    }
+
+    public static Inventario getInstancia() {
+        return instancia;
+    }
+
+    public static void setInstancia(Inventario instancia) {
+        Inventario.instancia = instancia;
     }
 }
