@@ -1,5 +1,7 @@
 package entidad;
 
+import java.awt.*;
+
 public class Entidad {
     protected int vida;
     protected int armadura;
@@ -8,6 +10,11 @@ public class Entidad {
     protected int destreza;
     protected Raza raza;
     protected Clase calse;
+    protected int dx;
+    private int dy;
+    private int y;
+    private int x;
+    private Image imagen;
 
     public Entidad(int vida, int armadura, Raza raza, Clase calse,int magia,int mana, int destreza) {
         this.vida = vida;
@@ -18,6 +25,9 @@ public class Entidad {
         this.mana=mana;
         this.destreza=destreza;
     }
+
+//    public Entidad() {
+//    }
 
     @Override
     public String toString() {

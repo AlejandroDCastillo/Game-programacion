@@ -1,14 +1,21 @@
 package item;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class Item {
     protected String idNombre;
     protected int cantidad;
     protected Tipo tipo;
+//    protected Image img;
+//    protected String ruta;
 
     public Item(String idNombre, int cantidad,Tipo tipo) {
+//        ruta="img/imagenes/...";
         this.idNombre = idNombre;
         this.cantidad = cantidad;
         this.tipo=tipo;
+//        ImageIcon icon=new ImageIcon(getClass().getResource(ruta));
     }
 
     public Item() {

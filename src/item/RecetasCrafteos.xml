@@ -9,7 +9,14 @@
         </ingredientes>
     </receta>
     <receta>
-        <nombre>daga</nombre>
+        <nombre>espada</nombre>
+        <ingredientes>
+            <ingrediente>madera</ingrediente>
+            <ingrediente>hierro</ingrediente>
+        </ingredientes>
+    </receta>
+    <receta>
+        <nombre>escudo</nombre>
         <ingredientes>
             <ingrediente>madera</ingrediente>
             <ingrediente>hierro</ingrediente>

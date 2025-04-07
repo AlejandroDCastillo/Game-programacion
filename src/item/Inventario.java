@@ -134,6 +134,7 @@ public class Inventario {
             Item item=buscarObjeto(recetaIngrediente.get(j));
             recetaFinal.add(item);
         }
+
         System.out.println(recetaFinal);
         //devolvemos un array de items necesarios
         return recetaFinal;

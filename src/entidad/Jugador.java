@@ -15,7 +15,7 @@ public class Jugador extends Entidad {
         this.hambre = hambre;
         this.sed = sed;
         this.inventario= Inventario.getInstance();
-
+        this.dx=0;
     }
 
     /**
@@ -63,6 +63,11 @@ public class Jugador extends Entidad {
         }
     }
 
+    /**
+     * metodo que sirve para craftear un objeto, utiliza buscar objeto y recetaCrafteo
+     * @param crafteo
+     * @return
+     */
     public boolean craftear(String crafteo){
         ArrayList<Item> receta=inventario.recetaCrafteo(crafteo);
         boolean hayItem=true;
@@ -99,6 +104,14 @@ public class Jugador extends Entidad {
             return true;
         }
     }
+
+    /**
+     * metodo para descansar en la cama
+     */
+    public void descansar(){
+        super.setVida(100);
+    }
+
 
 
 }
