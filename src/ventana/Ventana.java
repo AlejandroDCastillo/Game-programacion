@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package clases;
+package ventana;
 
+
+import ventana.Dibujar;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +17,7 @@ public class Ventana extends javax.swing.JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         int width = 1920;
         int height = 700;
-        Dibujar dibus = new Dibujar(width, height);
+        Dibujar dibus = new Dibujar();
         add(dibus);
         setSize(1920,1080);
     }
