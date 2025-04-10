@@ -264,6 +264,8 @@ public class Jugador extends Entidad {
 //        }
 //    }
 
+
+
     public int getHambre() {
         return hambre;
     }
