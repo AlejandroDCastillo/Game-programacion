@@ -9,13 +9,6 @@
         </ingredientes>
     </receta>
     <receta>
-        <nombre>espada</nombre>
-        <ingredientes>
-            <ingrediente>madera</ingrediente>
-            <ingrediente>hierro</ingrediente>
-        </ingredientes>
-    </receta>
-    <receta>
         <nombre>escudoOro</nombre>
         <ingredientes>
             <ingrediente>madera</ingrediente>
@@ -23,4 +16,68 @@
             <ingrediente>oro</ingrediente>
         </ingredientes>
     </receta>
+    <receta>
+        <nombre>espada</nombre>
+        <ingredientes>
+            <ingrediente>madera</ingrediente>
+            <ingrediente>hierro</ingrediente>
+        </ingredientes>
+    </receta>
+    <receta>
+        <nombre>espadaFuego</nombre>
+        <ingredientes>
+            <ingrediente>madera</ingrediente>
+            <ingrediente>hierro</ingrediente>
+            <ingrediente>oro</ingrediente>
+            <ingrediente>carbon</ingrediente>
+        </ingredientes>
+    </receta>
+    <receta>
+        <nombre>varaMago</nombre>
+        <ingredientes>
+            <ingrediente>madera</ingrediente>
+            <ingrediente>madera</ingrediente>
+            <ingrediente>oro</ingrediente>
+            <ingrediente>hierro</ingrediente>
+        </ingredientes>
+    </receta>
+    <receta>
+        <nombre>talismanSecreto</nombre>
+        <ingredientes>
+            <ingrediente>hierro</ingrediente>
+            <ingrediente>oro</ingrediente>
+            <ingrediente>oro</ingrediente>
+        </ingredientes>
+    </receta>
+    <receta>
+        <nombre>yelmo</nombre>
+        <ingredientes>
+            <ingrediente>hiero</ingrediente>
+            <ingrediente>hierro</ingrediente>
+        </ingredientes>
+    </receta>
+    <receta>
+        <nombre>peto</nombre>
+        <ingredientes>
+            <ingrediente>hierro</ingrediente>
+            <ingrediente>hierro</ingrediente>
+            <ingrediente>oro</ingrediente>
+        </ingredientes>
+    </receta>
+    <receta>
+        <nombre>oro</nombre>
+        <ingredientes>
+            <ingrediente>mena_oro</ingrediente>
+            <ingrediente>carbon</ingrediente>
+        </ingredientes>
+    </receta>
+    <receta>
+        <nombre>hierro</nombre>
+        <ingredientes>
+            <ingrediente>mena_hierro</ingrediente>
+            <ingrediente>carbon</ingrediente>
+        </ingredientes>
+    </receta>
+
+
 </recetas>
