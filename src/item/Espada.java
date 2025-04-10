@@ -1,6 +1,8 @@
 package item;
 
-public class Espada extends Item
+import java.io.Serializable;
+
+public class Espada extends Item implements Ataque
 {
     protected double damage;
     protected double velocidad_ataque;
@@ -12,6 +14,20 @@ public class Espada extends Item
         this.velocidad_ataque = velocidad_ataque;
     }
 
+    @Override
+    public double getDamage() {
+        return damage;
+    }
 
+    public void setDamage(double damage) {
+        this.damage = damage;
+    }
 
+    public double getVelocidad_ataque() {
+        return velocidad_ataque;
+    }
+
+    public void setVelocidad_ataque(double velocidad_ataque) {
+        this.velocidad_ataque = velocidad_ataque;
+    }
 }

@@ -25,9 +25,6 @@ public class Entidad {
         this.mana=mana;
         this.destreza=destreza;
     }
-    public Entidad(){
-
-    }
 
 //    public Entidad() {
 //    }

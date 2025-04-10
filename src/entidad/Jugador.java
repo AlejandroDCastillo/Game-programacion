@@ -25,9 +25,6 @@ public class Jugador extends Entidad {
         this.dx = 0;
     }
 
-    public Jugador(){
-        super();
-    }
 
     /**
      * metodo para beber agua suma +30 a la sed

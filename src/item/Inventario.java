@@ -46,8 +46,12 @@ public class Inventario {
         Item mena_oro = new Item("mena_oro", 0, Tipo.MENA_ORO);
         Item hierro = new Item("hierro", 2, Tipo.HIERRO);
         Item oro = new Item("mena_oro", 0, Tipo.ORO);
-        Item escudo = new Item("escudo", 0, Tipo.ESCUDO);
-        Item espada = new Item("espada", 0, Tipo.ESPADA);
+        Escudo escudo = new Escudo("escudo", 0, Tipo.ESCUDO,4);
+        Espada espada = new Espada("espada", 0, Tipo.ESPADA,5,5.5);
+        EspadaFuego espadaFuego = new EspadaFuego("espada_fuego",0, Tipo.ESPADA,6.5,5,0.9);
+        Espada daga = new Espada("daga",0,Tipo.DAGA,2,8);
+        VaraMago vara = new VaraMago("vara_de_mago", 0,Tipo.VARA_DE_MAGO,3,7,5,Hechizo.PERDER_TURNO);
+
         inventario.add(agua);
         inventario.add(comida);
         inventario.add(madera);
@@ -58,6 +62,10 @@ public class Inventario {
         inventario.add(oro);
         inventario.add(escudo);
         inventario.add(espada);
+        inventario.add(espadaFuego);
+        inventario.add(daga);
+        inventario.add(vara);
+
         return inventario;
     }
 
