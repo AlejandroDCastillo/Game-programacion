@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><jugador>
+    <estadisticas>
+        <vida>100</vida>
+        <armadura>50</armadura>
+        <magia>29</magia>
+        <mana>20</mana>
+        <destreza>24</destreza>
+        <hambre>100</hambre>
+        <sed>100</sed>
+    </estadisticas>
+    <inventario><item><nombre>agua</nombre><cantidad>3</cantidad><tipo>AGUA</tipo></item><item><nombre>comida</nombre><cantidad>3</cantidad><tipo>COMIDA</tipo></item><item><nombre>madera</nombre><cantidad>0</cantidad><tipo>MADERA</tipo></item><item><nombre>carbon</nombre><cantidad>0</cantidad><tipo>CARBON</tipo></item><item><nombre>mena_hierro</nombre><cantidad>0</cantidad><tipo>MENA_HIERRO</tipo></item><item><nombre>mena_oro</nombre><cantidad>0</cantidad><tipo>MENA_ORO</tipo></item><item><nombre>hierro</nombre><cantidad>0</cantidad><tipo>HIERRO</tipo></item><item><nombre>mena_oro</nombre><cantidad>0</cantidad><tipo>ORO</tipo></item><item><nombre>escudo</nombre><cantidad>1</cantidad><tipo>ESCUDO</tipo></item><item><nombre>espada</nombre><cantidad>0</cantidad><tipo>ESPADA</tipo></item></inventario>
+</jugador>
