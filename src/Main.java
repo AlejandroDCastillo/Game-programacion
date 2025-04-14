@@ -9,6 +9,5 @@ public class Main {
         Ventana v=new Ventana();
         v.setTitle("Survival Dungeons");
         v.setVisible(true);
-
     }
 }
