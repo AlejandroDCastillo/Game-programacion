@@ -5,8 +5,8 @@ import org.w3c.dom.*;
 import javax.xml.parsers.*;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.ArrayList;
 
+//clase singleton.
 public class Inventario {
     private static Inventario instancia;
     private ArrayList<Item> inventario;
@@ -40,11 +40,11 @@ public class Inventario {
         ArrayList<Item> inventario = new ArrayList<>();
         Item agua = new Item("agua", 3, Tipo.AGUA);
         Item comida = new Item("comida", 3, Tipo.COMIDA);
-        Item madera = new Item("madera", 1, Tipo.MADERA);
+        Item madera = new Item("madera", 0, Tipo.MADERA);
         Item carbon = new Item("carbon", 0, Tipo.CARBON);
         Item mena_hierro = new Item("mena_hierro", 0, Tipo.MENA_HIERRO);
         Item mena_oro = new Item("mena_oro", 0, Tipo.MENA_ORO);
-        Item hierro = new Item("hierro", 2, Tipo.HIERRO);
+        Item hierro = new Item("hierro", 0, Tipo.HIERRO);
         Item oro = new Item("mena_oro", 0, Tipo.ORO);
         Escudo escudo = new Escudo("escudo", 0, Tipo.ESCUDO,4);
         Espada espada = new Espada("espada", 0, Tipo.ESPADA,5,5.5);

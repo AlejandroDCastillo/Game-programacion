@@ -1,9 +1,9 @@
 package gamePanel;
 import entidades.*;
 import recursos.teclado.DetectorTeclas;
-
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class GamePanel extends JPanel implements Runnable{
      Thread threadJuego;
@@ -17,13 +17,14 @@ public class GamePanel extends JPanel implements Runnable{
     private int tamañoAnchuraPantalla=cantidadBaldosaAnchura*tamañofinalBaldosa;
     private int tamañoAlturaPantalla=getCantidadBaldosaAltura*tamañofinalBaldosa;
     protected int FPS = 60;
-    private Jugador jugador = new Jugador(this.teclado,this);
-    public GamePanel() {
+    private Jugador jugador = new Jugador(this.teclado,this,"alex",Raza.HUMANO,Clase.MAGO,2);
 
+    public GamePanel() {
         this.setBackground(Color.BLACK);
         this.setFocusable(true);
         this.setDoubleBuffered(true);
         this.setPreferredSize(new Dimension(tamañoAnchuraPantalla,tamañoAlturaPantalla));
+        this.addKeyListener(teclado);
         startThreadDelJuego();
     }
 
@@ -48,6 +49,7 @@ public class GamePanel extends JPanel implements Runnable{
               delta --;
               if (temporizador >= 1000000000) {
                   System.out.println("FPS: " + contadorDeVecesDibujado);
+                  System.out.println(jugador.getX());
                   contadorDeVecesDibujado=0;
                   temporizador=0;
               }
@@ -57,12 +59,114 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     private void update() {
+        jugador.update();
     }
 
-    public void paintComponents(Graphics g) {
-        super.paintComponents(g);
+    public void paint(Graphics g) {
+        super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
-        jugador.dibujar(g2d);
+        try {
+            jugador.dibujar(g2d);
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
+        g2d.dispose();
     }
 
+
+    public Thread getThreadJuego() {
+        return threadJuego;
+    }
+
+    public void setThreadJuego(Thread threadJuego) {
+        this.threadJuego = threadJuego;
+    }
+
+    public DetectorTeclas getTeclado() {
+        return teclado;
+    }
+
+    public void setTeclado(DetectorTeclas teclado) {
+        this.teclado = teclado;
+    }
+
+    public boolean isRunning() {
+        return running;
+    }
+
+    public void setRunning(boolean running) {
+        this.running = running;
+    }
+
+    public int getTamañoBaldosa() {
+        return tamañoBaldosa;
+    }
+
+    public void setTamañoBaldosa(int tamañoBaldosa) {
+        this.tamañoBaldosa = tamañoBaldosa;
+    }
+
+    public int getEscala() {
+        return escala;
+    }
+
+    public void setEscala(int escala) {
+        this.escala = escala;
+    }
+
+    public int getTamañofinalBaldosa() {
+        return tamañofinalBaldosa;
+    }
+
+    public void setTamañofinalBaldosa(int tamañofinalBaldosa) {
+        this.tamañofinalBaldosa = tamañofinalBaldosa;
+    }
+
+    public int getCantidadBaldosaAnchura() {
+        return cantidadBaldosaAnchura;
+    }
+
+    public void setCantidadBaldosaAnchura(int cantidadBaldosaAnchura) {
+        this.cantidadBaldosaAnchura = cantidadBaldosaAnchura;
+    }
+
+    public int getGetCantidadBaldosaAltura() {
+        return getCantidadBaldosaAltura;
+    }
+
+    public void setGetCantidadBaldosaAltura(int getCantidadBaldosaAltura) {
+        this.getCantidadBaldosaAltura = getCantidadBaldosaAltura;
+    }
+
+    public int getTamañoAnchuraPantalla() {
+        return tamañoAnchuraPantalla;
+    }
+
+    public void setTamañoAnchuraPantalla(int tamañoAnchuraPantalla) {
+        this.tamañoAnchuraPantalla = tamañoAnchuraPantalla;
+    }
+
+    public int getTamañoAlturaPantalla() {
+        return tamañoAlturaPantalla;
+    }
+
+    public void setTamañoAlturaPantalla(int tamañoAlturaPantalla) {
+        this.tamañoAlturaPantalla = tamañoAlturaPantalla;
+    }
+
+    public int getFPS() {
+        return FPS;
+    }
+
+    public void setFPS(int FPS) {
+        this.FPS = FPS;
+    }
+
+    public Jugador getJugador() {
+        return jugador;
+    }
+
+    public void setJugador(Jugador jugador) {
+        this.jugador = jugador;
+    }
 }
