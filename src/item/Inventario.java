@@ -40,9 +40,9 @@ public class Inventario {
      */
     private ArrayList<Item> iniciarInventario() {
         ArrayList<Item> inventario = new ArrayList<>();
-        Item agua = new Item("agua", 3, Tipo.AGUA,"src/imagenes/espada.jpeg");
-        Item comida = new Item("comida", 3, Tipo.COMIDA,"src/imagenes/caballero.png");
-        Item madera = new Item("madera", 1, Tipo.MADERA,"src/imagenes/esqueleto.png");
+        Item agua = new Item("agua", 3, Tipo.AGUA,"src/recursos/imagenes/espada.jpeg");
+        Item comida = new Item("comida", 3, Tipo.COMIDA,"src/recursos/imagenes/caballero.png");
+        Item madera = new Item("madera", 1, Tipo.MADERA,"src/recursos/imagenes/esqueleto.png");
 //        Item carbon = new Item("carbon", 0, Tipo.CARBON);
 //        Item mena_hierro = new Item("mena_hierro", 0, Tipo.MENA_HIERRO);
 //        Item mena_oro = new Item("mena_oro", 0, Tipo.MENA_ORO);
