@@ -7,9 +7,9 @@ public class Espada extends Item implements Ataque
     protected double damage;
     protected double velocidad_ataque;
 
-    public Espada(String idNombre, int cantidad, Tipo tipo, double damage, double velocidad_ataque)
+    public Espada(String idNombre, int cantidad, Tipo tipo, double damage, double velocidad_ataque,String ruta)
     {
-        super(idNombre, cantidad, tipo);
+        super(idNombre, cantidad, tipo,ruta);
         this.damage = damage;
         this.velocidad_ataque = velocidad_ataque;
     }

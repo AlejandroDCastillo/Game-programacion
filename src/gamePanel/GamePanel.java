@@ -1,30 +1,42 @@
 package gamePanel;
 import entidades.*;
+import gamePanel.escenarios.MenuInventario;
 import recursos.teclado.DetectorTeclas;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
 public class GamePanel extends JPanel implements Runnable{
+    //Creamos el hilo para que no suscedan conflictos con los procesos
      Thread threadJuego;
+     //creamos el detector de teclas(KeyListener)
      private DetectorTeclas teclado = new DetectorTeclas();
+     //creamos una bandera para indicar que el juego esta funcionando
     private boolean running = true;
+    //taamaño inicial de baldosa
     private int tamañoBaldosa=32;
+    //escalado para que se proporcional todo
     private int escala =2;
+    //especificamos tamaños altura y anchura de baldosa
     protected int tamañofinalBaldosa=tamañoBaldosa*escala;
+    //especificamos cantidad de baldosas a lo largo y ancho de la pantalla
     protected int cantidadBaldosaAnchura=16;
     protected int getCantidadBaldosaAltura=12;
+    //especificamoos el tamaño total del gamePANEL
     private int tamañoAnchuraPantalla=cantidadBaldosaAnchura*tamañofinalBaldosa;
     private int tamañoAlturaPantalla=getCantidadBaldosaAltura*tamañofinalBaldosa;
+    //Frames por segundo
     protected int FPS = 60;
+    //Cosas de la pantalla
     private Jugador jugador = new Jugador(this.teclado,this,"alex",Raza.HUMANO,Clase.MAGO,2);
-
+    private MenuInventario menuInventario = new MenuInventario(this);
     public GamePanel() {
         this.setBackground(Color.BLACK);
         this.setFocusable(true);
         this.setDoubleBuffered(true);
         this.setPreferredSize(new Dimension(tamañoAnchuraPantalla,tamañoAlturaPantalla));
         this.addKeyListener(teclado);
+        this.add(menuInventario);
         startThreadDelJuego();
     }
 
@@ -33,6 +45,9 @@ public class GamePanel extends JPanel implements Runnable{
         threadJuego.start();
     }
 
+    /**
+     * Nuestro game loop (bucle del juego infinito)
+     */
     public void run(){
         double delta =0;
         double intervaloDeDibujo=1000000000/FPS;
@@ -49,7 +64,6 @@ public class GamePanel extends JPanel implements Runnable{
               delta --;
               if (temporizador >= 1000000000) {
                   System.out.println("FPS: " + contadorDeVecesDibujado);
-                  System.out.println(jugador.getX());
                   contadorDeVecesDibujado=0;
                   temporizador=0;
               }
@@ -60,6 +74,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     private void update() {
         jugador.update();
+        menuInventario.update();
     }
 
     public void paint(Graphics g) {
@@ -67,6 +82,7 @@ public class GamePanel extends JPanel implements Runnable{
         Graphics2D g2d = (Graphics2D) g;
         try {
             jugador.dibujar(g2d);
+                menuInventario.dibujar(g2d);
         }catch (IOException e){
             throw new RuntimeException(e);
         }

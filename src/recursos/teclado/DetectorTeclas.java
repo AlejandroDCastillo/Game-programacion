@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class DetectorTeclas implements KeyListener {
-    public boolean arriba,abajo,izquierda,derecha;
+    public boolean arriba,abajo,izquierda,derecha,menuBoolean=false;
     @Override
     public void keyTyped(KeyEvent e) {
 
@@ -25,6 +25,12 @@ public class DetectorTeclas implements KeyListener {
         if (tecla == KeyEvent.VK_S) {
             abajo = true;
         }
+        if (tecla == KeyEvent.VK_E) {
+            if (menuBoolean) {
+                menuBoolean = false;
+            }else if (!menuBoolean)
+                menuBoolean = true;
+        }
     }
 
     @Override
@@ -42,6 +48,5 @@ public class DetectorTeclas implements KeyListener {
         if (tecla == KeyEvent.VK_S) {
             abajo = false;
         }
-
     }
 }

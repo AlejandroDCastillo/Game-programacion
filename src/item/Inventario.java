@@ -3,7 +3,9 @@ package item;
 import org.w3c.dom.*;
 
 import javax.xml.parsers.*;
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 //clase singleton.
@@ -38,42 +40,55 @@ public class Inventario {
      */
     private ArrayList<Item> iniciarInventario() {
         ArrayList<Item> inventario = new ArrayList<>();
-        Item agua = new Item("agua", 3, Tipo.AGUA);
-        Item comida = new Item("comida", 3, Tipo.COMIDA);
-        Item madera = new Item("madera", 0, Tipo.MADERA);
-        Item carbon = new Item("carbon", 0, Tipo.CARBON);
-        Item mena_hierro = new Item("mena_hierro", 0, Tipo.MENA_HIERRO);
-        Item mena_oro = new Item("mena_oro", 0, Tipo.MENA_ORO);
-        Item hierro = new Item("hierro", 0, Tipo.HIERRO);
-        Item oro = new Item("mena_oro", 0, Tipo.ORO);
-        Escudo escudo = new Escudo("escudo", 0, Tipo.ESCUDO,4);
-        Espada espada = new Espada("espada", 0, Tipo.ESPADA,5,5.5);
-        EspadaFuego espadaFuego = new EspadaFuego("espada_fuego",0, Tipo.ESPADA,6.5,5,0.9);
-        Espada daga = new Espada("daga",0,Tipo.DAGA,2,8);
-        VaraMago vara = new VaraMago("vara_de_mago", 0,Tipo.VARA_DE_MAGO,3,7,5,Hechizo.PERDER_TURNO);
+        Item agua = new Item("agua", 3, Tipo.AGUA,"src/imagenes/espada.jpeg");
+        Item comida = new Item("comida", 3, Tipo.COMIDA,"src/imagenes/caballero.png");
+        Item madera = new Item("madera", 1, Tipo.MADERA,"src/imagenes/esqueleto.png");
+//        Item carbon = new Item("carbon", 0, Tipo.CARBON);
+//        Item mena_hierro = new Item("mena_hierro", 0, Tipo.MENA_HIERRO);
+//        Item mena_oro = new Item("mena_oro", 0, Tipo.MENA_ORO);
+//        Item hierro = new Item("hierro", 0, Tipo.HIERRO);
+//        Item oro = new Item("mena_oro", 0, Tipo.ORO);
+//        Escudo escudo = new Escudo("escudo", 0, Tipo.ESCUDO,4);
+//        Espada espada = new Espada("espada", 0, Tipo.ESPADA,5,5.5);
+//        EspadaFuego espadaFuego = new EspadaFuego("espada_fuego",0, Tipo.ESPADA,6.5,5,0.9);
+//        Espada daga = new Espada("daga",0,Tipo.DAGA,2,8);
+//        VaraMago vara = new VaraMago("vara_de_mago", 0,Tipo.VARA_DE_MAGO,3,7,5,Hechizo.PERDER_TURNO);
 
         inventario.add(agua);
         inventario.add(comida);
         inventario.add(madera);
-        inventario.add(carbon);
-        inventario.add(mena_hierro);
-        inventario.add(mena_oro);
-        inventario.add(hierro);
-        inventario.add(oro);
-        inventario.add(escudo);
-        inventario.add(espada);
-        inventario.add(espadaFuego);
-        inventario.add(daga);
-        inventario.add(vara);
+//        inventario.add(carbon);
+//        inventario.add(mena_hierro);
+//        inventario.add(mena_oro);
+//        inventario.add(hierro);
+//        inventario.add(oro);
+//        inventario.add(escudo);
+//        inventario.add(espada);
+//        inventario.add(espadaFuego);
+//        inventario.add(daga);
+//        inventario.add(vara);
 
         return inventario;
     }
 
-    public void mostrarInventario(){
-        for(Item i:inventario){
-            if(i.getCantidad()>0){
-                System.out.println(i.getIdNombre()+": "+i.getCantidad());
+    public void mostrarInventario(Graphics2D g2d) {
+        int espacioAltura = 0;
+        int contInventario=0;
+        for (int i = 0; i < 4; i++) {
+            int espacio = 0;
+
+            for (int j = 0; j < 8; j++) {
+                for (int k =contInventario;k<inventario.size();k++) {
+                    if (inventario.get(k).getCantidad() > 0) {
+                        g2d.drawImage(inventario.get(k).getImg(), 226 + (64 * j) + espacio, 226 + (64 * i) + espacioAltura, 64, 64, null);
+                        break;
+                    }
+                    espacio = espacio + 3;
+                }
+                contInventario++;
+
             }
+            espacioAltura = espacioAltura + 3;
         }
     }
 

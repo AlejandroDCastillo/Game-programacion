@@ -4,8 +4,8 @@ public class EspadaFuego extends Espada
 {
     protected double quemadura;
 
-    public EspadaFuego(String idNombre, int cantidad, Tipo tipo, double damage, double velocidad_ataque, double quemadura) {
-        super(idNombre, cantidad, tipo, damage, velocidad_ataque);
+    public EspadaFuego(String idNombre, int cantidad, Tipo tipo, double damage, double velocidad_ataque, double quemadura,String ruta) {
+        super(idNombre, cantidad, tipo, damage, velocidad_ataque,ruta);
         this.quemadura = quemadura;
     }
 

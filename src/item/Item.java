@@ -1,22 +1,32 @@
 package item;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.Buffer;
 
 public class Item {
     protected String idNombre;
     protected int cantidad;
     protected Tipo tipo;
-//    protected Image img;
-//    protected String ruta;
+    protected BufferedImage img;
+    protected String ruta;
 
 
-    public Item(String idNombre, int cantidad,Tipo tipo) {
-//        ruta="img/imagenes/...";
+    public Item(String idNombre, int cantidad,Tipo tipo,String ruta) {
+     //   ruta="img/imagenes/"+idNombre+".jpeg";
         this.idNombre = idNombre;
         this.cantidad = cantidad;
         this.tipo=tipo;
-//        ImageIcon icon=new ImageIcon(getClass().getResource(ruta));
+        try {
+            this.img = ImageIO.read(new File(ruta));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @Override
@@ -50,5 +60,13 @@ public class Item {
 
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public BufferedImage getImg() {
+        return img;
+    }
+
+    public void setImg(BufferedImage img) {
+        this.img = img;
     }
 }
