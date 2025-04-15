@@ -1,6 +1,7 @@
 package gamePanel;
 import entidades.*;
 import gamePanel.escenarios.MenuInventario;
+import recursos.baldosas.GestorBaldosas;
 import recursos.teclado.DetectorTeclas;
 import javax.swing.*;
 import java.awt.*;
@@ -30,6 +31,7 @@ public class GamePanel extends JPanel implements Runnable{
     //Cosas de la pantalla
     private Jugador jugador = new Jugador(this.teclado,this,"alex",Raza.HUMANO,Clase.MAGO,2);
     private MenuInventario menuInventario = new MenuInventario(this);
+    private GestorBaldosas gestorBaldosas = new GestorBaldosas(this);
     public GamePanel() {
         this.setBackground(Color.BLACK);
         this.setFocusable(true);
@@ -81,8 +83,10 @@ public class GamePanel extends JPanel implements Runnable{
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
         try {
+            gestorBaldosas.dibujar(g2d);
             jugador.dibujar(g2d);
-                menuInventario.dibujar(g2d);
+            menuInventario.dibujar(g2d);
+
         }catch (IOException e){
             throw new RuntimeException(e);
         }
