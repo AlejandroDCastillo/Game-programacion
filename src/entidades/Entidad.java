@@ -2,6 +2,7 @@ package entidades;
 
 import item.Item;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public abstract class Entidad {
@@ -31,6 +32,9 @@ public abstract class Entidad {
     protected int mana;
     protected int defensa;
     protected Item armadura;
+    public Rectangle zonaDeColision;
+    protected boolean colision;
+    protected double velocidadDiagonal;
 
     public Entidad(String nombre, Raza raza, Clase clase, int nivel) {
         this.nombre = nombre;
@@ -41,6 +45,7 @@ public abstract class Entidad {
         estadisticasNivel(nivel);
         this.vida = getVidaMax();
         this.velocidad=getVelocidadMax();
+        this.velocidadDiagonal = Math.hypot(this.velocidad,this.velocidad)/2;
         this.nivel=nivel;
 
     }
@@ -84,6 +89,7 @@ public abstract class Entidad {
                 this.vidaMax = 100;
                 this.mana=50;
             }
+
         }
     }
 
@@ -334,5 +340,37 @@ public abstract class Entidad {
 
     public void setNivel(int nivel) {
         this.nivel = nivel;
+    }
+
+    public Item getArmadura() {
+        return armadura;
+    }
+
+    public void setArmadura(Item armadura) {
+        this.armadura = armadura;
+    }
+
+    public Rectangle getZonaDeColision() {
+        return zonaDeColision;
+    }
+
+    public void setZonaDeColision(Rectangle zonaDeColision) {
+        this.zonaDeColision = zonaDeColision;
+    }
+
+    public boolean isColision() {
+        return colision;
+    }
+
+    public void setColision(boolean colision) {
+        this.colision = colision;
+    }
+
+    public double getVelocidadDiagonal() {
+        return velocidadDiagonal;
+    }
+
+    public void setVelocidadDiagonal(double velocidadDiagonal) {
+        this.velocidadDiagonal = velocidadDiagonal;
     }
 }

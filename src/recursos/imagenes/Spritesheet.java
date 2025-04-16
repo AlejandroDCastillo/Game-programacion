@@ -1,5 +1,6 @@
 package recursos.imagenes;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
@@ -36,7 +37,21 @@ public class Spritesheet {
         AffineTransformOp op = new AffineTransformOp(transform, AffineTransformOp.TYPE_BILINEAR);
         invertedImage = op.filter(imagenInversa,invertedImage);
         return invertedImage;
+    }
 
+    public BufferedImage rotarimagen90grados(BufferedImage imagenOriginal) {
+        BufferedImage imagenRotada = new BufferedImage(frameWidth,frameHeight, BufferedImage.TYPE_INT_ARGB);
+        int ancho = imagenOriginal.getWidth();
+        int altura = imagenOriginal.getHeight();
+        // Crear transformación de rotación
+        AffineTransform transform = new AffineTransform();
+        // Rotar 90 grados (π/2 rad) alrededor del origen (0,0)
+        transform.translate(altura, 0);  // Mover imagen para que quepa en el nuevo canvas
+        transform.rotate(Math.toRadians(90));
+        // Aplicar transformación
+        AffineTransformOp op = new AffineTransformOp(transform, AffineTransformOp.TYPE_BILINEAR);
+       imagenRotada = op.filter(imagenOriginal, imagenRotada);
+        return imagenRotada;
     }
 
     public int getFrameWidth() {
