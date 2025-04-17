@@ -1,5 +1,6 @@
 package item;
 
+import gamePanel.escenarios.MenuInventario;
 import org.w3c.dom.*;
 
 import javax.xml.parsers.*;
@@ -71,19 +72,18 @@ public class Inventario {
         return inventario;
     }
 
-    public void mostrarInventario(Graphics2D g2d) {
+    public void mostrarInventario(Graphics2D g2d, MenuInventario menuInventario) {
         int espacioAltura = 0;
         int contInventario=0;
         for (int i = 0; i < 4; i++) {
             int espacio = 0;
-
             for (int j = 0; j < 8; j++) {
                 for (int k =contInventario;k<inventario.size();k++) {
                     if (inventario.get(k).getCantidad() > 0) {
-                        g2d.drawImage(inventario.get(k).getImg(), 226 + (64 * j) + espacio, 226 + (64 * i) + espacioAltura, 64, 64, null);
+                        g2d.drawImage(inventario.get(k).getImg(),menuInventario.getGp().getTamañofinalBaldosa()+espacio+menuInventario.getGp().getTamañofinalBaldosa()/3, menuInventario.getGp().getTamañofinalBaldosa()*2+espacioAltura+menuInventario.getGp().getTamañofinalBaldosa()/2, 64, 64, null);
+                        espacio = espacio +menuInventario.getGp().getTamañofinalBaldosa()+menuInventario.getGp().getTamañofinalBaldosa()/2;
                         break;
                     }
-                    espacio = espacio + 3;
                 }
                 contInventario++;
 

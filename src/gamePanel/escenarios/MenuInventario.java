@@ -43,9 +43,26 @@ public class MenuInventario extends JPanel {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
         if (teclado.menuBoolean) {
-            g2d.drawImage(fondoPanel("src/recursos/imagenes/inventario.png"), (gp.getTamañofinalBaldosa()*3)+15,(gp.getTamañofinalBaldosa()*3)+15, 572, 316, null);
-            Inventario.getInstance().mostrarInventario(g2d);
+            g2d.drawImage(fondoPanel("src/recursos/imagenes/inventario.png"), (gp.getTamañofinalBaldosa()),(gp.getTamañofinalBaldosa()*2), 572, 316, null);
+
+            Inventario.getInstance().mostrarInventario(g2d,this);
         }
         g2d.dispose();
+    }
+
+    public DetectorTeclas getTeclado() {
+        return teclado;
+    }
+
+    public void setTeclado(DetectorTeclas teclado) {
+        this.teclado = teclado;
+    }
+
+    public GamePanel getGp() {
+        return gp;
+    }
+
+    public void setGp(GamePanel gp) {
+        this.gp = gp;
     }
 }

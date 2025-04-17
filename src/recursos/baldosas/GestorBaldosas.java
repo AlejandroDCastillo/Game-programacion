@@ -37,6 +37,7 @@ public class GestorBaldosas {
                 }
             }
             baldosa[16].colision=true;
+            baldosa[5].colision=true;
         }catch (IOException e){
             e.printStackTrace();
         }
