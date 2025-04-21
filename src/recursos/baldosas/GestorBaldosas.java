@@ -11,8 +11,8 @@ import java.io.*;
 
 public class GestorBaldosas {
     private GamePanel gamePanel;
-    private Baldosa[] baldosa;
-    private int numeroMapaBaldosa[][];
+    public Baldosa[] baldosa;
+    public int numeroMapaBaldosa[][];
     public GestorBaldosas(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
         baldosa = new Baldosa[22];
@@ -26,10 +26,18 @@ public class GestorBaldosas {
             Spritesheet plantillaBaldosas = new Spritesheet(imagenPlantillaBuffered,11,2);
             for (int i = 0; i < 2; i++) {
                 for (int j = 0; j < 11; j++) {
-                    baldosa[(i * 2) + j] = new Baldosa();
-                    baldosa [(i * 2) + j].imagen = plantillaBaldosas.getImg(j,i);
+                    if (i>0){
+                        baldosa[i+j+10] = new Baldosa();
+                        baldosa [i+j+10].imagen = plantillaBaldosas.getImg(j,i);
+                    }else{
+                        baldosa[j] = new Baldosa();
+                        baldosa [j].imagen = plantillaBaldosas.getImg(j,i);
+                        }
+
                 }
             }
+            baldosa[16].colision=true;
+            baldosa[5].colision=true;
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -55,6 +63,9 @@ public class GestorBaldosas {
         }
     }
 
+
+
+
     public void dibujar(Graphics2D g2d) {
         int columna=0;
         int fila =0;
@@ -65,9 +76,12 @@ public class GestorBaldosas {
                int numero = numeroMapaBaldosa[fila][columna];
                g2d.drawImage(baldosa[numero].imagen,x,y, gamePanel.getTamañofinalBaldosa(),gamePanel.getTamañofinalBaldosa(),null);
                x += gamePanel.getTamañofinalBaldosa();
+
            }
            x=0;
            y += gamePanel.getTamañofinalBaldosa();
        }
+
+
     }
 }

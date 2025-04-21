@@ -46,11 +46,12 @@ public class Jugador extends Entidad {
         this.teclado = teclado;
         this.gp = gp;
         this.direccion="";
-        x=100;
-        y=100;
+        x=0;
+        y=0;
         this.hambre = 100;
         this.sed = 100;
         this.inventario = Inventario.getInstance();
+        zonaDeColision = new Rectangle(8, 16,32,32);
     }
     /**
      * metodo para beber agua suma +30 a la sed
@@ -294,40 +295,72 @@ public class Jugador extends Entidad {
             return;
         }
         else if (teclado.abajo&&teclado.derecha) {
-            direccion="derecha";
-            x=x+( Math.hypot(velocidad,velocidad) /2);
-            y=y+( Math.hypot(velocidad,velocidad) /2);
+            direccion="abajo-derecha";
+
         }
         else if (teclado.abajo&&teclado.izquierda) {
-            direccion="izquierda";
-            x=x-( Math.hypot(velocidad,velocidad) /2);
-            y=y+( Math.hypot(velocidad,velocidad) /2);
+            direccion="abajo-izquierda";
+
         }
         else if (teclado.arriba&&teclado.izquierda) {
-            direccion="izquierda";
-            x=x-( Math.hypot(velocidad,velocidad) /2);
-            y=y-( Math.hypot(velocidad,velocidad) /2);
+            direccion="arriba-izquierda";
+
         }
         else if (teclado.arriba&&teclado.derecha) {
-            direccion="derecha";
-            x=x+( Math.hypot(velocidad,velocidad) /2);
-            y=y-( Math.hypot(velocidad,velocidad) /2);
+            direccion="arriba-derecha";
+
         }
         else if (teclado.izquierda) {
             direccion = "izquierda";
-            x = x - velocidad;
+
         }
         else if (teclado.derecha) {
             direccion = "derecha";
-            x = x + velocidad;
+
         }
         else if(teclado.arriba) {
             direccion = "arriba";
-            y = y - velocidad;
+
         }
         else if (teclado.abajo) {
             direccion = "abajo";
-            y = y + velocidad;
+
+        }
+        colision = false;
+        gp.detectorDeColisiones.comprobarBaldosa(this);
+        if (!colision) {
+            switch (direccion) {
+                case "arriba":
+                    y = y - velocidad;
+                    break;
+                case "abajo":
+                    y = y + velocidad;
+                    break;
+                case "izquierda":
+                    x = x - velocidad;
+                    break;
+                case "derecha":
+                    x = x + velocidad;
+                    break;
+                    case "abajo-izquierda":
+                        x=x-velocidadDiagonal;
+                        y=y+velocidadDiagonal;
+                        break;
+                        case "abajo-derecha":
+                            x=x+velocidadDiagonal;
+                            y=y+velocidadDiagonal;
+                            break;
+                            case "arriba-izquierda":
+                                x=x-velocidadDiagonal;
+                                y=y-velocidadDiagonal;
+                                break;
+                                case "arriba-derecha":
+                                    x=x+velocidadDiagonal;
+                                    y=y-velocidadDiagonal;
+                                    break;
+
+
+            }
         }
         contadorUpdates++;
         if (contadorUpdates%8==0){
@@ -349,8 +382,8 @@ public class Jugador extends Entidad {
         BufferedImage imagenPlantillaBuffered = ImageIO.read(new File(imagePath));
         Spritesheet plantillaJugador = new Spritesheet(imagenPlantillaBuffered,6,4);
         return switch (direccion) {
-            case "izquierda" ->sprite = plantillaJugador.getImg(2,numSprite);
-            case "derecha" -> sprite = plantillaJugador.getImg(3,numSprite);
+            case "izquierda","arriba-izquierda","abajo-izquierda" ->sprite = plantillaJugador.getImg(2,numSprite);
+            case "derecha", "arriba-derecha", "abajo-derecha" -> sprite = plantillaJugador.getImg(3,numSprite);
             case "arriba" -> sprite = plantillaJugador.getImg(numSprite,1);
             case "abajo" -> sprite = plantillaJugador.getImg(numSprite,2);
             default -> sprite = plantillaJugador.getImg(1,3);
@@ -363,7 +396,9 @@ public class Jugador extends Entidad {
      * @throws IOException
      */
     public void dibujar(Graphics2D g2d) throws IOException {
+        g2d.fillRect((int) (x+8), (int) (y+16),32,32);
         g2d.drawImage(obtenerImagenPlayer(), (int) x, (int) y, gp.getTamañofinalBaldosa(), gp.getTamañofinalBaldosa(), null);
+
     }
 
 

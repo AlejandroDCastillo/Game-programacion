@@ -1,7 +1,9 @@
 package gamePanel;
 import entidades.*;
 import gamePanel.escenarios.MenuInventario;
+import item.Inventario;
 import recursos.baldosas.GestorBaldosas;
+import recursos.mapas.DetectorDeColisiones;
 import recursos.teclado.DetectorTeclas;
 import javax.swing.*;
 import java.awt.*;
@@ -15,9 +17,9 @@ public class GamePanel extends JPanel implements Runnable{
      //creamos una bandera para indicar que el juego esta funcionando
     private boolean running = true;
     //taamaño inicial de baldosa
-    private int tamañoBaldosa=32;
+    private int tamañoBaldosa=16;
     //escalado para que se proporcional todo
-    private int escala =2;
+    private int escala =3;
     //especificamos tamaños altura y anchura de baldosa
     protected int tamañofinalBaldosa=tamañoBaldosa*escala;
     //especificamos cantidad de baldosas a lo largo y ancho de la pantalla
@@ -32,6 +34,7 @@ public class GamePanel extends JPanel implements Runnable{
     private Jugador jugador = new Jugador(this.teclado,this,"alex",Raza.HUMANO,Clase.MAGO,2);
     private MenuInventario menuInventario = new MenuInventario(this);
     private GestorBaldosas gestorBaldosas = new GestorBaldosas(this);
+    public DetectorDeColisiones detectorDeColisiones = new DetectorDeColisiones(this);
     public GamePanel() {
         this.setBackground(Color.BLACK);
         this.setFocusable(true);
@@ -50,6 +53,7 @@ public class GamePanel extends JPanel implements Runnable{
     /**
      * Nuestro game loop (bucle del juego infinito)
      */
+
     public void run(){
         double delta =0;
         double intervaloDeDibujo=1000000000/FPS;
@@ -66,6 +70,7 @@ public class GamePanel extends JPanel implements Runnable{
               delta --;
               if (temporizador >= 1000000000) {
                   System.out.println("FPS: " + contadorDeVecesDibujado);
+                  System.out.printf("X:" +jugador.getX() +"Y:"+jugador.getY());
                   contadorDeVecesDibujado=0;
                   temporizador=0;
               }
@@ -188,5 +193,29 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void setJugador(Jugador jugador) {
         this.jugador = jugador;
+    }
+
+    public MenuInventario getMenuInventario() {
+        return menuInventario;
+    }
+
+    public void setMenuInventario(MenuInventario menuInventario) {
+        this.menuInventario = menuInventario;
+    }
+
+    public DetectorDeColisiones getDetectorDeColisiones() {
+        return detectorDeColisiones;
+    }
+
+    public void setDetectorDeColisiones(DetectorDeColisiones detectorDeColisiones) {
+        this.detectorDeColisiones = detectorDeColisiones;
+    }
+
+    public GestorBaldosas getGestorBaldosas() {
+        return gestorBaldosas;
+    }
+
+    public void setGestorBaldosas(GestorBaldosas gestorBaldosas) {
+        this.gestorBaldosas = gestorBaldosas;
     }
 }
