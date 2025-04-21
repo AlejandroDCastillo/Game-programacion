@@ -52,6 +52,8 @@ public class Jugador extends Entidad {
         this.sed = 100;
         this.inventario = Inventario.getInstance();
         zonaDeColision = new Rectangle(8, 16,32,32);
+        zonaDeColisionDefectoX = zonaDeColision.x;
+        zonaDeColisionDefectoY = zonaDeColision.y;
     }
     /**
      * metodo para beber agua suma +30 a la sed
@@ -327,7 +329,9 @@ public class Jugador extends Entidad {
 
         }
         colision = false;
+        boolean coli = true;
         gp.detectorDeColisiones.comprobarBaldosa(this);
+        int objetoIndex = gp.detectorDeColisiones.comprobarObjetos(this,true);
         if (!colision) {
             switch (direccion) {
                 case "arriba":
@@ -382,11 +386,11 @@ public class Jugador extends Entidad {
         BufferedImage imagenPlantillaBuffered = ImageIO.read(new File(imagePath));
         Spritesheet plantillaJugador = new Spritesheet(imagenPlantillaBuffered,6,4);
         return switch (direccion) {
-            case "izquierda","arriba-izquierda","abajo-izquierda" ->sprite = plantillaJugador.getImg(2,numSprite);
-            case "derecha", "arriba-derecha", "abajo-derecha" -> sprite = plantillaJugador.getImg(3,numSprite);
-            case "arriba" -> sprite = plantillaJugador.getImg(numSprite,1);
-            case "abajo" -> sprite = plantillaJugador.getImg(numSprite,2);
-            default -> sprite = plantillaJugador.getImg(1,3);
+            case "izquierda","arriba-izquierda","abajo-izquierda" ->sprite = plantillaJugador.getImg(2,numSprite, gp.getTamañofinalBaldosa());
+            case "derecha", "arriba-derecha", "abajo-derecha" -> sprite = plantillaJugador.getImg(3,numSprite, gp.getTamañofinalBaldosa());
+            case "arriba" -> sprite = plantillaJugador.getImg(numSprite,1, gp.getTamañofinalBaldosa());
+            case "abajo" -> sprite = plantillaJugador.getImg(numSprite,2, gp.getTamañofinalBaldosa());
+            default -> sprite = plantillaJugador.getImg(1,3, gp.getTamañofinalBaldosa());
         };
     }
 

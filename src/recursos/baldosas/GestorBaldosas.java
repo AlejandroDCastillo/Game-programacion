@@ -28,10 +28,10 @@ public class GestorBaldosas {
                 for (int j = 0; j < 11; j++) {
                     if (i>0){
                         baldosa[i+j+10] = new Baldosa();
-                        baldosa [i+j+10].imagen = plantillaBaldosas.getImg(j,i);
+                        baldosa [i+j+10].imagen = plantillaBaldosas.getImg(j,i, gamePanel.getTamañofinalBaldosa());
                     }else{
                         baldosa[j] = new Baldosa();
-                        baldosa [j].imagen = plantillaBaldosas.getImg(j,i);
+                        baldosa [j].imagen = plantillaBaldosas.getImg(j,i,gamePanel.getTamañofinalBaldosa());
                         }
 
                 }

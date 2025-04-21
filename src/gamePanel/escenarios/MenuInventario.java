@@ -2,6 +2,7 @@ package gamePanel.escenarios;
 
 import gamePanel.GamePanel;
 import item.Inventario;
+import recursos.imagenes.Spritesheet;
 import recursos.teclado.DetectorTeclas;
 
 import javax.imageio.ImageIO;
@@ -27,7 +28,9 @@ public class MenuInventario extends JPanel {
     public BufferedImage fondoPanel(String imagePath) {
         try {
             // Cargar la imagen
-            return ImageIO.read(new File(imagePath));
+            BufferedImage inventario =  ImageIO.read(new File(imagePath));
+            Spritesheet plantillaInventario = new Spritesheet(inventario,5,2);
+            return plantillaInventario.getImg(0,0, gp.getTamañofinalBaldosa());
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Error al cargar la imagen: " + e.getMessage());
@@ -43,7 +46,7 @@ public class MenuInventario extends JPanel {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
         if (teclado.menuBoolean) {
-            g2d.drawImage(fondoPanel("src/recursos/imagenes/inventario.png"), (gp.getTamañofinalBaldosa()),(gp.getTamañofinalBaldosa()*2), 572, 316, null);
+            g2d.drawImage(fondoPanel("src/recursos/imagenes/menuInventario.png"),143,123, 451, 400, null);
 
             Inventario.getInstance().mostrarInventario(g2d,this);
         }

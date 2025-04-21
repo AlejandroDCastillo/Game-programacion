@@ -2,6 +2,8 @@ package gamePanel;
 import entidades.*;
 import gamePanel.escenarios.MenuInventario;
 import item.Inventario;
+import item.objetos.GestorObjetos;
+import item.objetos.Objetos;
 import recursos.baldosas.GestorBaldosas;
 import recursos.mapas.DetectorDeColisiones;
 import recursos.teclado.DetectorTeclas;
@@ -13,7 +15,7 @@ public class GamePanel extends JPanel implements Runnable{
     //Creamos el hilo para que no suscedan conflictos con los procesos
      Thread threadJuego;
      //creamos el detector de teclas(KeyListener)
-     private DetectorTeclas teclado = new DetectorTeclas();
+     private DetectorTeclas teclado = new DetectorTeclas(this);
      //creamos una bandera para indicar que el juego esta funcionando
     private boolean running = true;
     //taamaño inicial de baldosa
@@ -35,6 +37,13 @@ public class GamePanel extends JPanel implements Runnable{
     private MenuInventario menuInventario = new MenuInventario(this);
     private GestorBaldosas gestorBaldosas = new GestorBaldosas(this);
     public DetectorDeColisiones detectorDeColisiones = new DetectorDeColisiones(this);
+    public GestorObjetos gestorObjetos = new GestorObjetos(this);
+    public Objetos arrayobjetos[] = new Objetos[4];
+
+    //ESTADO DEL JUEGO
+    public int estadoJuego=1;
+    public final int continuar=1;
+    public final int pausa=2;
     public GamePanel() {
         this.setBackground(Color.BLACK);
         this.setFocusable(true);
@@ -43,6 +52,11 @@ public class GamePanel extends JPanel implements Runnable{
         this.addKeyListener(teclado);
         this.add(menuInventario);
         startThreadDelJuego();
+        establecerJuego();
+    }
+
+    public void establecerJuego(){
+        gestorObjetos.establecerObjetos();
     }
 
     public void startThreadDelJuego() {
@@ -58,7 +72,7 @@ public class GamePanel extends JPanel implements Runnable{
         double delta =0;
         double intervaloDeDibujo=1000000000/FPS;
         long ultimoTiempo=System.nanoTime();
-        long tiempoActual; long temporizador=0; int contadorDeVecesDibujado=0;
+        long tiempoActual; long temporizador=0; int contadorDeVecesDibujado=0; int contadorTiempoDibujado=0;
         while(threadJuego!=null) {
           tiempoActual = System.nanoTime();
           delta += (tiempoActual - ultimoTiempo)/intervaloDeDibujo;
@@ -72,16 +86,23 @@ public class GamePanel extends JPanel implements Runnable{
                   System.out.println("FPS: " + contadorDeVecesDibujado);
                   System.out.printf("X:" +jugador.getX() +"Y:"+jugador.getY());
                   contadorDeVecesDibujado=0;
-                  temporizador=0;
+
               }
               contadorDeVecesDibujado++;
+
           }
+
+
         }
     }
 
     private void update() {
-        jugador.update();
-        menuInventario.update();
+        if (estadoJuego==continuar) {
+            jugador.update();
+            menuInventario.update();
+        }else if (estadoJuego==pausa) {
+            //no sucede nada
+        }
     }
 
     public void paint(Graphics g) {
@@ -89,9 +110,13 @@ public class GamePanel extends JPanel implements Runnable{
         Graphics2D g2d = (Graphics2D) g;
         try {
             gestorBaldosas.dibujar(g2d);
+            for (int i = 0; i < arrayobjetos.length; i++) {
+                if (arrayobjetos[i] != null) {
+                    arrayobjetos[i].dibujar(g2d,this);
+                }
+            }
             jugador.dibujar(g2d);
             menuInventario.dibujar(g2d);
-
         }catch (IOException e){
             throw new RuntimeException(e);
         }

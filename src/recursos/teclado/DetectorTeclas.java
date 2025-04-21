@@ -1,10 +1,22 @@
 package recursos.teclado;
+import gamePanel.GamePanel;
+
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class DetectorTeclas implements KeyListener {
-    public boolean arriba,abajo,izquierda,derecha,menuBoolean=false;
+    public boolean arriba;
+    public boolean abajo;
+    public boolean izquierda;
+    public boolean derecha;
+    public boolean menuBoolean=false;
+    private GamePanel gp;
+
+    public DetectorTeclas(GamePanel gamePanel) {
+        this.gp = gamePanel;
+    }
+
     @Override
     public void keyTyped(KeyEvent e) {
 
@@ -30,6 +42,14 @@ public class DetectorTeclas implements KeyListener {
                 menuBoolean = false;
             }else if (!menuBoolean)
                 menuBoolean = true;
+        }
+
+        if (tecla == KeyEvent.VK_ESCAPE) {
+            if (gp.estadoJuego==gp.continuar) {
+                gp.estadoJuego=gp.pausa;
+            }else if (gp.estadoJuego==gp.pausa){
+                gp.estadoJuego=gp.continuar;
+            };
         }
     }
 

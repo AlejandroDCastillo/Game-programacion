@@ -33,6 +33,7 @@ public abstract class Entidad {
     protected int defensa;
     protected Item armadura;
     public Rectangle zonaDeColision;
+    protected int zonaDeColisionDefectoX, zonaDeColisionDefectoY;
     protected boolean colision;
     protected double velocidadDiagonal;
 
@@ -372,5 +373,21 @@ public abstract class Entidad {
 
     public void setVelocidadDiagonal(double velocidadDiagonal) {
         this.velocidadDiagonal = velocidadDiagonal;
+    }
+
+    public int getZonaDeColisionDefectoX() {
+        return zonaDeColisionDefectoX;
+    }
+
+    public void setZonaDeColisionDefectoX(int zonaDeColisionDefectoX) {
+        this.zonaDeColisionDefectoX = zonaDeColisionDefectoX;
+    }
+
+    public int getZonaDeColisionDefectoY() {
+        return zonaDeColisionDefectoY;
+    }
+
+    public void setZonaDeColisionDefectoY(int zonaDeColisionDefectoY) {
+        this.zonaDeColisionDefectoY = zonaDeColisionDefectoY;
     }
 }

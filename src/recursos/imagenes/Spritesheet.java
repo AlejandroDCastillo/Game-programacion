@@ -1,10 +1,9 @@
 package recursos.imagenes;
 
-import java.awt.*;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
-import java.awt.image.ImageFilter;
 
 public class Spritesheet {
 
@@ -25,7 +24,7 @@ public class Spritesheet {
     }
 
 
-    public BufferedImage getImg(int indexX,int indexY) {
+    public BufferedImage getImg(int indexX,int indexY,int tamañoBaldosa) {
             return img.getSubimage(indexX * frameWidth, indexY*frameHeight, frameWidth, frameHeight);
     }
 
@@ -39,19 +38,62 @@ public class Spritesheet {
         return invertedImage;
     }
 
-    public BufferedImage rotarimagen90grados(BufferedImage imagenOriginal) {
+    public BufferedImage rotarImagen(BufferedImage imagenOriginal, double grados) {
         BufferedImage imagenRotada = new BufferedImage(frameWidth,frameHeight, BufferedImage.TYPE_INT_ARGB);
         int ancho = imagenOriginal.getWidth();
         int altura = imagenOriginal.getHeight();
         // Crear transformación de rotación
         AffineTransform transform = new AffineTransform();
-        // Rotar 90 grados (π/2 rad) alrededor del origen (0,0)
-        transform.translate(altura, 0);  // Mover imagen para que quepa en el nuevo canvas
-        transform.rotate(Math.toRadians(90));
-        // Aplicar transformación
+        transform.rotate(Math.toRadians(grados), ancho/2.0, altura/2.0);
+        findTranslation(transform,imagenOriginal, (int) grados);
         AffineTransformOp op = new AffineTransformOp(transform, AffineTransformOp.TYPE_BILINEAR);
        imagenRotada = op.filter(imagenOriginal, imagenRotada);
         return imagenRotada;
+    }
+
+    private Point2D hallarPtoATraslacion (BufferedImage imagenOriginal,int grados) {
+        Point2D p2din;
+        int alturaImagen = imagenOriginal.getHeight();
+        int anchoImagen = imagenOriginal.getWidth();
+        if (grados >= 0 && grados <= 90){
+            p2din = new Point2D.Double(0.0, 0.0);
+        }else if (grados > 90 && grados <= 180){
+            p2din = new Point2D.Double(0.0, alturaImagen);
+        }else if (grados > 180 && grados <= 270){
+            p2din = new Point2D.Double(anchoImagen, alturaImagen);
+        }else{
+            p2din = new Point2D.Double(anchoImagen, 0.0);
+        }
+        return p2din;
+    }
+
+    private Point2D hallarPtoBTraslacion (BufferedImage imagenOriginal,int grados) {
+        Point2D p2din;
+        int alturaImagen = imagenOriginal.getHeight();
+        int anchoImagen = imagenOriginal.getWidth();
+        if (grados >= 0 && grados <= 90){
+            p2din = new Point2D.Double(0.0, alturaImagen);
+        }else if (grados > 90 && grados <= 180){
+            p2din = new Point2D.Double(anchoImagen, alturaImagen);
+        }else if (grados > 180 && grados <= 270){
+            p2din = new Point2D.Double(anchoImagen, 0.0);
+        }else{
+            p2din = new Point2D.Double(0.0, 0.0);
+        }
+        return p2din;
+    }
+
+    public void findTranslation (AffineTransform at,BufferedImage imagenOriginal,int grados) {
+        Point2D p2din, p2dout;
+        p2din = hallarPtoATraslacion(imagenOriginal,grados);
+        p2dout = at.transform(p2din, null);
+        double ytrans = p2dout.getY();
+        p2din = hallarPtoBTraslacion(imagenOriginal,grados);
+        p2dout = at.transform(p2din, null);
+        double xtrans = p2dout.getX();
+        AffineTransform tat = new AffineTransform();
+        tat.translate(-xtrans, -ytrans);
+        at.preConcatenate(tat);
     }
 
     public int getFrameWidth() {
