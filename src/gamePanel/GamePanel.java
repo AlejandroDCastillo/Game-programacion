@@ -39,6 +39,7 @@ public class GamePanel extends JPanel implements Runnable{
     public DetectorDeColisiones detectorDeColisiones = new DetectorDeColisiones(this);
     public GestorObjetos gestorObjetos = new GestorObjetos(this);
     public Objetos arrayobjetos[] = new Objetos[4];
+    private UI interfaz= new UI(this);
 
     //ESTADO DEL JUEGO
     public int estadoJuego=1;
@@ -116,7 +117,10 @@ public class GamePanel extends JPanel implements Runnable{
                 }
             }
             jugador.dibujar(g2d);
+            interfaz.dibujar(g2d);
             menuInventario.dibujar(g2d);
+
+
         }catch (IOException e){
             throw new RuntimeException(e);
         }
@@ -242,5 +246,13 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void setGestorBaldosas(GestorBaldosas gestorBaldosas) {
         this.gestorBaldosas = gestorBaldosas;
+    }
+
+    public UI getInterfaz() {
+        return interfaz;
+    }
+
+    public void setInterfaz(UI interfaz) {
+        this.interfaz = interfaz;
     }
 }

@@ -1,6 +1,7 @@
 package item.objetos;
 
 import gamePanel.GamePanel;
+import recursos.imagenes.Spritesheet;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -12,6 +13,7 @@ public abstract class Objetos {
     protected double x,y;
     public Rectangle zonaDeColision = new Rectangle(0,0,48,48);
     public int zonaDeColisionDefectoX=0, zonaDeColisionDefectoY=0;
+    Spritesheet sprite;
 
     public void dibujar(Graphics2D g2d,GamePanel gp) {
         g2d.drawImage(imagen, (int) x, (int) y,gp.getTamañofinalBaldosa(),gp.getTamañofinalBaldosa(), null);
@@ -79,5 +81,13 @@ public abstract class Objetos {
 
     public void setZonaDeColisionDefectoY(int zonaDeColisionDefectoY) {
         this.zonaDeColisionDefectoY = zonaDeColisionDefectoY;
+    }
+
+    public Spritesheet getSprite() {
+        return sprite;
+    }
+
+    public void setSprite(Spritesheet sprite) {
+        this.sprite = sprite;
     }
 }

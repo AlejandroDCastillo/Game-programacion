@@ -31,6 +31,7 @@ public class Jugador extends Entidad {
     private int hambre;
     private int sed;
     private Inventario inventario;
+    private int llaves=0;
 
     /**
      * constructor del jugador
@@ -332,6 +333,7 @@ public class Jugador extends Entidad {
         boolean coli = true;
         gp.detectorDeColisiones.comprobarBaldosa(this);
         int objetoIndex = gp.detectorDeColisiones.comprobarObjetos(this,true);
+        recogerObjetos(objetoIndex);
         if (!colision) {
             switch (direccion) {
                 case "arriba":
@@ -394,6 +396,31 @@ public class Jugador extends Entidad {
         };
     }
 
+    public void recogerObjetos(int index){
+        String nombreObjeto = "";
+        if (index!=999){
+             nombreObjeto = gp.arrayobjetos[index].getNombre();
+        }
+        switch (nombreObjeto){
+            case "llave":
+                gp.arrayobjetos[index]=null;
+                llaves++;
+                break;
+            case "cofre":
+                if (llaves>0){
+                        gp.arrayobjetos[index].setImagen(gp.arrayobjetos[index].getSprite().getImg(9,0,48));
+                        if (contadorUpdates%20==0)
+                       gp.arrayobjetos[index]=null;
+                       gp.getInterfaz().enseñarMensaje("ENHORABUENA \n has conseguido...");
+                }else{
+                    gp.getInterfaz().enseñarMensaje("No tienes LLaves");
+                }
+                break;
+        }
+
+
+    }
+
     /**
      * metodo que dibuja el sprite en pantalla
      * @param g2d
@@ -406,7 +433,7 @@ public class Jugador extends Entidad {
     }
 
 
-    //GETTERS SETTERS Y TOSTRING
+    //GETTERS SETTERS Y TO STRING
 
     public DetectorTeclas getTeclado() {
         return teclado;
@@ -456,5 +483,13 @@ public class Jugador extends Entidad {
 
     public void setInventario(Inventario inventario) {
         this.inventario = inventario;
+    }
+
+    public int getLlaves() {
+        return llaves;
+    }
+
+    public void setLlaves(int llaves) {
+        this.llaves = llaves;
     }
 }

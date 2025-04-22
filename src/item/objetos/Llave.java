@@ -17,5 +17,6 @@ public class Llave extends Objetos {
         }catch (IOException e){
             e.printStackTrace();
         }
+        colision=true;
     }
 }
