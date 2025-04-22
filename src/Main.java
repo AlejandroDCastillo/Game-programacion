@@ -1,13 +1,13 @@
-import entidades.Clase;
-import entidades.Entidad;
-import entidades.Raza;
-import gamePanel.Ventana;
+import gamePanel.escenarios.MenuInicio;
+
+import javax.swing.*;
 
 
 public class Main {
     public static void main(String[] args) {
-        Ventana v=new Ventana();
-        v.setTitle("Survival Dungeons");
-        v.setVisible(true);
+        SwingUtilities.invokeLater(() -> new MenuInicio());
+//        Ventana v=new Ventana();
+//        v.setTitle("Survival Dungeons");
+//        v.setVisible(true);
     }
 }

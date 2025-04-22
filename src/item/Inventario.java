@@ -42,19 +42,19 @@ public class Inventario {
      */
     private ArrayList<Item> iniciarInventario() {
         ArrayList<Item> inventario = new ArrayList<>();
-        Item agua = new Item("agua", 3, Tipo.AGUA,"src/recursos/imagenes/agua.png");
-        Item comida = new Item("comida", 3, Tipo.COMIDA,"src/recursos/imagenes/comida.png");
-        Item madera = new Item("madera", 1, Tipo.MADERA,"src/recursos/imagenes/madera.png");
-        Item carbon = new Item("carbon", 1, Tipo.CARBON,"src/recursos/imagenes/carbon.png");
-        Item mena_hierro = new Item("mena_hierro", 2, Tipo.MENA_HIERRO,"src/recursos/imagenes/mena_hierro.png");
-        Item mena_oro = new Item("mena_oro", 1, Tipo.MENA_ORO,"src/recursos/imagenes/mena_oro.png");
-        Item hierro = new Item("hierro", 1, Tipo.HIERRO,"src/recursos/imagenes/hierro.png");
-        Item oro = new Item("mena_oro", 1, Tipo.ORO,"src/recursos/imagenes/Oro.png");
-        Escudo escudo = new Escudo("escudo", 1, Tipo.ESCUDO,4,"src/recursos/imagenes/escudo.png");
-        Espada espada = new Espada("espada", 1, Tipo.ESPADA,5,5.5,"src/recursos/imagenes/espada.png");
-        EspadaFuego espadaFuego = new EspadaFuego("espada_fuego",0, Tipo.ESPADA,6.5,5,0.9,"src/recursos/imagenes/espada_Infernal.png");
-        Espada daga = new Espada("daga",1,Tipo.DAGA,2,8,"src/recursos/imagenes/daga.png");
-        VaraMago vara = new VaraMago("vara_de_mago", 1,Tipo.VARA_DE_MAGO,3,7,5,Hechizo.PERDER_TURNO,"src/recursos/imagenes/daga_Mago.png");
+        Item agua = new Item("agua", 3, Tipo.AGUA,4,0);
+        Item comida = new Item("comida", 3, Tipo.COMIDA,3,0);
+        Item madera = new Item("madera", 0, Tipo.MADERA,12,8);
+        Item carbon = new Item("carbon", 0, Tipo.CARBON,10,3);
+        Item mena_hierro = new Item("mena_hierro", 1, Tipo.MENA_HIERRO,8,3);
+        Item mena_oro = new Item("mena_oro", 0, Tipo.MENA_ORO,6,3);
+        Item hierro = new Item("hierro", 1, Tipo.HIERRO,8,4);
+        Item oro = new Item("mena_oro", 0, Tipo.ORO,6,4);
+        Escudo escudo = new Escudo("escudo", 0, Tipo.ESCUDO,4,12,6);
+        Espada espada = new Espada("espada", 0, Tipo.ESPADA,5,5.5,11,1);
+        EspadaFuego espadaFuego = new EspadaFuego("espada_fuego",0, Tipo.ESPADA,6.5,5,0.9,11,2);
+        Espada daga = new Espada("daga",0,Tipo.DAGA,2,8,11,0);
+        VaraMago vara = new VaraMago("vara_de_mago", 0,Tipo.VARA_DE_MAGO,3,7,5,Hechizo.PERDER_TURNO,11,5);
 
         inventario.add(agua);
         inventario.add(comida);
@@ -81,8 +81,14 @@ public class Inventario {
             int espacio = 0;
             for (int j = 0; j < 8; j++) {
                 for (int k =contInventario;k<inventario.size();k++) {
-                    if (inventario.get(k).getCantidad() > 0) {
-                        g2d.drawImage(inventario.get(k).getImg(),menuInventario.getGp().getTamañofinalBaldosa()+espacio+menuInventario.getGp().getTamañofinalBaldosa()/3, menuInventario.getGp().getTamañofinalBaldosa()*2+espacioAltura+menuInventario.getGp().getTamañofinalBaldosa()/2, 64, 64, null);
+                    Item item=inventario.get(k);
+                    if (item.getCantidad() > 0) {
+                        g2d.drawImage(item.getPlantillaInventario().getImg(item.getX(),item.getY()),
+                                menuInventario.getGp().getTamañofinalBaldosa()
+                                +espacio+menuInventario.getGp().getTamañofinalBaldosa()/3,
+                                menuInventario.getGp().getTamañofinalBaldosa()*2+
+                                espacioAltura+menuInventario.getGp().getTamañofinalBaldosa()/2,
+                                64, 64, null);
                         espacio = espacio +menuInventario.getGp().getTamañofinalBaldosa()+menuInventario.getGp().getTamañofinalBaldosa()/2;
                         break;
                     }

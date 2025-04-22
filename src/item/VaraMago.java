@@ -8,9 +8,9 @@ public class VaraMago extends Item implements Ataque, Defensa
 
     protected Hechizo hechizo;
 
-    public VaraMago(String idNombre, int cantidad, Tipo tipo, double damage, double velocidad_ataque, int defensa, Hechizo hechizo,String ruta)
+    public VaraMago(String idNombre, int cantidad, Tipo tipo, double damage, double velocidad_ataque, int defensa, Hechizo hechizo,int spriteX,int spriteY)
     {
-        super(idNombre, cantidad, tipo,ruta);
+        super(idNombre, cantidad, tipo,spriteX,spriteY);
         this.damage = damage;
         this.velocidad_ataque = velocidad_ataque;
         this.defensa = defensa;

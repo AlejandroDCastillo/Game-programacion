@@ -1,5 +1,7 @@
 package item;
 
+import recursos.imagenes.Spritesheet;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -12,17 +14,21 @@ public class Item {
     protected String idNombre;
     protected int cantidad;
     protected Tipo tipo;
-    protected BufferedImage img;
-    protected String ruta;
+    protected Spritesheet plantillaInventario;
+    protected int x;
+    protected int y;
 
 
-    public Item(String idNombre, int cantidad,Tipo tipo,String ruta) {
-     //   ruta="img/imagenes/"+idNombre+".jpeg";
+    public Item(String idNombre, int cantidad,Tipo tipo,int spriteX,int spriteY) {
         this.idNombre = idNombre;
         this.cantidad = cantidad;
         this.tipo=tipo;
+        this.x=spriteX;
+        this.y=spriteY;
         try {
-            this.img = ImageIO.read(new File(ruta));
+            String imagePath = "src/recursos/imagenes/AssetsDeInventario.png";
+            BufferedImage imagenPlantillaBuffered = ImageIO.read(new File(imagePath));
+            this.plantillaInventario  = new Spritesheet(imagenPlantillaBuffered,spriteX+1,spriteY+1);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -62,11 +68,27 @@ public class Item {
         this.cantidad = cantidad;
     }
 
-    public BufferedImage getImg() {
-        return img;
+    public Spritesheet getPlantillaInventario() {
+        return plantillaInventario;
     }
 
-    public void setImg(BufferedImage img) {
-        this.img = img;
+    public void setPlantillaInventario(Spritesheet plantillaInventario) {
+        this.plantillaInventario = plantillaInventario;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 }

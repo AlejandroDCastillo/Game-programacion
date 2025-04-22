@@ -5,9 +5,9 @@ public class Escudo extends Item implements Defensa
 {
     protected int defensa;
 
-    public Escudo(String idNombre, int cantidad, Tipo tipo, int defensa,String ruta)
+    public Escudo(String idNombre, int cantidad, Tipo tipo, int defensa,int spriteX,int spriteY)
     {
-        super(idNombre, cantidad, tipo,ruta);
+        super(idNombre, cantidad, tipo,spriteX,spriteY);
         this.defensa = defensa;
     }
 

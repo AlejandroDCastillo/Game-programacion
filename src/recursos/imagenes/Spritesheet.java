@@ -20,12 +20,21 @@ public class Spritesheet {
         this.numFramesY = numFramesY;
         frameWidth = img.getWidth() / this.numFramesX;  // calculate width of each frame (px)
         frameHeight = img.getHeight()/this.numFramesY;
-
     }
 
 
     public BufferedImage getImg(int indexX,int indexY,int tamañoBaldosa) {
             return img.getSubimage(indexX * frameWidth, indexY*frameHeight, frameWidth, frameHeight);
+    }
+
+    /**
+     * sobrecarga del metodo get img para usar el asset de inventario
+     * @param indexX
+     * @param indexY
+     * @return
+     */
+    public BufferedImage getImg(int indexX,int indexY) {
+        return img.getSubimage(indexX * 16, indexY*16, 16, 16);
     }
 
     public BufferedImage invertir(BufferedImage imagenInversa) {

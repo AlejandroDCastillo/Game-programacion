@@ -68,7 +68,6 @@ public class GamePanel extends JPanel implements Runnable{
     /**
      * Nuestro game loop (bucle del juego infinito)
      */
-
     public void run(){
         double delta =0;
         double intervaloDeDibujo=1000000000/FPS;
