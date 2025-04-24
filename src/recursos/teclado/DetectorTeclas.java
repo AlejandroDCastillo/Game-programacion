@@ -69,6 +69,8 @@ public class DetectorTeclas implements KeyListener {
             }
             if(tecla== KeyEvent.VK_ENTER){
                 if (gp.getInterfaz().getNumeroMenu() == 0) {
+                    gp.pararMusica();
+                    gp.empezarMusica(0);
                     gp.estadoJuego=1;
                 }
                 if (gp.getInterfaz().getNumeroMenu() == 1) {

@@ -250,6 +250,13 @@ public class Jugador extends Entidad {
         };
     }
 
+    public BufferedImage obtenerImagenPlayer(int x,int y) throws IOException {
+        String imagePath = "src/recursos/imagenes/caballero.png";
+        BufferedImage imagenPlantillaBuffered = ImageIO.read(new File(imagePath));
+        Spritesheet plantillaJugador = new Spritesheet(imagenPlantillaBuffered,6,4);
+        return plantillaJugador.getImg(x,y, gp.getTamañofinalBaldosa());
+    }
+
     public void recogerObjetos(int index){
         String nombreObjeto = "";
         if (index!=999){

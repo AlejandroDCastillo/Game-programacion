@@ -5,6 +5,7 @@ import item.objetos.Objetos;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.nio.BufferOverflowException;
 
 public class UI {
 
@@ -61,6 +62,10 @@ public class UI {
 
 
     }
+
+    /**
+     * metodo que dibuja todo el menu de iniciao
+     */
     public void dibujarMenuInicio(){
         //fondo
         g2d.setColor(new Color(0,0,0));
@@ -75,7 +80,17 @@ public class UI {
         //sombreado
         g2d.setColor(Color.GRAY);
         g2d.drawString(texto,x+3,y+3);
-
+        //imagen del personaje
+        try {
+            //cargamos la imagen del personaje
+            BufferedImage img=gp.getJugador().obtenerImagenPlayer(0, 0);
+            //la escalamos usando el metodo por defecto
+            Image imgEscalada = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+//            dibujamos en pantalla
+            g2d.drawImage(imgEscalada, 350, 400, null);
+        }catch (Exception e){
+            System.out.println("ERROR");
+        }
         //menu
         g2d.setFont(g2d.getFont().deriveFont(Font.BOLD,40F));
         texto="Nueva aventura";

@@ -6,6 +6,7 @@ import item.objetos.GestorObjetos;
 import item.objetos.Objetos;
 import recursos.baldosas.GestorBaldosas;
 import recursos.mapas.DetectorDeColisiones;
+import recursos.musica.Musica;
 import recursos.teclado.DetectorTeclas;
 import javax.swing.*;
 import java.awt.*;
@@ -32,6 +33,8 @@ public class GamePanel extends JPanel implements Runnable{
     private int tamañoAlturaPantalla=getCantidadBaldosaAltura*tamañofinalBaldosa;
     //Frames por segundo
     protected int FPS = 60;
+    //MUSICA
+    Musica musica=new Musica();
     //Cosas de la pantalla
     private Jugador jugador = new Jugador(this.teclado,this,"alex",Raza.HUMANO,Clase.MAGO,2);
     private MenuInventario menuInventario = new MenuInventario(this);
@@ -47,6 +50,8 @@ public class GamePanel extends JPanel implements Runnable{
     public final int continuar=1;
     public final int pausa=2;
     public final int cargarPartida=3;
+
+
     public GamePanel() {
         this.setBackground(Color.BLACK);
         this.setFocusable(true);
@@ -60,6 +65,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void establecerJuego(){
         gestorObjetos.establecerObjetos();
+        empezarMusica(1);
         estadoJuego=menuInicio;
     }
 
@@ -111,9 +117,11 @@ public class GamePanel extends JPanel implements Runnable{
     public void paint(Graphics g) {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
+
         try {
             //menu inicio
             if(estadoJuego==menuInicio) {
+                //dibuja el menu de inicio
                 interfaz.dibujar(g2d);
                 //el resto de cosas
             }else {
@@ -133,6 +141,29 @@ public class GamePanel extends JPanel implements Runnable{
             throw new RuntimeException(e);
         }
         g2d.dispose();
+    }
+
+    /**
+     * sirve para iniciar la musica que deseemos de la coleccion URL
+     * @param i indice que deseamos escoger
+     */
+    public void empezarMusica(int i){
+        musica.setArchivo(i);
+        musica.empezar();
+        musica.bucle();
+    }
+
+    public void pararMusica(){
+        musica.parar();
+    }
+
+    /**
+     * sirve para efectos de sonido
+     * @param i
+     */
+    public void efectoSonido(int i){
+        musica.setArchivo(i);
+        musica.empezar();
     }
 
 
