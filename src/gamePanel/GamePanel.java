@@ -42,9 +42,11 @@ public class GamePanel extends JPanel implements Runnable{
     private UI interfaz= new UI(this);
 
     //ESTADO DEL JUEGO
+    public final int menuInicio=0;
     public int estadoJuego=1;
     public final int continuar=1;
     public final int pausa=2;
+    public final int cargarPartida=3;
     public GamePanel() {
         this.setBackground(Color.BLACK);
         this.setFocusable(true);
@@ -58,6 +60,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void establecerJuego(){
         gestorObjetos.establecerObjetos();
+        estadoJuego=menuInicio;
     }
 
     public void startThreadDelJuego() {
@@ -109,16 +112,22 @@ public class GamePanel extends JPanel implements Runnable{
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
         try {
-            gestorBaldosas.dibujar(g2d);
-            for (int i = 0; i < arrayobjetos.length; i++) {
-                if (arrayobjetos[i] != null) {
-                    arrayobjetos[i].dibujar(g2d,this);
+            //menu inicio
+            if(estadoJuego==menuInicio) {
+                interfaz.dibujar(g2d);
+                //el resto de cosas
+            }else {
+                gestorBaldosas.dibujar(g2d);
+                for (int i = 0; i < arrayobjetos.length; i++) {
+                    if (arrayobjetos[i] != null) {
+                        arrayobjetos[i].dibujar(g2d, this);
+                    }
                 }
-            }
-            jugador.dibujar(g2d);
-            interfaz.dibujar(g2d);
-            menuInventario.dibujar(g2d);
+                jugador.dibujar(g2d);
+                interfaz.dibujar(g2d);
+                menuInventario.dibujar(g2d);
 
+            }
 
         }catch (IOException e){
             throw new RuntimeException(e);

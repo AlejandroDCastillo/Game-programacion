@@ -51,6 +51,35 @@ public class DetectorTeclas implements KeyListener {
                 gp.estadoJuego=gp.continuar;
             };
         }
+        //tecla de menu
+        if(gp.estadoJuego==gp.menuInicio){
+            if (tecla == KeyEvent.VK_W) {
+                    gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu()-1);
+                if (gp.getInterfaz().getNumeroMenu() < 0) {
+                    gp.getInterfaz().setNumeroMenu(2);
+                }
+
+
+            }
+            if (tecla == KeyEvent.VK_S) {
+                    gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu()+1);
+                if (gp.getInterfaz().getNumeroMenu() > 2) {
+                    gp.getInterfaz().setNumeroMenu(0);
+                }
+            }
+            if(tecla== KeyEvent.VK_ENTER){
+                if (gp.getInterfaz().getNumeroMenu() == 0) {
+                    gp.estadoJuego=1;
+                }
+                if (gp.getInterfaz().getNumeroMenu() == 1) {
+                    //para cargar
+                    gp.estadoJuego=3;
+                }
+                if (gp.getInterfaz().getNumeroMenu() == 2) {
+                    System.exit(0);
+                }
+            }
+        }
     }
 
     @Override
