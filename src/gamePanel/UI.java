@@ -64,7 +64,7 @@ public class UI {
     }
 
     /**
-     * metodo que dibuja todo el menu de iniciao
+     * metodo que dibuja el menu de iniciao
      */
     public void dibujarMenuInicio(){
         //fondo
