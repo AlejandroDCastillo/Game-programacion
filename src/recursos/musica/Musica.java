@@ -8,6 +8,7 @@ import java.net.URL;
 public class Musica {
     Clip clip;
     URL URLMusica[]=new URL[30];
+    private boolean estado;
 
     /**
      * constructor de la musica, en la cual pasamos con getresource los archivos que usemos
@@ -15,6 +16,7 @@ public class Musica {
     public Musica() {
         URLMusica[0] = getClass().getResource("/recursos/musica/MusicaJuego.wav");
         URLMusica[1] = getClass().getResource("/recursos/musica/comarca.wav");
+        URLMusica[2] = getClass().getResource("/recursos/musica/cofre.wav");
     }
 
     /**
@@ -33,6 +35,7 @@ public class Musica {
 
     public void empezar() {
         clip.start();
+        estado=true;
     }
 
     public void bucle() {
@@ -41,5 +44,9 @@ public class Musica {
 
     public void parar() {
         clip.stop();
+        estado=false;
+    }
+    public boolean getEstado(){
+        return estado;
     }
 }

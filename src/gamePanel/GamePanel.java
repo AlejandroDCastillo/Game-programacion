@@ -123,8 +123,8 @@ public class GamePanel extends JPanel implements Runnable{
             if(estadoJuego==menuInicio) {
                 //dibuja el menu de inicio
                 interfaz.dibujar(g2d);
-                //el resto de cosas
             }else {
+                //el resto de cosas
                 gestorBaldosas.dibujar(g2d);
                 for (int i = 0; i < arrayobjetos.length; i++) {
                     if (arrayobjetos[i] != null) {
@@ -265,6 +265,14 @@ public class GamePanel extends JPanel implements Runnable{
 
     public MenuInventario getMenuInventario() {
         return menuInventario;
+    }
+
+    public Musica getMusica() {
+        return musica;
+    }
+
+    public void setMusica(Musica musica) {
+        this.musica = musica;
     }
 
     public void setMenuInventario(MenuInventario menuInventario) {

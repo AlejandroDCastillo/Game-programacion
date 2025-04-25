@@ -24,7 +24,7 @@ public class DetectorTeclas implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-            int tecla = e.getKeyCode();
+        int tecla = e.getKeyCode();
         if (tecla == KeyEvent.VK_A) {
             izquierda = true;
         }
@@ -40,21 +40,51 @@ public class DetectorTeclas implements KeyListener {
         if (tecla == KeyEvent.VK_E) {
             if (menuBoolean) {
                 menuBoolean = false;
-            }else if (!menuBoolean)
+            } else if (!menuBoolean)
                 menuBoolean = true;
         }
-
+        //memu de pausa
+        if (gp.estadoJuego == gp.pausa) {
+            if (tecla == KeyEvent.VK_W) {
+                gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() - 1);
+                if (gp.getInterfaz().getNumeroMenu() < 0) {
+                    gp.getInterfaz().setNumeroMenu(2);
+                }
+            }
+            if (tecla == KeyEvent.VK_S) {
+                gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() + 1);
+                if (gp.getInterfaz().getNumeroMenu() > 2) {
+                    gp.getInterfaz().setNumeroMenu(0);
+                }
+            }
+            if (tecla == KeyEvent.VK_ENTER) {
+                if (gp.getInterfaz().getNumeroMenu() == 0) {
+                    //PARA GUARDAR PARTIDA
+                }
+                if (gp.getInterfaz().getNumeroMenu() == 1) {
+                    if(gp.getMusica().getEstado()){
+                        gp.pararMusica();
+                    }else{
+                        gp.empezarMusica(0);
+                    }
+                }
+                if (gp.getInterfaz().getNumeroMenu() == 2) {
+                    System.exit(0);
+                }
+            }
+        }
+        //tecla pausa
         if (tecla == KeyEvent.VK_ESCAPE) {
-            if (gp.estadoJuego==gp.continuar) {
-                gp.estadoJuego=gp.pausa;
-            }else if (gp.estadoJuego==gp.pausa){
-                gp.estadoJuego=gp.continuar;
-            };
+            if (gp.estadoJuego == gp.continuar) {
+                gp.estadoJuego = gp.pausa;
+            } else if (gp.estadoJuego == gp.pausa) {
+                gp.estadoJuego = gp.continuar;
+            }
         }
         //tecla de menu
-        if(gp.estadoJuego==gp.menuInicio){
+        if (gp.estadoJuego == gp.menuInicio) {
             if (tecla == KeyEvent.VK_W) {
-                    gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu()-1);
+                gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() - 1);
                 if (gp.getInterfaz().getNumeroMenu() < 0) {
                     gp.getInterfaz().setNumeroMenu(2);
                 }
@@ -62,20 +92,20 @@ public class DetectorTeclas implements KeyListener {
 
             }
             if (tecla == KeyEvent.VK_S) {
-                    gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu()+1);
+                gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() + 1);
                 if (gp.getInterfaz().getNumeroMenu() > 2) {
                     gp.getInterfaz().setNumeroMenu(0);
                 }
             }
-            if(tecla== KeyEvent.VK_ENTER){
+            if (tecla == KeyEvent.VK_ENTER) {
                 if (gp.getInterfaz().getNumeroMenu() == 0) {
                     gp.pararMusica();
                     gp.empezarMusica(0);
-                    gp.estadoJuego=1;
+                    gp.estadoJuego = 1;
                 }
                 if (gp.getInterfaz().getNumeroMenu() == 1) {
                     //para cargar
-                    gp.estadoJuego=3;
+                    gp.estadoJuego = 3;
                 }
                 if (gp.getInterfaz().getNumeroMenu() == 2) {
                     System.exit(0);

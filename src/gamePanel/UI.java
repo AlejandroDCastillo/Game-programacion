@@ -52,14 +52,43 @@ public class UI {
             }
 
             if (gp.estadoJuego == gp.pausa) {
-                Font fuentePausa = new Font("Arial", Font.ITALIC, 50);
-                g2d.setColor(Color.WHITE);
-                g2d.setFont(fuentePausa);
-                g2d.drawString("JUEGO EN PAUSA", gp.getTamañoAnchuraPantalla() / 4, gp.getTamañoAlturaPantalla() / 2);
-
+                dibujarPausa();
             }
         }
 
+
+    }
+    public void dibujarPausa(){
+        g2d.setFont(g2d.getFont().deriveFont(Font.BOLD,95F));
+        g2d.setColor(Color.DARK_GRAY);
+        g2d.drawString("PAUSA",250,gp.getHeight()/4);
+
+        g2d.setFont(g2d.getFont().deriveFont(Font.BOLD,40F));
+        String texto="Guerdar Partida";
+        int x=250;
+        int y=250;
+        g2d.drawString(texto,x,y);
+        if(numeroMenu==0){
+            g2d.drawString(">",x-25,y);
+        }
+
+        g2d.setFont(g2d.getFont().deriveFont(Font.BOLD,40F));
+        texto="Música";
+        x=250;
+        y=300;
+        g2d.drawString(texto,x,y);
+        if(numeroMenu==1){
+            g2d.drawString(">",x-25,y);
+        }
+
+        g2d.setFont(g2d.getFont().deriveFont(Font.BOLD,40F));
+        texto="Salir";
+        x=250;
+        y=350;
+        g2d.drawString(texto,x,y);
+        if(numeroMenu==2){
+            g2d.drawString(">",x-25,y);
+        }
 
     }
 
