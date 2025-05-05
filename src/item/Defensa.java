@@ -2,6 +2,10 @@ package item;
 
 public interface Defensa
 {
-    int getDefensa();
+    /**
+     * Metodo que devuelve el valor de defensa del objeto.
+     * @return un número entero que representa la defensa
+     */
 
+    int getDefensa();
 }
