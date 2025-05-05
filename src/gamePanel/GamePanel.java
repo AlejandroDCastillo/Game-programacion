@@ -36,7 +36,7 @@ public class GamePanel extends JPanel implements Runnable{
     //MUSICA
     Musica musica=new Musica();
     //Cosas de la pantalla
-    private Jugador jugador = new Jugador(this.teclado,this,"alex",Raza.HUMANO,Clase.MAGO,2);
+    private Jugador jugador;
     private MenuInventario menuInventario = new MenuInventario(this);
     private GestorBaldosas gestorBaldosas = new GestorBaldosas(this);
     public DetectorDeColisiones detectorDeColisiones = new DetectorDeColisiones(this);
@@ -47,9 +47,9 @@ public class GamePanel extends JPanel implements Runnable{
     //ESTADO DEL JUEGO
     public final int menuInicio=0;
     public int estadoJuego=1;
-    public final int continuar=1;
-    public final int pausa=2;
-    public final int cargarPartida=3;
+    public final int continuar=2;
+    public final int pausa=3;
+    public final int cargarPartida=4;
 
 
     public GamePanel() {
@@ -93,7 +93,7 @@ public class GamePanel extends JPanel implements Runnable{
               delta --;
               if (temporizador >= 1000000000) {
                   System.out.println("FPS: " + contadorDeVecesDibujado);
-                  System.out.printf("X:" +jugador.getX() +"Y:"+jugador.getY());
+                  //System.out.printf("X:" +jugador.getX() +"Y:"+jugador.getY());
                   contadorDeVecesDibujado=0;
 
               }
@@ -111,6 +111,9 @@ public class GamePanel extends JPanel implements Runnable{
             menuInventario.update();
         }else if (estadoJuego==pausa) {
             //no sucede nada
+        }
+        if (estadoJuego==menuInicio) {
+
         }
     }
 

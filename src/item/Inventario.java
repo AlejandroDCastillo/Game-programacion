@@ -85,9 +85,9 @@ public class Inventario {
                     if (item.getCantidad() > 0) {
                         g2d.drawImage(item.getPlantillaInventario().getImg(item.getX(),item.getY()),
                                 menuInventario.getGp().getTamañofinalBaldosa()
-                                +espacio+menuInventario.getGp().getTamañofinalBaldosa()/3,
+                                        +espacio+menuInventario.getGp().getTamañofinalBaldosa()/3,
                                 menuInventario.getGp().getTamañofinalBaldosa()*2+
-                                espacioAltura+menuInventario.getGp().getTamañofinalBaldosa()/2,
+                                        espacioAltura+menuInventario.getGp().getTamañofinalBaldosa()/2,
                                 64, 64, null);
                         espacio = espacio +menuInventario.getGp().getTamañofinalBaldosa()+menuInventario.getGp().getTamañofinalBaldosa()/2;
                         break;

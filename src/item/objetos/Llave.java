@@ -13,7 +13,7 @@ public class Llave extends Objetos {
         try {
             BufferedImage imagenPlantillaBuffered =  ImageIO.read(new File("src/recursos/imagenes/AssetsDeInventario.png"));
             Spritesheet plantillaInventario = new Spritesheet(imagenPlantillaBuffered,13,9);
-            imagen = plantillaInventario.rotarImagen(plantillaInventario.getImg(6,5,48),270);
+            imagen = plantillaInventario.rotarImagen(plantillaInventario.getImg(6,5,48),180);
         }catch (IOException e){
             e.printStackTrace();
         }

@@ -237,6 +237,9 @@ public class Jugador extends Entidad {
         String imagePath = "src/recursos/imagenes/caballero.png";
         BufferedImage imagenPlantillaBuffered = ImageIO.read(new File(imagePath));
         Spritesheet plantillaJugador = new Spritesheet(imagenPlantillaBuffered, 6, 4);
+        if (gp.estadoJuego==gp.menuInicio) {
+            return sprite = plantillaJugador.getImg(numSprite, 2, gp.getTamañofinalBaldosa());
+        }
         return switch (direccion) {
             case "izquierda", "arriba-izquierda", "abajo-izquierda" ->
                     sprite = plantillaJugador.getImg(2, numSprite, gp.getTamañofinalBaldosa());
