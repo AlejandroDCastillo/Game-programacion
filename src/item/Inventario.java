@@ -109,7 +109,6 @@ public class Inventario {
                 }
             }
         }
-        System.out.println(inventario);
     }
 
     /**

@@ -50,6 +50,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int continuar=2;
     public final int pausa=3;
     public final int cargarPartida=4;
+    public final int inventario=5;
 
 
     public GamePanel() {
@@ -108,12 +109,10 @@ public class GamePanel extends JPanel implements Runnable{
     private void update() {
         if (estadoJuego==continuar) {
             jugador.update();
-            menuInventario.update();
         }else if (estadoJuego==pausa) {
             //no sucede nada
-        }
-        if (estadoJuego==menuInicio) {
-
+        }else if(estadoJuego==inventario){
+            menuInventario.update();
         }
     }
 

@@ -33,6 +33,7 @@ public class UI {
     public UI(GamePanel gp) {
         this.gp=gp;
         try {
+            //lectura de la fuente de un archivo.
             File archivoFuente = new File("src/recursos/font/Minecraft.ttf");
             System.out.printf(archivoFuente.getAbsolutePath());
             fonte = Font.createFont(Font.TRUETYPE_FONT,archivoFuente);
@@ -55,6 +56,7 @@ public class UI {
         if (gp.estadoJuego==gp.menuInicio){
             dibujarMenuInicio();
         }else {
+            //resto de cosas visuales del juego
             //llave
             g2d.setColor(Color.WHITE);
             g2d.drawImage(imagen_llave, gp.getTamañofinalBaldosa() / 2, gp.getTamañofinalBaldosa() / 2, gp.getTamañofinalBaldosa(), gp.getTamañofinalBaldosa(), null);
@@ -73,10 +75,36 @@ public class UI {
             if (gp.estadoJuego == gp.pausa) {
                 dibujarPausa();
             }
+            if(gp.getTeclado().menuBoolean){
+                dibujarInventario();
+            }
         }
-
-
     }
+
+    public void dibujarInventario(){
+        String texto;
+        g2d.setFont(g2d.getFont().deriveFont(Font.BOLD,25F));
+        g2d.setColor(Color.black);
+        texto="Craftear";
+        g2d.drawString(texto,15,150);
+        if(gp.menuInicio==0){
+            g2d.drawString(">",0,150);
+        }
+        texto="Equipar";
+        g2d.drawString(texto,15,200);
+        if(gp.menuInicio==1){
+            g2d.drawString(">",0,200);
+        }
+        texto="Destruir";
+        g2d.drawString(texto,15,250);
+        if(gp.menuInicio==2){
+            g2d.drawString(">",0,250);
+        }
+    }
+
+    /**
+     * metodo para dibujar el menu de pausa
+     */
     public void dibujarPausa(){
         g2d.setFont(g2d.getFont().deriveFont(Font.BOLD,95F));
         g2d.setColor(Color.DARK_GRAY);
