@@ -1,4 +1,6 @@
-package item;
+package item.objetos;
+
+import item.*;
 
 // La clase VaraMago hereda de Item e implementa tanto Ataque como Defensa
 public class VaraMago extends Item implements Ataque, Defensa
@@ -29,7 +31,7 @@ public class VaraMago extends Item implements Ataque, Defensa
      * @param spriteX posición X del sprite gráfico
      * @param spriteY posición Y del sprite gráfico
      */
-    public VaraMago(String idNombre, int cantidad, Tipo tipo, double damage, double velocidad_ataque, int defensa, Hechizo hechizo,int spriteX,int spriteY)
+    public VaraMago(String idNombre, int cantidad, Tipo tipo, double damage, double velocidad_ataque, int defensa, Hechizo hechizo, int spriteX, int spriteY)
     {
         // Llama al constructor de la clase base Item
         super(idNombre, cantidad, tipo,spriteX,spriteY);

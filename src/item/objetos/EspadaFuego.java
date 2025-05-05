@@ -1,4 +1,6 @@
-package item;
+package item.objetos;
+
+import item.Tipo;
 
 // La clase EspadaFuego hereda de la clase Espada y añade un nuevo atributo: quemadura
 public class EspadaFuego extends Espada
@@ -19,7 +21,7 @@ public class EspadaFuego extends Espada
      * @param spriteX posición X del sprite gráfico
      * @param spriteY posición Y del sprite gráfico
      */
-    public EspadaFuego(String idNombre, int cantidad, Tipo tipo, double damage, double velocidad_ataque, double quemadura,int spriteX,int spriteY)
+    public EspadaFuego(String idNombre, int cantidad, Tipo tipo, double damage, double velocidad_ataque, double quemadura, int spriteX, int spriteY)
     {
         // Llama al constructor de la clase padre Espada
         super(idNombre, cantidad, tipo, damage, velocidad_ataque,spriteX,spriteY);

@@ -1,6 +1,8 @@
-package item;
+package item.objetos;
 
-import java.io.Serializable;
+import item.Ataque;
+import item.Item;
+import item.Tipo;
 
 // La clase Espada hereda de Item e implementa la interfaz Ataque
 public class Espada extends Item implements Ataque
@@ -25,7 +27,7 @@ public class Espada extends Item implements Ataque
      * @param spriteY posición Y del sprite gráfico
      */
 
-    public Espada(String idNombre, int cantidad, Tipo tipo, double damage, double velocidad_ataque,int spriteX,int spriteY)
+    public Espada(String idNombre, int cantidad, Tipo tipo, double damage, double velocidad_ataque, int spriteX, int spriteY)
     {
         // Llama al constructor de la clase padre Item
         super(idNombre, cantidad, tipo,spriteX,spriteY);

@@ -1,13 +1,15 @@
 package item;
 
 import gamePanel.escenarios.MenuInventario;
+import item.objetos.Escudo;
+import item.objetos.Espada;
+import item.objetos.EspadaFuego;
+import item.objetos.VaraMago;
 import org.w3c.dom.*;
 
 import javax.xml.parsers.*;
 import java.awt.*;
 import java.io.File;
-import java.io.IOException;
-import java.sql.Array;
 import java.util.ArrayList;
 
 //clase singleton.
@@ -79,16 +81,14 @@ public class Inventario {
         ordenarInventario();
         for (int i = 0; i < 4; i++) {
             int espacio = 0;
-            for (int j = 0; j < 8; j++) {
+            for (int j = 0; j < 4; j++) {
                 for (int k =contInventario;k<inventario.size();k++) {
                     Item item=inventario.get(k);
                     if (item.getCantidad() > 0) {
                         g2d.drawImage(item.getPlantillaInventario().getImg(item.getX(),item.getY()),
-                                menuInventario.getGp().getTamañofinalBaldosa()
-                                        +espacio+menuInventario.getGp().getTamañofinalBaldosa()/3,
-                                menuInventario.getGp().getTamañofinalBaldosa()*2+
-                                        espacioAltura+menuInventario.getGp().getTamañofinalBaldosa()/2,
-                                64, 64, null);
+                                275+espacio,
+                                138+espacioAltura,
+                                55, 55, null);
                         espacio = espacio +menuInventario.getGp().getTamañofinalBaldosa()+menuInventario.getGp().getTamañofinalBaldosa()/2;
                         break;
                     }

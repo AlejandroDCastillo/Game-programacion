@@ -1,5 +1,9 @@
-package item;
+package item.objetos;
 
+
+import item.Defensa;
+import item.Item;
+import item.Tipo;
 
 public class Escudo extends Item implements Defensa
 {
@@ -17,7 +21,7 @@ public class Escudo extends Item implements Defensa
      * @param spriteY posición Y del sprite (gráfico) del escudo
      */
 
-    public Escudo(String idNombre, int cantidad, Tipo tipo, int defensa,int spriteX,int spriteY)
+    public Escudo(String idNombre, int cantidad, Tipo tipo, int defensa, int spriteX, int spriteY)
     {
         // Llamada al constructor de la clase padre (Item)
         super(idNombre, cantidad, tipo,spriteX,spriteY);
