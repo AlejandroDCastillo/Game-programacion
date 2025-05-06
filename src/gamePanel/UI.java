@@ -87,17 +87,17 @@ public class UI {
         g2d.setColor(Color.black);
         texto="Craftear";
         g2d.drawString(texto,15,150);
-        if(gp.menuInicio==0){
+        if(numeroMenu==0){
             g2d.drawString(">",0,150);
         }
         texto="Equipar";
         g2d.drawString(texto,15,200);
-        if(gp.menuInicio==1){
+        if(numeroMenu==1){
             g2d.drawString(">",0,200);
         }
         texto="Destruir";
         g2d.drawString(texto,15,250);
-        if(gp.menuInicio==2){
+        if(numeroMenu==2){
             g2d.drawString(">",0,250);
         }
     }

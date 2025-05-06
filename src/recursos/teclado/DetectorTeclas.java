@@ -58,16 +58,40 @@ public class DetectorTeclas implements KeyListener {
 
         //inventario
         if (tecla == KeyEvent.VK_E) {
-            if (gp.estadoJuego==gp.continuar) {
-                menuBoolean=true;
-                gp.estadoJuego=gp.inventario;
-            }else if(gp.estadoJuego==gp.inventario){
-                menuBoolean=false;
-                gp.estadoJuego=gp.continuar;
+            if (gp.estadoJuego == gp.continuar) {
+                menuBoolean = true;
+                gp.estadoJuego = gp.inventario;
+            } else if (gp.estadoJuego == gp.inventario) {
+                menuBoolean = false;
+                gp.estadoJuego = gp.continuar;
             }
-
+        }
+            if (tecla == KeyEvent.VK_W) {
+                gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() - 1);
+                if (gp.getInterfaz().getNumeroMenu() < 0) {
+                    gp.getInterfaz().setNumeroMenu(2);
+                }
             }
-
+            if (tecla == KeyEvent.VK_S) {
+                gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() + 1);
+                if (gp.getInterfaz().getNumeroMenu() > 2) {
+                    gp.getInterfaz().setNumeroMenu(0);
+                }
+            }
+            if (tecla == KeyEvent.VK_ENTER) {
+                if (gp.getInterfaz().numeroMenu == 0) {
+                    //PARA craftear
+                    System.out.println("craftear");
+                }
+                if (gp.getInterfaz().numeroMenu == 1) {
+                    //para equipar
+                    System.out.println("Equipar");
+                }
+                if (gp.getInterfaz().numeroMenu == 2) {
+                    //para destruir
+                    System.out.println("destruir");
+                }
+            }
         //memu de pausa
         if (gp.estadoJuego == gp.pausa) {
             if (tecla == KeyEvent.VK_W) {
