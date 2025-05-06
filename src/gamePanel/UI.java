@@ -2,21 +2,13 @@ package gamePanel;
 
 import entidades.Clase;
 import entidades.Raza;
-import item.objetos.Llave;
-import item.objetos.Objetos;
 import recursos.imagenes.Spritesheet;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.BufferOverflowException;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 public class UI {
 
@@ -29,9 +21,8 @@ public class UI {
     int contadorMensaje =0;
     BufferedImage imagen_llave;
     public int numeroMenu=0;
-    public int numeroCrafteo=0;//variable de control para el menu de crafteo
     public String[]Dialogos = new String[3];
-    public int pantallaDelTitulo=0; // pantalla del titulo
+    public int pantallaDelTitulo=0;// pantalla del titulo
     public UI(GamePanel gp) {
         this.gp=gp;
         try {
@@ -78,56 +69,61 @@ public class UI {
                 dibujarPausa();
             }
             if(gp.getTeclado().menuBoolean){
-                dibujarInventario();
+                dibujarInventario(gp.getTeclado().craftear);
                 if(gp.getTeclado().craftear){
-                    dibujarMenuCrafteo();
+                    dibujarMenuCrafteo(gp.getTeclado().craftear);
                 }
             }
         }
     }
 
-    public void dibujarMenuCrafteo(){
-        g2d.draw(new Rectangle2D.Double(600, 130, 150, 250));
-        g2d.setColor(new Color(35,164,187));
-        g2d.fill(new Rectangle2D.Double(600, 130, 150, 250));
+    public void dibujarMenuCrafteo(boolean craftear){
+        dibujarVentanaGenerica(580,110,180,280);
         String texto;
         g2d.setFont(g2d.getFont().deriveFont(Font.BOLD,25F));
         g2d.setColor(Color.black);
         texto="vara mago";
         g2d.drawString(texto,600,150);
-        if(numeroCrafteo==0){
-            g2d.drawString(">",580,155);
-        }
         texto="escudo";
         g2d.drawString(texto,600,200);
-        if(numeroCrafteo==1){
-            g2d.drawString(">",580,155);
-        }
         texto="lingote";
         g2d.drawString(texto,600,250);
-        if(numeroCrafteo==2){
-            g2d.drawString(">",580,155);
+        if (craftear){
+            if(numeroMenu ==0){
+                g2d.drawString(">",580,155);
+            }
+            if(numeroMenu ==1){
+                g2d.drawString(">",580,205);
+            }
+            if(numeroMenu ==2){
+                g2d.drawString(">",580,255);
+            }
+//            if (numeroMenu==3){
+//                g2d.drawString(">",580,305);
+//            }
         }
     }
 
-    public void dibujarInventario(){
+    public void dibujarInventario(boolean craftear){
         String texto;
         g2d.setFont(g2d.getFont().deriveFont(Font.BOLD,25F));
         g2d.setColor(Color.black);
         texto="Craftear";
         g2d.drawString(texto,15,150);
-        if(numeroMenu==0){
-            g2d.drawString(">",0,150);
-        }
         texto="Equipar";
         g2d.drawString(texto,15,200);
-        if(numeroMenu==1){
-            g2d.drawString(">",0,200);
-        }
         texto="Destruir";
         g2d.drawString(texto,15,250);
-        if(numeroMenu==2){
-            g2d.drawString(">",0,250);
+        if (!craftear){
+            if(numeroMenu==0){
+                g2d.drawString(">",0,150);
+            }
+            if(numeroMenu==1){
+                g2d.drawString(">",0,200);
+            }
+            if(numeroMenu==2){
+                g2d.drawString(">",0,250);
+            }
         }
     }
 
@@ -460,8 +456,10 @@ public class UI {
             g2d.drawString(texto,x,y);
             g2d.setColor(Color.WHITE);
             g2d.drawString(texto,x+3,y+3);
-            texto="__________";
             y+=gp.getTamañofinalBaldosa();
+            if (texto.isEmpty()){
+                dibujarTextoSombreado35F("Debe escribir un nombre",200,500,25);
+            }
         }else if(pantallaDelTitulo ==4) {
             g2d.setColor(new Color(35, 164, 187));
             g2d.fillRect(0, 0, gp.getWidth(), gp.getHeight());
@@ -505,6 +503,24 @@ public class UI {
         g2d.drawRoundRect(x+5,y+5,width-10,height-10,25,25);
     }
 
+    /**
+     * metodo para dibujar con sombreado
+     * @param texto
+     * @param x
+     * @param y
+     * @param tamaño
+     */
+    public void dibujarTextoSombreado35F(String texto,int x,int y,float tamaño){
+        for (String line: texto.split("\n")) {
+            g2d.setFont(g2d.getFont().deriveFont(Font.BOLD, tamaño));
+            g2d.setColor(Color.BLACK);
+            g2d.drawString(texto, x, y);
+            //sombreado
+            g2d.setColor(Color.WHITE);
+            g2d.drawString(texto, x + 3, y + 3);
+        }
+    }
+
     public GamePanel getGp() {
         return gp;
     }
@@ -521,12 +537,12 @@ public class UI {
         this.fonte = fonte;
     }
 
-    public int getNumeroCrafteo() {
-        return numeroCrafteo;
+    public int getNumeroMenu() {
+        return numeroMenu;
     }
 
-    public void setNumeroCrafteo(int numeroCrafteo) {
-        this.numeroCrafteo = numeroCrafteo;
+    public void setNumeroMenu(int numeroMenu) {
+        this.numeroMenu = numeroMenu;
     }
 
     public String getMensaje() {
@@ -575,14 +591,6 @@ public class UI {
 
     public void setImagen_llave(BufferedImage imagen_llave) {
         this.imagen_llave = imagen_llave;
-    }
-
-    public int getNumeroMenu() {
-        return numeroMenu;
-    }
-
-    public void setNumeroMenu(int numeroMenu) {
-        this.numeroMenu = numeroMenu;
     }
 
     public int getPantallaDelTitulo() {

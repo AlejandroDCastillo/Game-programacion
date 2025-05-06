@@ -1,24 +1,22 @@
 package recursos.teclado;
+
 import entidades.Clase;
 import entidades.Jugador;
 import entidades.Raza;
 import gamePanel.GamePanel;
 
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.geom.Rectangle2D;
 
 public class DetectorTeclas implements KeyListener {
     public boolean arriba;
     public boolean abajo;
     public boolean izquierda;
     public boolean derecha;
-    public boolean menuBoolean=false;
+    public boolean menuBoolean = false;
     //boolean que esconde el desplegable de crafteos
-    public boolean craftear =true;
-    public StringBuilder textoIngresado=new StringBuilder();
+    public boolean craftear = false;
+    public StringBuilder textoIngresado = new StringBuilder();
     Raza raza = null;
     Clase clase = null;
     private GamePanel gp;
@@ -26,19 +24,19 @@ public class DetectorTeclas implements KeyListener {
     public DetectorTeclas(GamePanel gamePanel) {
         this.gp = gamePanel;
     }
+
     @Override
     public void keyTyped(KeyEvent e) {
-        if(gp.estadoJuego== gp.menuInicio){
-            if(gp.getInterfaz().getPantallaDelTitulo() == 3){
+        if (gp.estadoJuego == gp.menuInicio) {
+            if (gp.getInterfaz().getPantallaDelTitulo() == 3) {
                 char c = e.getKeyChar();
                 // Permitir letras, números, espacio y borrar
                 if (Character.isLetter(c)) {
-                    textoIngresado.append(c);
-                } else if (c == '\b' && !textoIngresado.isEmpty()) {
-                    textoIngresado.deleteCharAt(textoIngresado.length() - 1);
-                }
-                if (c == '\n'&& !textoIngresado.isEmpty()){
+                    textoIngresado.append(c);//suma el caracter al String final
+                } else if (c == '\n' && !textoIngresado.isEmpty()) {
                     gp.getInterfaz().setPantallaDelTitulo(4);
+                } else if ( !Character.isLetter(c) && !textoIngresado.isEmpty()) {
+                    textoIngresado.deleteCharAt(textoIngresado.length() - 1);
                 }
             }
         }
@@ -70,6 +68,41 @@ public class DetectorTeclas implements KeyListener {
                 gp.estadoJuego = gp.continuar;
             }
         }
+        if(gp.estadoJuego==gp.inventario) {
+            if (!craftear){
+                if (tecla == KeyEvent.VK_W) {
+                    gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() - 1);
+                    if (gp.getInterfaz().getNumeroMenu() < 0) {
+                        gp.getInterfaz().setNumeroMenu(2);
+                    }
+                }
+                if (tecla == KeyEvent.VK_S) {
+                    gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() + 1);
+                    if (gp.getInterfaz().getNumeroMenu() > 2) {
+                        gp.getInterfaz().setNumeroMenu(0);
+                    }
+                }
+                if (tecla == KeyEvent.VK_ENTER) {
+                    if (gp.getInterfaz().numeroMenu == 0) {
+                        //PARA craftear
+                        System.out.println("craftear");
+                        if (craftear) {
+                            craftear = false;
+                        } else if (!craftear) {
+                            craftear = true;
+                        }
+                    }
+                    if (gp.getInterfaz().numeroMenu == 1) {
+                        //para equipar
+                        System.out.println("Equipar");
+                    }
+                    if (gp.getInterfaz().numeroMenu == 2) {
+                        //para destruir
+                        System.out.println("destruir");
+                    }
+                }
+            }
+            if (craftear) {
             if (tecla == KeyEvent.VK_W) {
                 gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() - 1);
                 if (gp.getInterfaz().getNumeroMenu() < 0) {
@@ -78,30 +111,20 @@ public class DetectorTeclas implements KeyListener {
             }
             if (tecla == KeyEvent.VK_S) {
                 gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() + 1);
-                if (gp.getInterfaz().getNumeroMenu() > 2) {
+                if (gp.getInterfaz().numeroMenu > 2) {
                     gp.getInterfaz().setNumeroMenu(0);
                 }
             }
             if (tecla == KeyEvent.VK_ENTER) {
-                if (gp.getInterfaz().numeroMenu == 0) {
-                    //PARA craftear
-                    System.out.println("craftear");
-                        if(craftear){
-                            craftear=false;
-                        }else if(!craftear){
-                            craftear=true;
-                        }
-
-                }
-                if (gp.getInterfaz().numeroMenu == 1) {
-                    //para equipar
-                    System.out.println("Equipar");
-                }
-                if (gp.getInterfaz().numeroMenu == 2) {
-                    //para destruir
-                    System.out.println("destruir");
+                switch (gp.getInterfaz().getNumeroMenu()) {
+                    case 0: {
+                        System.out.println("ESpada");
+                        break;
+                    }
                 }
             }
+        }
+        }
         //memu de pausa
         if (gp.estadoJuego == gp.pausa) {
             if (tecla == KeyEvent.VK_W) {
@@ -121,9 +144,9 @@ public class DetectorTeclas implements KeyListener {
                     //PARA GUARDAR PARTIDA
                 }
                 if (gp.getInterfaz().getNumeroMenu() == 1) {
-                    if(gp.getMusica().getEstado()){
+                    if (gp.getMusica().getEstado()) {
                         gp.pararMusica();
-                    }else{
+                    } else {
                         gp.empezarMusica(0);
                     }
                 }
@@ -157,7 +180,7 @@ public class DetectorTeclas implements KeyListener {
                 }
                 if (tecla == KeyEvent.VK_ENTER) {
                     if (gp.getInterfaz().getNumeroMenu() == 0) {
-                        gp.getInterfaz().pantallaDelTitulo=1;
+                        gp.getInterfaz().pantallaDelTitulo = 1;
                     }
                     if (gp.getInterfaz().getNumeroMenu() == 1) {
                         //para cargar
@@ -167,8 +190,7 @@ public class DetectorTeclas implements KeyListener {
                         System.exit(0);
                     }
                 }
-            }
-            else if (gp.getInterfaz().getPantallaDelTitulo() == 1) {
+            } else if (gp.getInterfaz().getPantallaDelTitulo() == 1) {
 
                 if (tecla == KeyEvent.VK_W) {
                     gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() - 1);
@@ -185,28 +207,28 @@ public class DetectorTeclas implements KeyListener {
                 if (tecla == KeyEvent.VK_ENTER) {
                     if (gp.getInterfaz().getNumeroMenu() == 0) {
                         clase = Clase.MAGO;
-                        gp.getInterfaz().pantallaDelTitulo=2;
+                        gp.getInterfaz().pantallaDelTitulo = 2;
 
                     }
                     if (gp.getInterfaz().getNumeroMenu() == 1) {
                         clase = Clase.GUERRERO;
-                        gp.getInterfaz().pantallaDelTitulo=2;
+                        gp.getInterfaz().pantallaDelTitulo = 2;
 
                     }
                     if (gp.getInterfaz().getNumeroMenu() == 2) {
                         clase = Clase.CLERIGO;
-                        gp.getInterfaz().pantallaDelTitulo=2;
+                        gp.getInterfaz().pantallaDelTitulo = 2;
                     }
                     if (gp.getInterfaz().getNumeroMenu() == 3) {
                         clase = Clase.PICARO;
-                        gp.getInterfaz().pantallaDelTitulo=2;
+                        gp.getInterfaz().pantallaDelTitulo = 2;
 
                     }
                     if (gp.getInterfaz().getNumeroMenu() == 4) {
                         System.exit(0);
                     }
                 }
-            }else if (gp.getInterfaz().getPantallaDelTitulo() == 2) {
+            } else if (gp.getInterfaz().getPantallaDelTitulo() == 2) {
                 if (tecla == KeyEvent.VK_W) {
                     gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() - 1);
                     if (gp.getInterfaz().getNumeroMenu() < 0) {
@@ -242,7 +264,7 @@ public class DetectorTeclas implements KeyListener {
                         System.exit(0);
                     }
                 }
-            }else if (gp.getInterfaz().getPantallaDelTitulo() == 4) {
+            } else if (gp.getInterfaz().getPantallaDelTitulo() == 4) {
                 if (tecla == KeyEvent.VK_A) {
                     gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() - 1);
                     if (gp.getInterfaz().getNumeroMenu() < 0) {
@@ -258,7 +280,7 @@ public class DetectorTeclas implements KeyListener {
                 if (tecla == KeyEvent.VK_ENTER) {
                     if (gp.getInterfaz().getNumeroMenu() == 0) {
                         gp.setJugador(new Jugador(gp.getTeclado(), gp, textoIngresado.toString(), raza, clase, 1));
-                        gp.estadoJuego=gp.continuar;
+                        gp.estadoJuego = gp.continuar;
                     }
                     if (gp.getInterfaz().getNumeroMenu() == 1) {
                         gp.getInterfaz().pantallaDelTitulo = 3;
@@ -268,6 +290,7 @@ public class DetectorTeclas implements KeyListener {
             }
         }
     }
+
 
     @Override
     public void keyReleased(KeyEvent e) {

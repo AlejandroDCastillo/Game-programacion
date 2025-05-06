@@ -89,6 +89,7 @@ public class Inventario {
                                 275+espacio,
                                 138+espacioAltura,
                                 55, 55, null);
+                        //mostrar cantidad
                         String cantidad= String.valueOf(item.getCantidad());
                         g2d.setColor(new Color(200,200,200,180));
                         g2d.drawString(cantidad,322+espacio,192+espacioAltura);
