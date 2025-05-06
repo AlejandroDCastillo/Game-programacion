@@ -26,7 +26,6 @@ import java.util.ArrayList;
 public class Jugador extends Entidad {
     //atributos relacionados con movimiento
     private DetectorTeclas teclado;
-    private GamePanel gp;
     protected BufferedImage sprite;
     //stats del jugador
     private int hambre;
@@ -45,9 +44,8 @@ public class Jugador extends Entidad {
      * @param nivel
      */
     public Jugador(DetectorTeclas teclado, GamePanel gp, String nombre, Raza raza, Clase clase, int nivel) {
-        super(nombre, raza, clase, nivel);
+        super(nombre, raza, clase, nivel,gp);
         this.teclado = teclado;
-        this.gp = gp;
         this.direccion = "";
         x = 0;
         y = 0;
@@ -251,6 +249,13 @@ public class Jugador extends Entidad {
         };
     }
 
+    /**
+     * metodo en sobrecarga paera la imagen del jugador en el inicio del juego
+     * @param x
+     * @param y
+     * @return
+     * @throws IOException
+     */
     public BufferedImage obtenerImagenPlayer(int x, int y) throws IOException {
         String imagePath = "src/recursos/imagenes/caballero.png";
         BufferedImage imagenPlantillaBuffered = ImageIO.read(new File(imagePath));

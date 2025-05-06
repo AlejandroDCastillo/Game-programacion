@@ -51,7 +51,7 @@ public class Inventario {
         Item mena_hierro = new Item("mena_hierro", 1, Tipo.MENA_HIERRO,8,3);
         Item mena_oro = new Item("mena_oro", 0, Tipo.MENA_ORO,6,3);
         Item hierro = new Item("hierro", 1, Tipo.HIERRO,8,4);
-        Item oro = new Item("mena_oro", 0, Tipo.ORO,6,4);
+        Item oro = new Item("oro", 0, Tipo.ORO,6,4);
         Escudo escudo = new Escudo("escudo", 0, Tipo.ESCUDO,4,12,6);
         Espada espada = new Espada("espada", 0, Tipo.ESPADA,5,5.5,11,1);
         EspadaFuego espadaFuego = new EspadaFuego("espada_fuego",0, Tipo.ESPADA,6.5,5,0.9,11,2);

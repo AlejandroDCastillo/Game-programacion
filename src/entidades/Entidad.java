@@ -1,11 +1,13 @@
 package entidades;
 
+import gamePanel.GamePanel;
 import item.Item;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public abstract class Entidad {
+    protected GamePanel gp;
     //stats de movimiento
     protected double x;
     protected double y;
@@ -37,7 +39,7 @@ public abstract class Entidad {
     protected boolean colision;
     protected double velocidadDiagonal;
 
-    public Entidad(String nombre, Raza raza, Clase clase, int nivel) {
+    public Entidad(String nombre, Raza raza, Clase clase, int nivel,GamePanel gp) {
         this.nombre = nombre;
         this.raza=raza;
         this.clase=clase;
@@ -48,6 +50,7 @@ public abstract class Entidad {
         this.velocidad=getVelocidadMax();
         this.velocidadDiagonal = Math.hypot(this.velocidad,this.velocidad)/2;
         this.nivel=nivel;
+        this.gp=gp;
 
     }
 

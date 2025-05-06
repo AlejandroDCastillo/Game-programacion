@@ -255,11 +255,127 @@ public class DetectorDeColisiones {
                 entidad.zonaDeColision.y =entidad.getZonaDeColisionDefectoY();
                 gp.arrayobjetos[i].zonaDeColision.x = gp.arrayobjetos[i].zonaDeColisionDefectoX;
                 gp.arrayobjetos[i].zonaDeColision.y= gp.arrayobjetos[i].zonaDeColisionDefectoY;
-
             }
         }
         return index;
     }
+
+    public int comprobarEntidad(Entidad entidad,boolean jugador) {
+
+        int index=999;
+
+        for (int i=0;i<gp.arrayEnemigos.size();i++){
+            if (gp.arrayEnemigos.get(i)!= null){
+                //Saber la hitbox del player
+                entidad.zonaDeColision.x = (int) (entidad.getX()+ entidad.zonaDeColision.x);
+                entidad.zonaDeColision.y = (int) (entidad.getY()+ entidad.zonaDeColision.y);
+                //Saber la hitbox del objeto
+                gp.arrayEnemigos.get(i).zonaDeColision.x = (int) ( gp.arrayEnemigos.get(i).getX()+ gp.arrayEnemigos.get(i).zonaDeColision.x);
+                gp.arrayEnemigos.get(i).zonaDeColision.y = (int) ( gp.arrayEnemigos.get(i).getY()+ gp.arrayEnemigos.get(i).zonaDeColision.y);
+
+                switch (entidad.getDireccion()){
+                    case "arriba":
+                        entidad.zonaDeColision.y -= entidad.getVelocidad();
+                        if (entidad.zonaDeColision.intersects(gp.arrayEnemigos.get(i).zonaDeColision)){
+                            if (gp.arrayEnemigos.get(i).isColision()){
+                                entidad.setColision(true);
+                                if (jugador){
+                                    index = i;
+                                }
+                            }
+                        }
+                        break;
+                    case "derecha":
+                        entidad.zonaDeColision.x += entidad.getVelocidad();
+                        if (entidad.zonaDeColision.intersects(gp.arrayEnemigos.get(i).zonaDeColision)){
+                            if (gp.arrayEnemigos.get(i).isColision()){
+                                entidad.setColision(true);
+                                if (jugador){
+                                    index = i;
+                                }
+                            }
+                        }
+                        break;
+                    case "abajo":
+                        entidad.zonaDeColision.y += entidad.getVelocidad();
+                        if (entidad.zonaDeColision.intersects(gp.arrayEnemigos.get(i).zonaDeColision)){
+                            if (gp.arrayEnemigos.get(i).isColision()){
+                                entidad.setColision(true);
+                                if (jugador){
+                                    index = i;
+                                }
+                            }
+                        }
+                        break;
+                    case "izquierda":
+                        entidad.zonaDeColision.x -= entidad.getVelocidad();
+                        if (entidad.zonaDeColision.intersects(gp.arrayEnemigos.get(i).zonaDeColision)){
+                            if (gp.arrayEnemigos.get(i).isColision()){
+                                entidad.setColision(true);
+                                if (jugador){
+                                    index = i;
+                                }
+                            }
+                        }
+                        break;
+                    case "arriba-derecha":
+                        entidad.zonaDeColision.y -= (int) entidad.getVelocidadDiagonal();
+                        entidad.zonaDeColision.x += (int) entidad.getVelocidadDiagonal();
+                        if (entidad.zonaDeColision.intersects(gp.arrayEnemigos.get(i).zonaDeColision)){
+                            if (gp.arrayEnemigos.get(i).isColision()){
+                                entidad.setColision(true);
+                                if (jugador){
+                                    index = i;
+                                }
+                            }
+                        }
+                        break;
+                    case "arriba-izquierda":
+                        entidad.zonaDeColision.y -= (int) entidad.getVelocidadDiagonal();
+                        entidad.zonaDeColision.x -= (int) entidad.getVelocidadDiagonal();
+                        if (entidad.zonaDeColision.intersects(gp.arrayEnemigos.get(i).zonaDeColision)){
+                            if (gp.arrayEnemigos.get(i).isColision()){
+                                entidad.setColision(true);
+                                if (jugador){
+                                    index = i;
+                                }
+                            }
+                        }
+                        break;
+                    case "abajo-derecha":
+                        entidad.zonaDeColision.y += (int) entidad.getVelocidadDiagonal();
+                        entidad.zonaDeColision.x += (int) entidad.getVelocidadDiagonal();
+                        if (entidad.zonaDeColision.intersects(gp.arrayEnemigos.get(i).zonaDeColision)){
+                            if (gp.arrayEnemigos.get(i).isColision()){
+                                entidad.setColision(true);
+                                if (jugador){
+                                    index = i;
+                                }
+                            }
+                        }
+                        break;
+                    case "abajo-izquierda":
+                        entidad.zonaDeColision.y += (int) entidad.getVelocidadDiagonal();
+                        entidad.zonaDeColision.x -= (int) entidad.getVelocidadDiagonal();
+                        if (entidad.zonaDeColision.intersects(gp.arrayEnemigos.get(i).zonaDeColision)){
+                            if (gp.arrayEnemigos.get(i).isColision()){
+                                entidad.setColision(true);
+                                if (jugador){
+                                    index = i;
+                                }
+                            }
+                        }
+                        break;
+                }
+                entidad.zonaDeColision.x =entidad.getZonaDeColisionDefectoX();
+                entidad.zonaDeColision.y =entidad.getZonaDeColisionDefectoY();
+                gp.arrayEnemigos.get(i).zonaDeColision.x = gp.arrayEnemigos.get(i).getZonaDeColisionDefectoX();
+                gp.arrayEnemigos.get(i).zonaDeColision.y= gp.arrayEnemigos.get(i).getZonaDeColisionDefectoY();
+            }
+        }
+        return index;
+    }
+
 
 
 }

@@ -23,6 +23,11 @@ public class UI {
     public int numeroMenu=0;
     public String[]Dialogos = new String[3];
     public int pantallaDelTitulo=0;// pantalla del titulo
+
+    /**
+     * constructor de la interfaz
+     * @param gp
+     */
     public UI(GamePanel gp) {
         this.gp=gp;
         try {
@@ -37,44 +42,47 @@ public class UI {
         }
     }
 
+    /**
+     *
+     * @param texto
+     */
     public void enseñarMensaje(String texto) {
         mensaje=texto;
         hayMensaje=true;
     }
 
+    /**
+     * metodo que dibuja en bucle la interfaz
+     * @param g2d
+     */
     public void dibujar(Graphics2D g2d) {
         this.g2d=g2d;
         g2d.setFont(fonte);
         //menu inicio
         if (gp.estadoJuego==gp.menuInicio){
             dibujarMenuInicio();
-        }else {
-            //resto de cosas visuales del juego
-            //llave
-            g2d.setColor(Color.WHITE);
-            g2d.drawImage(imagen_llave, gp.getTamañofinalBaldosa() / 2, gp.getTamañofinalBaldosa() / 2, gp.getTamañofinalBaldosa(), gp.getTamañofinalBaldosa(), null);
-            g2d.drawString("x" + gp.getJugador().getLlaves(), 60, 65);
-
-            if (hayMensaje) {
-                g2d.drawString(mensaje, gp.getTamañoAnchuraPantalla() / 4, 30);
-                System.out.print(mensaje);
-                contadorMensaje++;
-            }
-            if (contadorMensaje >= 100) {
-                contadorMensaje = 0;
-                hayMensaje = false;
-            }
-
+        }else { //resto de cosas
+            //pausa
             if (gp.estadoJuego == gp.pausa) {
                 dibujarPausa();
             }
+            //inventario
             if(gp.getTeclado().menuBoolean){
                 dibujarInventario(gp.getTeclado().craftear);
                 if(gp.getTeclado().craftear){
                     dibujarMenuCrafteo(gp.getTeclado().craftear);
                 }
             }
+
+            //combate
+            if(gp.estadoJuego==gp.combate){
+                dibujarCombate();
+            }
         }
+    }
+
+    public void dibujarCombate(){
+
     }
 
     public void dibujarMenuCrafteo(boolean craftear){

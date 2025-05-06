@@ -11,6 +11,7 @@ import recursos.teclado.DetectorTeclas;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements Runnable{
     //Creamos el hilo para que no suscedan conflictos con los procesos
@@ -37,6 +38,7 @@ public class GamePanel extends JPanel implements Runnable{
     Musica musica=new Musica();
     //Cosas de la pantalla
     private Jugador jugador;
+    public ArrayList<Enemigo> arrayEnemigos;
     private MenuInventario menuInventario = new MenuInventario(this);
     private GestorBaldosas gestorBaldosas = new GestorBaldosas(this);
     public DetectorDeColisiones detectorDeColisiones = new DetectorDeColisiones(this);
@@ -52,6 +54,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int cargarPartida=4;
     public final int inventario=5;
     public final int craftear=6;
+    public final int combate=7;
 
 
     public GamePanel() {
@@ -63,6 +66,18 @@ public class GamePanel extends JPanel implements Runnable{
         this.add(menuInventario);
         startThreadDelJuego();
         establecerJuego();
+        this.arrayEnemigos=iniciarArrayEnemigos();
+    }
+
+    /**
+     * inicializa el barray de enemigos
+     * @return
+     */
+    public ArrayList<Enemigo> iniciarArrayEnemigos(){
+        ArrayList<Enemigo>listafinal=new ArrayList<>();
+        Enemigo en1=new Enemigo("Esqueleto",Raza.ORCO,Clase.CLERIGO,1,this,"src/recursos/imagenes/esqueleto.png");
+        listafinal.add(en1);
+        return listafinal;
     }
 
     public void establecerJuego(){
@@ -136,10 +151,12 @@ public class GamePanel extends JPanel implements Runnable{
                         arrayobjetos[i].dibujar(g2d, this);
                     }
                 }
+                for(Enemigo e:arrayEnemigos){
+                    e.dibujar(g2d);
+                }
                 jugador.dibujar(g2d);
                 interfaz.dibujar(g2d);
                 menuInventario.dibujar(g2d);
-
             }
 
         }catch (IOException e){
