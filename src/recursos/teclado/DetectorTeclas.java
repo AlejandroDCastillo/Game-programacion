@@ -5,8 +5,10 @@ import entidades.Raza;
 import gamePanel.GamePanel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.geom.Rectangle2D;
 
 public class DetectorTeclas implements KeyListener {
     public boolean arriba;
@@ -14,6 +16,8 @@ public class DetectorTeclas implements KeyListener {
     public boolean izquierda;
     public boolean derecha;
     public boolean menuBoolean=false;
+    //boolean que esconde el desplegable de crafteos
+    public boolean craftear =true;
     public StringBuilder textoIngresado=new StringBuilder();
     Raza raza = null;
     Clase clase = null;
@@ -82,6 +86,12 @@ public class DetectorTeclas implements KeyListener {
                 if (gp.getInterfaz().numeroMenu == 0) {
                     //PARA craftear
                     System.out.println("craftear");
+                        if(craftear){
+                            craftear=false;
+                        }else if(!craftear){
+                            craftear=true;
+                        }
+
                 }
                 if (gp.getInterfaz().numeroMenu == 1) {
                     //para equipar

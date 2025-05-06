@@ -9,6 +9,7 @@ import recursos.imagenes.Spritesheet;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -28,6 +29,7 @@ public class UI {
     int contadorMensaje =0;
     BufferedImage imagen_llave;
     public int numeroMenu=0;
+    public int numeroCrafteo=0;//variable de control para el menu de crafteo
     public String[]Dialogos = new String[3];
     public int pantallaDelTitulo=0; // pantalla del titulo
     public UI(GamePanel gp) {
@@ -77,7 +79,34 @@ public class UI {
             }
             if(gp.getTeclado().menuBoolean){
                 dibujarInventario();
+                if(gp.getTeclado().craftear){
+                    dibujarMenuCrafteo();
+                }
             }
+        }
+    }
+
+    public void dibujarMenuCrafteo(){
+        g2d.draw(new Rectangle2D.Double(600, 130, 150, 250));
+        g2d.setColor(new Color(35,164,187));
+        g2d.fill(new Rectangle2D.Double(600, 130, 150, 250));
+        String texto;
+        g2d.setFont(g2d.getFont().deriveFont(Font.BOLD,25F));
+        g2d.setColor(Color.black);
+        texto="vara mago";
+        g2d.drawString(texto,600,150);
+        if(numeroCrafteo==0){
+            g2d.drawString(">",580,155);
+        }
+        texto="escudo";
+        g2d.drawString(texto,600,200);
+        if(numeroCrafteo==1){
+            g2d.drawString(">",580,155);
+        }
+        texto="lingote";
+        g2d.drawString(texto,600,250);
+        if(numeroCrafteo==2){
+            g2d.drawString(">",580,155);
         }
     }
 
@@ -490,6 +519,14 @@ public class UI {
 
     public void setFonte(Font fonte) {
         this.fonte = fonte;
+    }
+
+    public int getNumeroCrafteo() {
+        return numeroCrafteo;
+    }
+
+    public void setNumeroCrafteo(int numeroCrafteo) {
+        this.numeroCrafteo = numeroCrafteo;
     }
 
     public String getMensaje() {

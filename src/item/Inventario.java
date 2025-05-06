@@ -89,12 +89,17 @@ public class Inventario {
                                 275+espacio,
                                 138+espacioAltura,
                                 55, 55, null);
+                        String cantidad= String.valueOf(item.getCantidad());
+                        g2d.setColor(new Color(200,200,200,180));
+                        g2d.drawString(cantidad,322+espacio,192+espacioAltura);
+                        //sombreado
+                        g2d.setColor(new Color(0,0,0,180));
+                        g2d.drawString(cantidad,320+espacio,190+espacioAltura);
                         espacio = espacio +menuInventario.getGp().getTamañofinalBaldosa()+menuInventario.getGp().getTamañofinalBaldosa()/2;
                         break;
                     }
                 }
                 contInventario++;
-
             }
             espacioAltura = espacioAltura + 3;
         }
