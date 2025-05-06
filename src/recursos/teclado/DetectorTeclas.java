@@ -44,6 +44,7 @@ public class DetectorTeclas implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        //movimiento
         int tecla = e.getKeyCode();
         if (tecla == KeyEvent.VK_A) {
             izquierda = true;
@@ -68,6 +69,7 @@ public class DetectorTeclas implements KeyListener {
                 gp.estadoJuego = gp.continuar;
             }
         }
+        //inventario
         if(gp.estadoJuego==gp.inventario) {
             if (!craftear){
                 if (tecla == KeyEvent.VK_W) {
@@ -106,12 +108,12 @@ public class DetectorTeclas implements KeyListener {
             if (tecla == KeyEvent.VK_W) {
                 gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() - 1);
                 if (gp.getInterfaz().getNumeroMenu() < 0) {
-                    gp.getInterfaz().setNumeroMenu(2);
+                    gp.getInterfaz().setNumeroMenu(5);
                 }
             }
             if (tecla == KeyEvent.VK_S) {
                 gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() + 1);
-                if (gp.getInterfaz().numeroMenu > 2) {
+                if (gp.getInterfaz().numeroMenu > 5) {
                     gp.getInterfaz().setNumeroMenu(0);
                 }
             }
@@ -120,6 +122,9 @@ public class DetectorTeclas implements KeyListener {
                     case 0: {
                         System.out.println("ESpada");
                         break;
+                    }
+                    case 5:{
+                        craftear=false;
                     }
                 }
             }

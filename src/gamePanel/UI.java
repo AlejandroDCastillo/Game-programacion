@@ -80,49 +80,58 @@ public class UI {
     public void dibujarMenuCrafteo(boolean craftear){
         dibujarVentanaGenerica(580,110,180,280);
         String texto;
-        g2d.setFont(g2d.getFont().deriveFont(Font.BOLD,25F));
-        g2d.setColor(Color.black);
         texto="vara mago";
-        g2d.drawString(texto,600,150);
+        dibujarTextoSombreado(texto,605,150,20);
         texto="escudo";
-        g2d.drawString(texto,600,200);
-        texto="lingote";
-        g2d.drawString(texto,600,250);
+        dibujarTextoSombreado(texto,605,170,20);
+        texto="lingote metal";
+        dibujarTextoSombreado(texto,605,190,20);
+        texto="lingote oro";
+        dibujarTextoSombreado(texto,605,210,20);
+        texto="espada";
+        dibujarTextoSombreado(texto,605,230,20);
+        texto="salir";
+        dibujarTextoSombreado(texto,605,250,20);
         if (craftear){
             if(numeroMenu ==0){
-                g2d.drawString(">",580,155);
+                dibujarTextoSombreado(">",590,155,25);
             }
             if(numeroMenu ==1){
-                g2d.drawString(">",580,205);
+                dibujarTextoSombreado(">",590,175,25);
             }
             if(numeroMenu ==2){
-                g2d.drawString(">",580,255);
+                dibujarTextoSombreado(">",590,195,25);
             }
-//            if (numeroMenu==3){
-//                g2d.drawString(">",580,305);
-//            }
+            if (numeroMenu==3){
+                dibujarTextoSombreado(">",590,215,25);
+            }
+            if (numeroMenu==4){
+                dibujarTextoSombreado(">",590,235,25);
+            }
+            if (numeroMenu==5){
+                dibujarTextoSombreado(">",590,255,25);
+            }
         }
     }
 
     public void dibujarInventario(boolean craftear){
         String texto;
-        g2d.setFont(g2d.getFont().deriveFont(Font.BOLD,25F));
-        g2d.setColor(Color.black);
+        dibujarVentanaGenerica(2,110,140,280);
         texto="Craftear";
-        g2d.drawString(texto,15,150);
+        dibujarTextoSombreado(texto,25,150,20);
         texto="Equipar";
-        g2d.drawString(texto,15,200);
+        dibujarTextoSombreado(texto,25,200,20);
         texto="Destruir";
-        g2d.drawString(texto,15,250);
+        dibujarTextoSombreado(texto,25,250,20);
         if (!craftear){
             if(numeroMenu==0){
-                g2d.drawString(">",0,150);
+                dibujarTextoSombreado(">",8,150,25);
             }
             if(numeroMenu==1){
-                g2d.drawString(">",0,200);
+                dibujarTextoSombreado(">",8,200,25);
             }
             if(numeroMenu==2){
-                g2d.drawString(">",0,250);
+                dibujarTextoSombreado(">",8,250,25);
             }
         }
     }
@@ -458,7 +467,7 @@ public class UI {
             g2d.drawString(texto,x+3,y+3);
             y+=gp.getTamañofinalBaldosa();
             if (texto.isEmpty()){
-                dibujarTextoSombreado35F("Debe escribir un nombre",200,500,25);
+                dibujarTextoSombreado("Debe escribir un nombre",200,500,25);
             }
         }else if(pantallaDelTitulo ==4) {
             g2d.setColor(new Color(35, 164, 187));
@@ -510,7 +519,7 @@ public class UI {
      * @param y
      * @param tamaño
      */
-    public void dibujarTextoSombreado35F(String texto,int x,int y,float tamaño){
+    public void dibujarTextoSombreado(String texto,int x,int y,float tamaño){
         for (String line: texto.split("\n")) {
             g2d.setFont(g2d.getFont().deriveFont(Font.BOLD, tamaño));
             g2d.setColor(Color.BLACK);
