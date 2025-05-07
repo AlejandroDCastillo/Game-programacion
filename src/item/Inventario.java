@@ -1,5 +1,6 @@
 package item;
 
+import entidades.Jugador;
 import gamePanel.escenarios.MenuInventario;
 import item.objetos.Escudo;
 import item.objetos.Espada;
@@ -46,17 +47,17 @@ public class Inventario {
         ArrayList<Item> inventario = new ArrayList<>();
         Item agua = new Item("agua", 3, Tipo.AGUA,4,0);
         Item comida = new Item("comida", 3, Tipo.COMIDA,3,0);
-        Item madera = new Item("madera", 0, Tipo.MADERA,12,8);
+        Item madera = new Item("madera", 1, Tipo.MADERA,12,8);
         Item carbon = new Item("carbon", 0, Tipo.CARBON,10,3);
         Item mena_hierro = new Item("mena_hierro", 1, Tipo.MENA_HIERRO,8,3);
         Item mena_oro = new Item("mena_oro", 0, Tipo.MENA_ORO,6,3);
-        Item hierro = new Item("hierro", 1, Tipo.HIERRO,8,4);
+        Item hierro = new Item("hierro", 2, Tipo.HIERRO,8,4);
         Item oro = new Item("oro", 0, Tipo.ORO,6,4);
         Escudo escudo = new Escudo("escudo", 0, Tipo.ESCUDO,4,12,6);
-        Espada espada = new Espada("espada", 0, Tipo.ESPADA,5,5.5,11,1);
-        EspadaFuego espadaFuego = new EspadaFuego("espada_fuego",0, Tipo.ESPADA,6.5,5,0.9,11,2);
-        Espada daga = new Espada("daga",0,Tipo.DAGA,2,8,11,0);
-        VaraMago vara = new VaraMago("vara_de_mago", 0,Tipo.VARA_DE_MAGO,3,7,5,Hechizo.PERDER_TURNO,11,5);
+        Espada espada = new Espada("espada", 1, Tipo.ESPADA,5,5.5,11,1);
+        EspadaFuego espadaFuego = new EspadaFuego("espadaFuego",1, Tipo.ESPADA,6.5,5,0.9,11,2);
+        VaraMago vara = new VaraMago("varaMago", 0,Tipo.VARA_DE_MAGO,3,7,5,Hechizo.PERDER_TURNO,11,5);
+        //faltan yelmo, peto,escudo oro, talisman
 
         inventario.add(agua);
         inventario.add(comida);
@@ -69,13 +70,17 @@ public class Inventario {
         inventario.add(escudo);
         inventario.add(espada);
         inventario.add(espadaFuego);
-        inventario.add(daga);
         inventario.add(vara);
 
         return inventario;
     }
 
-    public void mostrarInventario(Graphics2D g2d, MenuInventario menuInventario) {
+    /**
+     * metodo que muestra las imagenes del inventario llamado desde el UI.
+     * @param g2d
+     * @param menuInventario clase para imprimir el esqueleto del inventario
+     */
+    public void mostrarInventario(Graphics2D g2d, MenuInventario menuInventario,Jugador jugador) {
         int espacioAltura = 0;
         int contInventario=0;
         ordenarInventario();
@@ -102,7 +107,35 @@ public class Inventario {
                 }
                 contInventario++;
             }
-            espacioAltura = espacioAltura + 3;
+            espacioAltura = espacioAltura + 64;
+        }
+        Item arma=jugador.getArma();
+        Item escudo=jugador.getEscudo();
+        Item armadura=jugador.getArmadura();
+        Item cabeza=jugador.getCabeza();
+        if(arma!=null){
+            g2d.drawImage(arma.getPlantillaInventario().getImg(arma.getX(),arma.getY()),
+                    165,
+                    138,
+                    55, 55, null);
+        }
+        if(escudo!=null){
+            g2d.drawImage(escudo.getPlantillaInventario().getImg(escudo.getX(),escudo.getY()),
+                    165,
+                    138+64,
+                    55, 55, null);
+        }
+        if(armadura!=null){
+            g2d.drawImage(escudo.getPlantillaInventario().getImg(armadura.getX(),armadura.getY()),
+                    165,
+                    138+(64*2),
+                    55, 55, null);
+        }
+        if(cabeza!=null){
+            g2d.drawImage(cabeza.getPlantillaInventario().getImg(cabeza.getX(),cabeza.getY()),
+                    165,
+                    138+(64*3),
+                    55, 55, null);
         }
     }
     public void ordenarInventario() {

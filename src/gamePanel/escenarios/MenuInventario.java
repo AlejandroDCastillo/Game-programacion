@@ -47,7 +47,7 @@ public class MenuInventario extends JPanel {
         Graphics2D g2d = (Graphics2D) g;
         if (gp.estadoJuego==gp.inventario) {
             g2d.drawImage(fondoPanel("src/recursos/imagenes/menuInventario.png"),143,123, 451, 400, null);
-            Inventario.getInstance().mostrarInventario(g2d,this);
+            Inventario.getInstance().mostrarInventario(g2d,this,gp.getJugador());
         }
         g2d.dispose();
     }

@@ -32,6 +32,11 @@ public class Jugador extends Entidad {
     private int sed;
     private Inventario inventario;
     private int llaves = 0;
+    //obj equipados
+    private Item arma;
+    private Item armadura;
+    private Item escudo;
+    private Item cabeza;
 
     /**
      * constructor del jugador
@@ -44,7 +49,7 @@ public class Jugador extends Entidad {
      * @param nivel
      */
     public Jugador(DetectorTeclas teclado, GamePanel gp, String nombre, Raza raza, Clase clase, int nivel) {
-        super(nombre, raza, clase, nivel,gp);
+        super(nombre, raza, clase, nivel, gp);
         this.teclado = teclado;
         this.direccion = "";
         x = 0;
@@ -98,6 +103,50 @@ public class Jugador extends Entidad {
             }
         } else {
             System.out.println("No queda comida");
+            return false;
+        }
+    }
+
+    public boolean equiparObjeto(String objeto) {
+        Item obj = inventario.buscarObjeto(objeto);
+        if (obj != null) {
+            switch (objeto) {
+                case "escudo", "escudoOro", "talismanSecreto": {
+                    if (obj.getCantidad() > 0) {
+                        setEscudo(obj);
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+                case "espada", "espadaFuego", "varaMago": {
+                    if (obj.getCantidad() > 0) {
+                        setArma(obj);
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+                case "yelmo": {
+                    if (obj.getCantidad() > 0) {
+                        setCabeza(obj);
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+                case "peto": {
+                    if (obj.getCantidad() > 0) {
+                        setArmadura(obj);
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+                default:
+                    return false;
+            }
+        }else{
             return false;
         }
     }
@@ -304,6 +353,40 @@ public class Jugador extends Entidad {
 
 
     //GETTERS SETTERS Y TO STRING
+
+    public Item getArma() {
+        return arma;
+    }
+
+    public void setArma(Item arma) {
+        this.arma = arma;
+    }
+
+    @Override
+    public Item getArmadura() {
+        return armadura;
+    }
+
+    @Override
+    public void setArmadura(Item armadura) {
+        this.armadura = armadura;
+    }
+
+    public Item getEscudo() {
+        return escudo;
+    }
+
+    public void setEscudo(Item escudo) {
+        this.escudo = escudo;
+    }
+
+    public Item getCabeza() {
+        return cabeza;
+    }
+
+    public void setCabeza(Item cabeza) {
+        this.cabeza = cabeza;
+    }
 
     public DetectorTeclas getTeclado() {
         return teclado;

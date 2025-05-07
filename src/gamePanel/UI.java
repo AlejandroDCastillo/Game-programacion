@@ -72,6 +72,9 @@ public class UI {
                 if(gp.getTeclado().craftear){
                     dibujarMenuCrafteo(gp.getTeclado().craftear);
                 }
+                 else if(gp.getTeclado().menuEquipar){
+                    dibujarMenuEquipar(gp.getTeclado().menuEquipar);
+                }
             }
 
             //combate
@@ -84,22 +87,83 @@ public class UI {
     public void dibujarCombate(){
 
     }
+    public void dibujarMenuEquipar(boolean equipar){
+        dibujarVentanaGenerica(580,110,180,280);
+        String texto;
+        texto="Escudo";
+        dibujarTextoSombreado(texto,605,150,20);
+        texto="Esc Oro";
+        dibujarTextoSombreado(texto,605,170,20);
+        texto="Espada";
+        dibujarTextoSombreado(texto,605,190,20);
+        texto="Esp Fuego";
+        dibujarTextoSombreado(texto,605,210,20);
+        texto="Vara Mago";
+        dibujarTextoSombreado(texto,605,230,20);
+        texto="Talisman";
+        dibujarTextoSombreado(texto,605,250,20);
+        texto="Yelmo";
+        dibujarTextoSombreado(texto,605,270,20);
+        texto="peto";
+        dibujarTextoSombreado(texto,605,290,20);
+        texto="salir";
+        dibujarTextoSombreado(texto,605,310,20);
+        if (equipar){
+            if(numeroMenu ==0){
+                dibujarTextoSombreado(">",590,155,25);
+            }
+            if(numeroMenu ==1){
+                dibujarTextoSombreado(">",590,175,25);
+            }
+            if(numeroMenu ==2){
+                dibujarTextoSombreado(">",590,195,25);
+            }
+            if (numeroMenu==3){
+                dibujarTextoSombreado(">",590,215,25);
+            }
+            if (numeroMenu==4){
+                dibujarTextoSombreado(">",590,235,25);
+            }
+            if (numeroMenu==5){
+                dibujarTextoSombreado(">",590,255,25);
+            }
+            if (numeroMenu==6){
+                dibujarTextoSombreado(">",590,275,25);
+            }
+            if (numeroMenu==7){
+                dibujarTextoSombreado(">",590,295,25);
+            }
+            if (numeroMenu==8){
+                dibujarTextoSombreado(">",590,315,25);
+            }
+        }
+    }
 
     public void dibujarMenuCrafteo(boolean craftear){
         dibujarVentanaGenerica(580,110,180,280);
         String texto;
-        texto="vara mago";
+        texto="Escudo";
         dibujarTextoSombreado(texto,605,150,20);
-        texto="escudo";
+        texto="Esc Oro";
         dibujarTextoSombreado(texto,605,170,20);
-        texto="lingote metal";
+        texto="Espada";
         dibujarTextoSombreado(texto,605,190,20);
-        texto="lingote oro";
+        texto="Esp Fuego";
         dibujarTextoSombreado(texto,605,210,20);
-        texto="espada";
+        texto="Vara Mago";
         dibujarTextoSombreado(texto,605,230,20);
-        texto="salir";
+        texto="Talisman";
         dibujarTextoSombreado(texto,605,250,20);
+        texto="Yelmo";
+        dibujarTextoSombreado(texto,605,270,20);
+        texto="Peto";
+        dibujarTextoSombreado(texto,605,290,20);
+        texto="Oro";
+        dibujarTextoSombreado(texto,605,310,20);
+        texto="Hierro";
+        dibujarTextoSombreado(texto,605,330,20);
+        texto="salir";
+        dibujarTextoSombreado(texto,605,350,20);
         if (craftear){
             if(numeroMenu ==0){
                 dibujarTextoSombreado(">",590,155,25);
@@ -119,6 +183,20 @@ public class UI {
             if (numeroMenu==5){
                 dibujarTextoSombreado(">",590,255,25);
             }
+            if (numeroMenu==6){
+                dibujarTextoSombreado(">",590,275,25);
+            }
+            if (numeroMenu==7){
+                dibujarTextoSombreado(">",590,295,25);
+            }
+            if (numeroMenu==8){
+                dibujarTextoSombreado(">",590,315,25);
+            }
+            if (numeroMenu==9){
+                dibujarTextoSombreado(">",590,335,25);
+            }if (numeroMenu==10){
+                dibujarTextoSombreado(">",590,355,25);
+            }
         }
     }
 
@@ -131,7 +209,7 @@ public class UI {
         dibujarTextoSombreado(texto,25,200,20);
         texto="Destruir";
         dibujarTextoSombreado(texto,25,250,20);
-        if (!craftear){
+        if (!craftear && !gp.getTeclado().menuEquipar){
             if(numeroMenu==0){
                 dibujarTextoSombreado(">",8,150,25);
             }
@@ -510,6 +588,13 @@ public class UI {
         }
     }
 
+    /**
+     * metodo para generar una ventana mas desarrollada que un rectangulo
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     */
     public void dibujarVentanaGenerica(int x,int y,int width,int height){
         Color c = new Color(0,0,0,150);
         g2d.setColor(c);

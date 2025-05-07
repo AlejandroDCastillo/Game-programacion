@@ -7,6 +7,7 @@ import gamePanel.GamePanel;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Scanner;
 
 public class DetectorTeclas implements KeyListener {
     public boolean arriba;
@@ -16,6 +17,8 @@ public class DetectorTeclas implements KeyListener {
     public boolean menuBoolean = false;
     //boolean que esconde el desplegable de crafteos
     public boolean craftear = false;
+    //bolean para desplegable de equipar
+    public boolean menuEquipar = false;
     public StringBuilder textoIngresado = new StringBuilder();
     Raza raza = null;
     Clase clase = null;
@@ -35,7 +38,7 @@ public class DetectorTeclas implements KeyListener {
                     textoIngresado.append(c);//suma el caracter al String final
                 } else if (c == '\n' && !textoIngresado.isEmpty()) {
                     gp.getInterfaz().setPantallaDelTitulo(4);
-                } else if ( !Character.isLetter(c) && !textoIngresado.isEmpty()) {
+                } else if (!Character.isLetter(c) && !textoIngresado.isEmpty()) {
                     textoIngresado.deleteCharAt(textoIngresado.length() - 1);
                 }
             }
@@ -70,8 +73,8 @@ public class DetectorTeclas implements KeyListener {
             }
         }
         //inventario
-        if(gp.estadoJuego==gp.inventario) {
-            if (!craftear){
+        if (gp.estadoJuego == gp.inventario) {
+            if (!craftear && !menuEquipar) {
                 if (tecla == KeyEvent.VK_W) {
                     gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() - 1);
                     if (gp.getInterfaz().getNumeroMenu() < 0) {
@@ -85,8 +88,8 @@ public class DetectorTeclas implements KeyListener {
                     }
                 }
                 if (tecla == KeyEvent.VK_ENTER) {
+                    //PARA craftear
                     if (gp.getInterfaz().numeroMenu == 0) {
-                        //PARA craftear
                         System.out.println("craftear");
                         if (craftear) {
                             craftear = false;
@@ -94,43 +97,224 @@ public class DetectorTeclas implements KeyListener {
                             craftear = true;
                         }
                     }
+                    //para equipar
                     if (gp.getInterfaz().numeroMenu == 1) {
-                        //para equipar
-                        System.out.println("Equipar");
+                        if (menuEquipar) {
+                            menuEquipar = false;
+                        } else if (!menuEquipar) {
+                            menuEquipar = true;
+                        }
                     }
+                    //para destruir
                     if (gp.getInterfaz().numeroMenu == 2) {
                         //para destruir
                         System.out.println("destruir");
                     }
                 }
-            }
-            if (craftear) {
-            if (tecla == KeyEvent.VK_W) {
-                gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() - 1);
-                if (gp.getInterfaz().getNumeroMenu() < 0) {
-                    gp.getInterfaz().setNumeroMenu(5);
-                }
-            }
-            if (tecla == KeyEvent.VK_S) {
-                gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() + 1);
-                if (gp.getInterfaz().numeroMenu > 5) {
-                    gp.getInterfaz().setNumeroMenu(0);
-                }
-            }
-            if (tecla == KeyEvent.VK_ENTER) {
-                switch (gp.getInterfaz().getNumeroMenu()) {
-                    case 0: {
-                        System.out.println("ESpada");
-                        break;
+            } else if (craftear && !menuEquipar) {
+                if (tecla == KeyEvent.VK_W) {
+                    gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() - 1);
+                    if (gp.getInterfaz().getNumeroMenu() < 0) {
+                        gp.getInterfaz().setNumeroMenu(10);
                     }
-                    case 5:{
-                        craftear=false;
+                }
+                if (tecla == KeyEvent.VK_S) {
+                    gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() + 1);
+                    if (gp.getInterfaz().numeroMenu > 10) {
+                        gp.getInterfaz().setNumeroMenu(0);
                     }
+                }
+                if (tecla == KeyEvent.VK_ENTER) {
+                    boolean crafteo;
+                    switch (gp.getInterfaz().getNumeroMenu()) {
+                        case 0: {
+                            crafteo = gp.getJugador().craftear("escudo");
+                            //mensaje (no se porq no sale hayq ue arreglarlo)
+                            if (crafteo) {
+                                gp.getInterfaz().dibujarTextoSombreado("Crafteo realizado con existo", 150, 50, 35);
+                            } else {
+                                gp.getInterfaz().dibujarTextoSombreado("Crafteo no realizado", 150, 50, 35);
+                            }
+                            break;
+                        }
+                        case 1: {
+                            crafteo = gp.getJugador().craftear("escudoOro");
+                            if (crafteo) {
+                                gp.getInterfaz().dibujarTextoSombreado("Crafteo realizado con existo", 150, 100, 35);
+                            } else {
+                                gp.getInterfaz().dibujarTextoSombreado("Crafteo no realizado", 150, 100, 35);
+                            }
+                            break;
+                        }
+                        case 2: {
+                            crafteo = gp.getJugador().craftear("espada");
+                            if (crafteo) {
+                                gp.getInterfaz().dibujarTextoSombreado("Crafteo realizado con existo", 150, 100, 35);
+                            } else {
+                                gp.getInterfaz().dibujarTextoSombreado("Crafteo no realizado", 150, 100, 35);
+                            }
+                            ;
+                        }
+                        case 3: {
+                            crafteo = gp.getJugador().craftear("espadaFuego");
+                            if (crafteo) {
+                                gp.getInterfaz().dibujarTextoSombreado("Crafteo realizado con existo", 150, 100, 35);
+                            } else {
+                                gp.getInterfaz().dibujarTextoSombreado("Crafteo no realizado", 150, 100, 35);
+                            }
+                            break;
+                        }
+                        case 4: {
+                            crafteo = gp.getJugador().craftear("varamago");
+                            if (crafteo) {
+                                gp.getInterfaz().dibujarTextoSombreado("Crafteo realizado con existo", 150, 100, 35);
+                            } else {
+                                gp.getInterfaz().dibujarTextoSombreado("Crafteo no realizado", 150, 100, 35);
+                            }
+                            break;
+                        }
+                        case 5: {
+                            crafteo = gp.getJugador().craftear("talismanSecreto");
+                            if (crafteo) {
+                                gp.getInterfaz().dibujarTextoSombreado("Crafteo realizado con existo", 150, 100, 35);
+                            } else {
+                                gp.getInterfaz().dibujarTextoSombreado("Crafteo no realizado", 150, 100, 35);
+                            }
+                            break;
+                        }
+                        case 6: {
+                            crafteo = gp.getJugador().craftear("yelmo");
+                            if (crafteo) {
+                                gp.getInterfaz().dibujarTextoSombreado("Crafteo realizado con existo", 150, 100, 35);
+                            } else {
+                                gp.getInterfaz().dibujarTextoSombreado("Crafteo no realizado", 150, 100, 35);
+                            }
+                            break;
+                        }
+                        case 7: {
+                            crafteo = gp.getJugador().craftear("peto");
+                            if (crafteo) {
+                                gp.getInterfaz().dibujarTextoSombreado("Crafteo realizado con existo", 150, 100, 35);
+                            } else {
+                                gp.getInterfaz().dibujarTextoSombreado("Crafteo no realizado", 150, 100, 35);
+                            }
+                            break;
+                        }
+                        case 8: {
+                            crafteo = gp.getJugador().craftear("oro");
+                            if (crafteo) {
+                                gp.getInterfaz().dibujarTextoSombreado("Crafteo realizado con existo", 150, 50, 35);
+                            } else {
+                                gp.getInterfaz().dibujarTextoSombreado("Crafteo no realizado", 150, 50, 35);
+                            }
+                            break;
+                        }
+                        case 9: {
+                            crafteo = gp.getJugador().craftear("hierro");
+                            if (crafteo) {
+                                gp.getInterfaz().dibujarTextoSombreado("Crafteo realizado con existo", 150, 50, 35);
+                            } else {
+                                gp.getInterfaz().dibujarTextoSombreado("Crafteo no realizado", 150, 50, 35);
+                            }
+                            break;
+                        }
+                        case 10: {
+                            craftear = false;
+                            break;
+                        }
+                    }
+                }
+            } else if (!craftear && menuEquipar) {
+                if (tecla == KeyEvent.VK_W) {
+                    gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() - 1);
+                    if (gp.getInterfaz().getNumeroMenu() < 0) {
+                        gp.getInterfaz().setNumeroMenu(8);
+                    }
+                }
+                if (tecla == KeyEvent.VK_S) {
+                    gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() + 1);
+                    if (gp.getInterfaz().numeroMenu > 8) {
+                        gp.getInterfaz().setNumeroMenu(0);
+                    }
+                }
+                if (tecla == KeyEvent.VK_ENTER) {
+                    boolean equipar;
+                    switch (gp.getInterfaz().numeroMenu){
+                        case 0:
+                            equipar=gp.getJugador().equiparObjeto("escudo");
+                            if (equipar) {
+                                System.out.println("Equipadoo");
+                                gp.getInterfaz().dibujarTextoSombreado("Se ha equipado", 150, 50, 35);
+                            } else {
+                                System.out.println("No equipado");
+                                gp.getInterfaz().dibujarTextoSombreado("No se ha equipado", 150, 50, 35);
+                            }
+                            break;
+                        case 1:
+                            equipar=gp.getJugador().equiparObjeto("escudoOro");
+                            if (equipar) {
+                                gp.getInterfaz().dibujarTextoSombreado("Se ha equipado", 150, 50, 35);
+                            } else {
+                                gp.getInterfaz().dibujarTextoSombreado("No se ha equipado", 150, 50, 35);
+                            }
+                            break;
+                        case 2:
+                            equipar=gp.getJugador().equiparObjeto("espada");
+                            if (equipar) {
+                                gp.getInterfaz().dibujarTextoSombreado("Se ha equipado", 150, 50, 35);
+                            } else {
+                                gp.getInterfaz().dibujarTextoSombreado("No se ha equipado", 150, 50, 35);
+                            }
+                            break;
+                        case 3:
+                            equipar=gp.getJugador().equiparObjeto("espadaFuego");
+                            if (equipar) {
+                                gp.getInterfaz().dibujarTextoSombreado("Se ha equipado", 150, 50, 35);
+                            } else {
+                                gp.getInterfaz().dibujarTextoSombreado("No se ha equipado", 150, 50, 35);
+                            }
+                            break;
+                        case 4:
+                            equipar=gp.getJugador().equiparObjeto("varaMago");
+                            if (equipar) {
+                                gp.getInterfaz().dibujarTextoSombreado("Se ha equipado", 150, 50, 35);
+                            } else {
+                                gp.getInterfaz().dibujarTextoSombreado("No se ha equipado", 150, 50, 35);
+                            }
+                            break;
+                        case 5:
+                            equipar=gp.getJugador().equiparObjeto("talismanSecreto");
+                            if (equipar) {
+                                gp.getInterfaz().dibujarTextoSombreado("Se ha equipado", 150, 50, 35);
+                            } else {
+                                gp.getInterfaz().dibujarTextoSombreado("No se ha equipado", 150, 50, 35);
+                            }
+                            break;
+                        case 6:
+                            equipar=gp.getJugador().equiparObjeto("yelmo");
+                            if (equipar) {
+                                gp.getInterfaz().dibujarTextoSombreado("Se ha equipado", 150, 50, 35);
+                            } else {
+                                gp.getInterfaz().dibujarTextoSombreado("No se ha equipado", 150, 50, 35);
+                            }
+                            break;
+                        case 7:
+                            equipar=gp.getJugador().equiparObjeto("peto");
+                            if (equipar) {
+                                gp.getInterfaz().dibujarTextoSombreado("Se ha equipado", 150, 50, 35);
+                            } else {
+                                gp.getInterfaz().dibujarTextoSombreado("No se ha equipado", 150, 50, 35);
+                            }
+                            break;
+                        case 8:
+                            menuEquipar=false;
+                    }
+
+
                 }
             }
         }
-        }
-        //memu de pausa
+//memu de pausa
         if (gp.estadoJuego == gp.pausa) {
             if (tecla == KeyEvent.VK_W) {
                 gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() - 1);
@@ -250,7 +434,6 @@ public class DetectorTeclas implements KeyListener {
                     if (gp.getInterfaz().getNumeroMenu() == 0) {
                         raza = Raza.HUMANO;
                         gp.getInterfaz().pantallaDelTitulo = 3;
-
                     }
                     if (gp.getInterfaz().getNumeroMenu() == 1) {
                         raza = Raza.ORCO;
@@ -285,6 +468,9 @@ public class DetectorTeclas implements KeyListener {
                 if (tecla == KeyEvent.VK_ENTER) {
                     if (gp.getInterfaz().getNumeroMenu() == 0) {
                         gp.setJugador(new Jugador(gp.getTeclado(), gp, textoIngresado.toString(), raza, clase, 1));
+                        gp.pararMusica();
+                        gp.empezarMusica(0);
+
                         gp.estadoJuego = gp.continuar;
                     }
                     if (gp.getInterfaz().getNumeroMenu() == 1) {
