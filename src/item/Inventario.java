@@ -57,6 +57,9 @@ public class Inventario {
         Espada espada = new Espada("espada", 1, Tipo.ESPADA,5,5.5,11,1);
         EspadaFuego espadaFuego = new EspadaFuego("espadaFuego",1, Tipo.ESPADA,6.5,5,0.9,11,2);
         VaraMago vara = new VaraMago("varaMago", 0,Tipo.VARA_DE_MAGO,3,7,5,Hechizo.PERDER_TURNO,11,5);
+        Item talisman = new Item("talismanSecreto",1,Tipo.TALISMAN_SECRETO,10,7);
+        Item yelmo=new Item("yelmo",1,Tipo.YELMO,1,7);
+        Item peto=new Item("peto",1,Tipo.PETO,6,7);
         //faltan yelmo, peto,escudo oro, talisman
 
         inventario.add(agua);
@@ -71,6 +74,9 @@ public class Inventario {
         inventario.add(espada);
         inventario.add(espadaFuego);
         inventario.add(vara);
+        inventario.add(talisman);
+        inventario.add(yelmo);
+        inventario.add(peto);
 
         return inventario;
     }
