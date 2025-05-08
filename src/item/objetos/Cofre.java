@@ -10,18 +10,20 @@ import java.io.File;
 import java.io.IOException;
 
 public class Cofre extends Objetos {
-    public Cofre() {
+
+    public Cofre(GamePanel gp) {
+        super(gp);
         this.nombre = "cofre";
+        objetoInteractuado=2;
         try {
             BufferedImage imagenPlantillaBuffered =  ImageIO.read(new File("src/recursos/imagenes/AssetsDeInventario.png"));
-             sprite = new Spritesheet(imagenPlantillaBuffered,13,9);
-            imagen = sprite.getImg(9,1,48);
+            plantillaSprite =new  Spritesheet(imagenPlantillaBuffered,13,9);
+            imagen = plantillaSprite.getImg(9,1,48);
         }catch (IOException e){
             e.printStackTrace();
         }
         colision = true;
     }
 
+    }
 
-
-}

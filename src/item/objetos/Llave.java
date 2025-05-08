@@ -1,5 +1,6 @@
 package item.objetos;
 
+import gamePanel.GamePanel;
 import recursos.imagenes.Spritesheet;
 
 import javax.imageio.ImageIO;
@@ -8,7 +9,9 @@ import java.io.File;
 import java.io.IOException;
 
 public class Llave extends Objetos {
-    public Llave() {
+    public Llave(GamePanel gp) {
+        super(gp);
+        objetoInteractuado = 1;
         this.nombre = "llave";
         try {
             BufferedImage imagenPlantillaBuffered =  ImageIO.read(new File("src/recursos/imagenes/AssetsDeInventario.png"));

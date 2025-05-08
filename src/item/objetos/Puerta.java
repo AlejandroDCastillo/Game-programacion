@@ -1,6 +1,6 @@
 package item.objetos;
 
-import item.Item;
+import gamePanel.GamePanel;
 import recursos.imagenes.Spritesheet;
 
 import javax.imageio.ImageIO;
@@ -9,7 +9,8 @@ import java.io.File;
 import java.io.IOException;
 
 public class Puerta extends Objetos {
-    public Puerta() {
+    public Puerta(GamePanel gp) {
+        super(gp);
         this.nombre = "Puerta";
         try {
             BufferedImage imagenPlantillaBuffered =  ImageIO.read(new File("src/recursos/imagenes/AssetsDeInventario.png"));

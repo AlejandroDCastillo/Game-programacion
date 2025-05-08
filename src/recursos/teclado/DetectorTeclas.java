@@ -14,6 +14,7 @@ public class DetectorTeclas implements KeyListener {
     public boolean abajo;
     public boolean izquierda;
     public boolean derecha;
+    public boolean enterPulsado=false;
     public boolean menuBoolean = false;
     //boolean que esconde el desplegable de crafteos
     public boolean craftear = false;
@@ -49,19 +50,24 @@ public class DetectorTeclas implements KeyListener {
     public void keyPressed(KeyEvent e) {
         //movimiento
         int tecla = e.getKeyCode();
-        if (tecla == KeyEvent.VK_A) {
+        if (gp.estadoJuego == gp.continuar) {
+            if (tecla == KeyEvent.VK_A) {
             izquierda = true;
         }
-        if (tecla == KeyEvent.VK_D) {
-            derecha = true;
-        }
-        if (tecla == KeyEvent.VK_W) {
-            arriba = true;
-        }
-        if (tecla == KeyEvent.VK_S) {
-            abajo = true;
-        }
+            if (tecla == KeyEvent.VK_D) {
+                derecha = true;
+            }
+            if (tecla == KeyEvent.VK_W) {
+                arriba = true;
+            }
+            if (tecla == KeyEvent.VK_S) {
+                abajo = true;
+            }
+            if (tecla == KeyEvent.VK_ENTER) {
+                enterPulsado = true;
+            }
 
+        }
         //inventario
         if (tecla == KeyEvent.VK_E) {
             if (gp.estadoJuego == gp.continuar) {
@@ -497,6 +503,9 @@ public class DetectorTeclas implements KeyListener {
         }
         if (tecla == KeyEvent.VK_S) {
             abajo = false;
+        }
+        if (tecla == KeyEvent.VK_ENTER) {
+            enterPulsado = false;
         }
     }
 }
