@@ -5,6 +5,7 @@ import item.Inventario;
 import item.objetos.GestorObjetos;
 import item.objetos.Objetos;
 import recursos.baldosas.GestorBaldosas;
+import recursos.eventos.GestorDeEventos;
 import recursos.mapas.DetectorDeColisiones;
 import recursos.musica.Musica;
 import recursos.teclado.DetectorTeclas;
@@ -12,6 +13,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class GamePanel extends JPanel implements Runnable{
     //Creamos el hilo para que no suscedan conflictos con los procesos
@@ -45,7 +48,7 @@ public class GamePanel extends JPanel implements Runnable{
     public GestorObjetos gestorObjetos = new GestorObjetos(this);
     public Objetos arrayobjetos[] = new Objetos[4];
     private UI interfaz= new UI(this);
-
+    private ArrayList<Entidad> arrayEntidad= new ArrayList<>();
     //ESTADO DEL JUEGO
     public final int menuInicio=0;
     public int estadoJuego=1;
@@ -55,7 +58,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int inventario=5;
     public final int craftear=6;
     public final int combate=7;
-
+    public GestorDeEventos gestorDeEventos = new GestorDeEventos(this);
 
     public GamePanel() {
         this.setBackground(Color.BLACK);
@@ -137,8 +140,6 @@ public class GamePanel extends JPanel implements Runnable{
     public void paint(Graphics g) {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
-
-        try {
             //menu inicio
             if(estadoJuego==menuInicio) {
                 //dibuja el menu de inicio
@@ -146,22 +147,40 @@ public class GamePanel extends JPanel implements Runnable{
             }else {
                 //el resto de cosas
                 gestorBaldosas.dibujar(g2d);
-                for (int i = 0; i < arrayobjetos.length; i++) {
-                    if (arrayobjetos[i] != null) {
-                        arrayobjetos[i].dibujar(g2d, this);
+                arrayEntidad.add(jugador);
+                for (int i = 0; i < arrayEnemigos.size(); i++) {
+                    if (arrayEnemigos.get(i) != null) {
+                        arrayEntidad.add(arrayEnemigos.get(i));
                     }
                 }
-                for(Enemigo e:arrayEnemigos){
-                    e.dibujar(g2d);
+                for (int i = 0; i < arrayobjetos.length; i++) {
+                    if (arrayobjetos[i] != null) {
+                        arrayEntidad.add( arrayobjetos[i]);
+                    }
                 }
-                jugador.dibujar(g2d);
+
+                //Ordenar la arrayList de entidad
+                Collections.sort(arrayEntidad, new Comparator<Entidad>() {
+                    @Override
+                    public int compare(Entidad o1, Entidad o2) {
+
+                        int resultado = Integer.compare((int) o1.getY(), (int) o2.getY());
+                        return resultado;
+                    }
+                });
+                //Dibujar Entidades
+                for (int i = 0; i < arrayEntidad.size(); i++) {
+                    arrayEntidad.get(i).dibujar(g2d);
+                }
+                //Vaciar lista Entidad
+                for (int i = 0; i < arrayEntidad.size(); i++) {
+                    arrayEntidad.remove(i);
+                }
                 interfaz.dibujar(g2d);
                 menuInventario.dibujar(g2d);
             }
 
-        }catch (IOException e){
-            throw new RuntimeException(e);
-        }
+
         g2d.dispose();
     }
 

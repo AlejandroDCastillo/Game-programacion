@@ -25,7 +25,11 @@ public class Enemigo extends Entidad{
      * @param nivel
      */
     public Enemigo(String nombre, Raza raza, Clase clase, int nivel, GamePanel gp,String imagePath) {
-        super(nombre, raza, clase, nivel,gp);
+        super(gp);
+        this.nombre=nombre;
+        this.raza=raza;
+        this.clase=clase;
+        this.nivel=nivel;
         iniciarLoot(nivel);
         super.colision=true;
         //colisiones

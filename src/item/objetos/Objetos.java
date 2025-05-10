@@ -1,22 +1,26 @@
 package item.objetos;
 
+import entidades.Entidad;
 import gamePanel.GamePanel;
-import recursos.imagenes.Spritesheet;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public abstract class Objetos {
+public abstract class Objetos extends Entidad {
     protected String nombre;
     protected BufferedImage imagen;
     protected boolean colision = false;
-    protected double x,y;
-    public Rectangle zonaDeColision = new Rectangle(0,0,48,48);
-    public int zonaDeColisionDefectoX=0, zonaDeColisionDefectoY=0;
-    Spritesheet sprite;
+    protected double x, y;
+    public Rectangle zonaDeColision = new Rectangle(0, 0, 48, 48);
+    public int zonaDeColisionDefectoX = 0, zonaDeColisionDefectoY = 0;
+    protected int objetoInteractuado = 0;
 
-    public void dibujar(Graphics2D g2d,GamePanel gp) {
-        g2d.drawImage(imagen, (int) x, (int) y,gp.getTamañofinalBaldosa(),gp.getTamañofinalBaldosa(), null);
+    public Objetos(GamePanel gp) {
+        super(gp);
+    }
+
+    public void dibujar(Graphics2D g2d) {
+        g2d.drawImage(imagen, (int) x, (int) y, gp.getTamañofinalBaldosa(), gp.getTamañofinalBaldosa(), null);
     }
 
     public String getNombre() {
@@ -83,11 +87,11 @@ public abstract class Objetos {
         this.zonaDeColisionDefectoY = zonaDeColisionDefectoY;
     }
 
-    public Spritesheet getSprite() {
-        return sprite;
+    public int getObjetoInteractuado() {
+        return objetoInteractuado;
     }
 
-    public void setSprite(Spritesheet sprite) {
-        this.sprite = sprite;
+    public void setObjetoInteractuado(int objetoInteractuado) {
+        this.objetoInteractuado = objetoInteractuado;
     }
 }

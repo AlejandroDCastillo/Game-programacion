@@ -2,6 +2,7 @@ package entidades;
 
 import gamePanel.GamePanel;
 import item.Item;
+import recursos.imagenes.Spritesheet;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -18,6 +19,7 @@ public abstract class Entidad {
     //cantidad de imagenes de la animacion
     protected int numSprite;
     //imagen(animación) de la entidad
+    protected Spritesheet plantillaSprite;
     protected BufferedImage sprite;
     //stats de entidad
     protected Clase clase;
@@ -39,19 +41,12 @@ public abstract class Entidad {
     protected boolean colision;
     protected double velocidadDiagonal;
 
-    public Entidad(String nombre, Raza raza, Clase clase, int nivel,GamePanel gp) {
-        this.nombre = nombre;
-        this.raza=raza;
-        this.clase=clase;
-        iniciarRaza(raza);
-        iniciarClase(clase);
-        estadisticasNivel(nivel);
+
+    public Entidad(GamePanel gp) {
         this.vida = getVidaMax();
         this.velocidad=getVelocidadMax();
         this.velocidadDiagonal = Math.hypot(this.velocidad,this.velocidad)/2;
-        this.nivel=nivel;
         this.gp=gp;
-
     }
 
     /**
@@ -187,6 +182,10 @@ public abstract class Entidad {
         this.mana = mana;
     }
 
+    public void dibujar(Graphics2D g2d) {
+
+    }
+
     @Override
     public String toString() {
         return "Entidad{" +
@@ -248,10 +247,6 @@ public abstract class Entidad {
 
     public void setNumSprite(int numSprite) {
         this.numSprite = numSprite;
-    }
-
-    public BufferedImage getSprite() {
-        return sprite;
     }
 
     public void setSprite(BufferedImage sprite) {
@@ -393,4 +388,18 @@ public abstract class Entidad {
     public void setZonaDeColisionDefectoY(int zonaDeColisionDefectoY) {
         this.zonaDeColisionDefectoY = zonaDeColisionDefectoY;
     }
+
+    public Spritesheet getPlantillaSprite() {
+        return plantillaSprite;
+    }
+
+    public void setPlantillaSprite(Spritesheet plantillaSprite) {
+        this.plantillaSprite = plantillaSprite;
+    }
+
+    public BufferedImage getSprite() {
+        return sprite;
+    }
+
+
 }

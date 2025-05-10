@@ -3,20 +3,10 @@ package entidades;
 import gamePanel.GamePanel;
 import item.Inventario;
 import item.Item;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import recursos.imagenes.Spritesheet;
 import recursos.teclado.DetectorTeclas;
 
 import javax.imageio.ImageIO;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -37,6 +27,7 @@ public class Jugador extends Entidad {
     private Item armadura;
     private Item escudo;
     private Item cabeza;
+    public int objetoInteractuado=0;
 
     /**
      * constructor del jugador
@@ -49,17 +40,33 @@ public class Jugador extends Entidad {
      * @param nivel
      */
     public Jugador(DetectorTeclas teclado, GamePanel gp, String nombre, Raza raza, Clase clase, int nivel) {
-        super(nombre, raza, clase, nivel, gp);
+        super(gp);
+        this.nombre=nombre;
+        this.raza=raza;
+        this.clase=clase;
+        this.nivel=nivel;
+        iniciarRaza(raza);
+        iniciarClase(clase);
+        estadisticasNivel(nivel);
+        this.velocidad=velocidadMax;
+        this.velocidadDiagonal = Math.hypot(this.velocidad,this.velocidad)/2;
         this.teclado = teclado;
         this.direccion = "";
-        x = 0;
-        y = 0;
+        x = 200;
+        y = 200;
         this.hambre = 100;
         this.sed = 100;
         this.inventario = Inventario.getInstance();
         zonaDeColision = new Rectangle(8, 16, 32, 32);
         zonaDeColisionDefectoX = zonaDeColision.x;
         zonaDeColisionDefectoY = zonaDeColision.y;
+        try{
+            String imagePath = "src/recursos/imagenes/caballero.png";
+            BufferedImage imagenPlantillaBuffered = ImageIO.read(new File(imagePath));
+            plantillaSprite = new Spritesheet(imagenPlantillaBuffered, 6, 4);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -226,9 +233,9 @@ public class Jugador extends Entidad {
 
         }
         colision = false;
-        boolean coli = true;
         gp.detectorDeColisiones.comprobarBaldosa(this);
         int objetoIndex = gp.detectorDeColisiones.comprobarObjetos(this, true);
+        gp.gestorDeEventos.comprobarEventos();
         recogerObjetos(objetoIndex);
         if (!colision) {
             switch (direccion) {
@@ -278,58 +285,42 @@ public class Jugador extends Entidad {
      * tomar el sprite correspondiente al jugador
      *
      * @return
-     * @throws IOException
+     *
      */
-    public BufferedImage obtenerImagenPlayer() throws IOException {
-        String imagePath = "src/recursos/imagenes/caballero.png";
-        BufferedImage imagenPlantillaBuffered = ImageIO.read(new File(imagePath));
-        Spritesheet plantillaJugador = new Spritesheet(imagenPlantillaBuffered, 6, 4);
+    public BufferedImage obtenerImagenPlayer()  {
         if (gp.estadoJuego==gp.menuInicio) {
-            return sprite = plantillaJugador.getImg(numSprite, 2, gp.getTamañofinalBaldosa());
+            return sprite = plantillaSprite.getImg(numSprite, 2, gp.getTamañofinalBaldosa());
         }
         return switch (direccion) {
             case "izquierda", "arriba-izquierda", "abajo-izquierda" ->
-                    sprite = plantillaJugador.getImg(2, numSprite, gp.getTamañofinalBaldosa());
+                    sprite = plantillaSprite.getImg(2, numSprite, gp.getTamañofinalBaldosa());
             case "derecha", "arriba-derecha", "abajo-derecha" ->
-                    sprite = plantillaJugador.getImg(3, numSprite, gp.getTamañofinalBaldosa());
-            case "arriba" -> sprite = plantillaJugador.getImg(numSprite, 1, gp.getTamañofinalBaldosa());
-            case "abajo" -> sprite = plantillaJugador.getImg(numSprite, 2, gp.getTamañofinalBaldosa());
-            default -> sprite = plantillaJugador.getImg(1, 3, gp.getTamañofinalBaldosa());
+                    sprite = plantillaSprite.getImg(3, numSprite, gp.getTamañofinalBaldosa());
+            case "arriba" -> sprite = plantillaSprite.getImg(numSprite, 1, gp.getTamañofinalBaldosa());
+            case "abajo" -> sprite = plantillaSprite.getImg(numSprite, 2, gp.getTamañofinalBaldosa());
+            default -> sprite = plantillaSprite.getImg(1, 3, gp.getTamañofinalBaldosa());
         };
-    }
-
-    /**
-     * metodo en sobrecarga paera la imagen del jugador en el inicio del juego
-     * @param x
-     * @param y
-     * @return
-     * @throws IOException
-     */
-    public BufferedImage obtenerImagenPlayer(int x, int y) throws IOException {
-        String imagePath = "src/recursos/imagenes/caballero.png";
-        BufferedImage imagenPlantillaBuffered = ImageIO.read(new File(imagePath));
-        Spritesheet plantillaJugador = new Spritesheet(imagenPlantillaBuffered, 6, 4);
-        return plantillaJugador.getImg(x, y, gp.getTamañofinalBaldosa());
     }
 
     public void recogerObjetos(int index) {
         String nombreObjeto = "";
         if (index != 999) {
             nombreObjeto = gp.arrayobjetos[index].getNombre();
+
         }
         switch (nombreObjeto) {
             case "llave":
+                objetoInteractuado = 1;
                 gp.arrayobjetos[index] = null;
                 llaves++;
                 break;
             case "cofre":
                 if (llaves > 0) {
-
-                    gp.arrayobjetos[index].setImagen(gp.arrayobjetos[index].getSprite().getImg(9, 0, 48));
-                    if (contadorUpdates % 20 == 0)
+                    gp.arrayobjetos[index].setImagen(gp.arrayobjetos[index].plantillaSprite.getImg(9,0,gp.getTamañofinalBaldosa()));
+                    if (contadorUpdates % 18 == 0) {
                         gp.arrayobjetos[index] = null;
+                    }
                     gp.getInterfaz().enseñarMensaje("ENHORABUENA \n has conseguido...");
-                    gp.efectoSonido(2);
                 } else {
                     gp.getInterfaz().enseñarMensaje("No tienes LLaves");
                 }
@@ -345,13 +336,128 @@ public class Jugador extends Entidad {
      * @param g2d
      * @throws IOException
      */
-    public void dibujar(Graphics2D g2d) throws IOException {
+    @Override
+    public void dibujar(Graphics2D g2d)  {
         g2d.fillRect((int) (x + 8), (int) (y + 16), 32, 32);
         g2d.drawImage(obtenerImagenPlayer(), (int) x, (int) y, gp.getTamañofinalBaldosa(), gp.getTamañofinalBaldosa(), null);
 
     }
 
+    /**
+     * metodo para iniciar por raza las estats
+     *
+     * @param raza
+     */
+    @Override
+    public void iniciarRaza(Raza raza) {
+        switch (raza) {
+            case HUMANO -> {
+                this.destreza = 10;
+                this.fuerza = 10;
+                this.velocidadMax = 3;
+                this.magia = 10;
+                this.vidaMax = 100;
+                this.mana=50;
+            }
+            case ELFO -> {
+                this.destreza = 20;
+                this.fuerza = 5;
+                this.velocidadMax = 5;
+                this.magia = 15;
+                this.vidaMax = 70;
+                this.mana=50;
+            }
+            case ENANO -> {
+                this.destreza = 5;
+                this.fuerza = 20;
+                this.velocidadMax = 2;
+                this.magia = 5;
+                this.vidaMax = 120;
+                this.mana=50;
+            }
+            case ORCO -> {
+                this.destreza = 15;
+                this.fuerza = 15;
+                this.velocidadMax = 2;
+                this.magia = 5;
+                this.vidaMax = 100;
+                this.mana=50;
+            }
 
+        }
+    }
+
+    /**
+     * metodo para modificar stats segun clase
+     *
+     * @param clase
+     */
+    @Override
+    public void iniciarClase(Clase clase) {
+        switch (clase) {
+            case MAGO -> {
+                setMagia(getMagia() + 10);
+                setVidaMax(getVidaMax() - 20);
+                setMana(getMana()+20);
+
+            }
+            case PICARO -> {
+                setDestreza(getDestreza() + 10);
+                setFuerza(getFuerza() - 5);
+            }
+            case CLERIGO -> {
+                setMagia(getMagia() + 5);
+                setVidaMax(getVidaMax() + 10);
+                setMana(getMana()+10);
+                setDestreza(getDestreza() - 5);
+            }
+            case GUERRERO -> {
+                setFuerza(getFuerza() + 10);
+                setVidaMax(getVidaMax() + 5);
+                setMagia(0);
+            }
+        }
+    }
+
+    /**
+     * metodo para establecer una subida de nivel
+     * @param nivel
+     */
+    @Override
+    public void estadisticasNivel(int nivel) {
+        Clase c=getClase();
+        //incremento proporcional al nivel
+        int incremento = 5 * nivel;
+        switch (c) {
+            case MAGO -> {
+                setMagia(getMagia() + incremento);
+                setMana(getMana()+incremento);
+                setDestreza(getDestreza() + (int) (incremento / 4));
+                setFuerza(getFuerza() + (int) (incremento / 4));
+            }
+            case PICARO -> {
+                setDestreza(getDestreza() + incremento);
+                setFuerza(getFuerza() + (int) (incremento / 4));
+                setMagia(getMagia() + (int) (incremento / 4));
+                setMana(getMana()+(int) (incremento / 4));
+            }
+            case CLERIGO -> {
+                setMagia(getMagia() + incremento);
+                setMana(getMana()+(int) (incremento / 2));
+                setDestreza(getDestreza() + (int) (incremento / 4));
+                setFuerza(getFuerza() + (int) (incremento / 4));
+            }
+            case GUERRERO -> {
+                setFuerza(getFuerza() + incremento);
+                setDestreza(getDestreza() + (int) (incremento / 4));
+                setMagia(getMagia() + (int) (incremento / 4));
+                setMana(getMana()+(int) (incremento / 4));
+            }
+
+        }
+        setVidaMax(getVidaMax() + (int) (incremento / 2));
+
+    }
     //GETTERS SETTERS Y TO STRING
 
     public Item getArma() {
@@ -402,16 +508,6 @@ public class Jugador extends Entidad {
 
     public void setGp(GamePanel gp) {
         this.gp = gp;
-    }
-
-    @Override
-    public BufferedImage getSprite() {
-        return sprite;
-    }
-
-    @Override
-    public void setSprite(BufferedImage sprite) {
-        this.sprite = sprite;
     }
 
     public int getHambre() {
