@@ -110,34 +110,52 @@ public class UI {
         texto = "salir";
         dibujarTextoSombreado(texto, 605, 310, 20);
         if (equipar) {
+            int x = 130, y = 50;
             dibujarVentanaGenerica(120, 0, 480, 110);
             if (numeroMenu == 0) {
                 dibujarTextoSombreado(">", 590, 155, 25);
-
+                texto = "Un yelmo se crea con un hiero y un hierro.";
+                dibujarTextoSombreado(texto, x, y, 15);
             }
             if (numeroMenu == 1) {
                 dibujarTextoSombreado(">", 590, 175, 25);
+                texto = "Un yelmo se crea con un hiero y un hierro.";
+                dibujarTextoSombreado(texto, x, y, 15);
             }
             if (numeroMenu == 2) {
                 dibujarTextoSombreado(">", 590, 195, 25);
+                texto = "Un yelmo se crea con un hiero y un hierro.";
+                dibujarTextoSombreado(texto, x, y, 15);
             }
             if (numeroMenu == 3) {
                 dibujarTextoSombreado(">", 590, 215, 25);
+                texto = "Un yelmo se crea con un hiero y un hierro.";
+                dibujarTextoSombreado(texto, x, y, 15);
             }
             if (numeroMenu == 4) {
                 dibujarTextoSombreado(">", 590, 235, 25);
+                texto = "Un yelmo se crea con un hiero y un hierro.";
+                dibujarTextoSombreado(texto, x, y, 15);
             }
             if (numeroMenu == 5) {
                 dibujarTextoSombreado(">", 590, 255, 25);
+                texto = "Un yelmo se crea con un hiero y un hierro.";
+                dibujarTextoSombreado(texto, x, y, 15);
             }
             if (numeroMenu == 6) {
                 dibujarTextoSombreado(">", 590, 275, 25);
+                texto = "Un yelmo se crea con un hiero y un hierro.";
+                dibujarTextoSombreado(texto, x, y, 15);
             }
             if (numeroMenu == 7) {
                 dibujarTextoSombreado(">", 590, 295, 25);
+                texto = "Un yelmo se crea con un hiero y un hierro.";
+                dibujarTextoSombreado(texto, x, y, 15);
             }
             if (numeroMenu == 8) {
                 dibujarTextoSombreado(">", 590, 315, 25);
+                texto = "Un yelmo se crea con un hiero y un hierro.";
+                dibujarTextoSombreado(texto, x, y, 15);
             }
         }
     }
