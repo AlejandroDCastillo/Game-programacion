@@ -110,4 +110,5 @@ public class Enemigo extends Entidad{
         g2d.drawImage(obtenerImagenEnemigo(this.imagePath), (int) super.x, (int) super.y, gp.getTamañofinalBaldosa(), gp.getTamañofinalBaldosa(), null);
     }
 
+
 }

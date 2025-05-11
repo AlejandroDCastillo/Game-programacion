@@ -1,0 +1,39 @@
+package gestores;
+
+import entidades.Clase;
+import entidades.Monstruos.Mon_Esqueleto;
+import entidades.Raza;
+import gamePanel.GamePanel;
+import item.objetos.Cofre;
+import item.objetos.Llave;
+import item.objetos.Puerta;
+
+public class GestorAssets {
+        GamePanel gp;
+        public GestorAssets(GamePanel gp) {
+            this.gp = gp;
+        }
+        public void establecerObjetos(){
+            gp.arrayobjetos[0]= new Llave(gp);
+            gp.arrayobjetos[0].setX(6 * gp.getTamañofinalBaldosa());
+            gp.arrayobjetos[0].setY(5 * gp.getTamañofinalBaldosa());
+
+            gp.arrayobjetos[2]= new Puerta(gp);
+            gp.arrayobjetos[2].setX(8 * gp.getTamañofinalBaldosa());
+            gp.arrayobjetos[2].setY(6 * gp.getTamañofinalBaldosa());
+
+            gp.arrayobjetos[1]= new Cofre(gp);
+            gp.arrayobjetos[1].setX(8 * gp.getTamañofinalBaldosa());
+            gp.arrayobjetos[1].setY(7 * gp.getTamañofinalBaldosa());
+        }
+
+        public void establecerEnemigos(){
+            gp.arrayEnemigos[0]= new Mon_Esqueleto(gp,"MonstruoPT", Raza.HUMANO, Clase.CLERIGO,1);
+            gp.arrayEnemigos[0].setX(5 * gp.getTamañofinalBaldosa());
+            gp.arrayEnemigos[0].setY(3 * gp.getTamañofinalBaldosa());
+
+
+        }
+    }
+
+

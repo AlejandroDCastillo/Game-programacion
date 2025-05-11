@@ -1,12 +1,12 @@
-package recursos.baldosas;
+package gestores;
 
 import gamePanel.GamePanel;
+import recursos.baldosas.Baldosa;
 import recursos.imagenes.Spritesheet;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.TileObserver;
 import java.io.*;
 
 public class GestorBaldosas {

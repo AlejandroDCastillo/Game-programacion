@@ -1,6 +1,7 @@
 package gamePanel;
 
 import entidades.Clase;
+import entidades.Entidad;
 import entidades.Raza;
 import recursos.imagenes.Spritesheet;
 
@@ -86,6 +87,8 @@ public class UI {
 
     public void dibujarCombate() {
 
+        g2d.setColor(Color.YELLOW);
+        g2d.fillRect(0, 0, gp.getWidth(), gp.getHeight());
     }
 
     public void dibujarMenuEquipar(boolean equipar) {
@@ -318,7 +321,6 @@ public class UI {
     public void dibujarMenuInicio() {
         int xWindow = 300;
         int yWindow = 130;
-
         //fondo
         if (pantallaDelTitulo == 0) {
             g2d.setColor(new Color(35, 164, 187));
@@ -660,6 +662,10 @@ public class UI {
         g2d.drawRoundRect(x + 5, y + 5, width - 10, height - 10, 25, 25);
     }
 
+    public void dibujarPantallcombate(Entidad monstruo) {
+        //Aquí irá el dibujo del combate
+    }
+
     /**
      * metodo para dibujar con sombreado
      *
@@ -759,4 +765,6 @@ public class UI {
     public void setPantallaDelTitulo(int pantallaDelTitulo) {
         this.pantallaDelTitulo = pantallaDelTitulo;
     }
+
+
 }

@@ -204,6 +204,7 @@ public class Jugador extends Entidad {
     /**
      * metodo para actualizar la imagen del jugador en el JPanel
      */
+    @Override
     public void update() {
         if (!teclado.abajo && !teclado.izquierda && !teclado.arriba && !teclado.derecha) {
             return;
@@ -235,6 +236,7 @@ public class Jugador extends Entidad {
         colision = false;
         gp.detectorDeColisiones.comprobarBaldosa(this);
         int objetoIndex = gp.detectorDeColisiones.comprobarObjetos(this, true);
+        int monstruoIndex = gp.detectorDeColisiones.comprobaEntidad(this,gp.arrayEnemigos);
         gp.gestorDeEventos.comprobarEventos();
         recogerObjetos(objetoIndex);
         if (!colision) {
@@ -271,6 +273,7 @@ public class Jugador extends Entidad {
 
             }
         }
+        colisionMonstruo(monstruoIndex);
         contadorUpdates++;
         if (contadorUpdates % 8 == 0) {
             numSprite++;
@@ -297,7 +300,7 @@ public class Jugador extends Entidad {
             case "derecha", "arriba-derecha", "abajo-derecha" ->
                     sprite = plantillaSprite.getImg(3, numSprite, gp.getTamañofinalBaldosa());
             case "arriba" -> sprite = plantillaSprite.getImg(numSprite, 1, gp.getTamañofinalBaldosa());
-            case "abajo" -> sprite = plantillaSprite.getImg(numSprite, 2, gp.getTamañofinalBaldosa());
+            case "abajo" -> sprite = plantillaSprite.getImg(numSprite, 0, gp.getTamañofinalBaldosa());
             default -> sprite = plantillaSprite.getImg(1, 3, gp.getTamañofinalBaldosa());
         };
     }
@@ -330,6 +333,13 @@ public class Jugador extends Entidad {
 
     }
 
+    public void colisionMonstruo(int index){
+        if (index!=999)
+        if (gp.arrayEnemigos[index] != null) {
+            gp.estadoJuego=gp.combate;
+        }
+    }
+
     /**
      * metodo que dibuja el sprite en pantalla
      *
@@ -338,9 +348,9 @@ public class Jugador extends Entidad {
      */
     @Override
     public void dibujar(Graphics2D g2d)  {
+        g2d.setColor(Color.black);
         g2d.fillRect((int) (x + 8), (int) (y + 16), 32, 32);
         g2d.drawImage(obtenerImagenPlayer(), (int) x, (int) y, gp.getTamañofinalBaldosa(), gp.getTamañofinalBaldosa(), null);
-
     }
 
     /**

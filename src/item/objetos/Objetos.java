@@ -17,6 +17,7 @@ public abstract class Objetos extends Entidad {
 
     public Objetos(GamePanel gp) {
         super(gp);
+        direccion="abajo";
     }
 
     public void dibujar(Graphics2D g2d) {

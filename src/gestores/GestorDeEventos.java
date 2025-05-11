@@ -1,4 +1,4 @@
-package recursos.eventos;
+package gestores;
 
 import gamePanel.GamePanel;
 

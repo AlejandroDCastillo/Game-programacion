@@ -3,6 +3,7 @@ package entidades;
 import gamePanel.GamePanel;
 import item.Item;
 import recursos.imagenes.Spritesheet;
+import utiles.UtilDiego;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -12,6 +13,7 @@ public abstract class Entidad {
     //stats de movimiento
     protected double x;
     protected double y;
+    protected int contadorAccion;
     //direccion tratada com ostring para un futuro switch
     protected String direccion;
     //contador para regular frames por segundo FPS
@@ -48,6 +50,7 @@ public abstract class Entidad {
         this.velocidadDiagonal = Math.hypot(this.velocidad,this.velocidad)/2;
         this.gp=gp;
     }
+
 
     /**
      * metodo para iniciar por raza las estats
@@ -183,7 +186,62 @@ public abstract class Entidad {
     }
 
     public void dibujar(Graphics2D g2d) {
+        g2d.drawImage(sprite,(int)x,(int)y,gp.getTamañofinalBaldosa(),gp.getTamañofinalBaldosa(),null);
+    }
 
+
+    public void update() {
+        establecerAccion();
+        colision=false;
+        gp.detectorDeColisiones.comprobarBaldosa(this);
+        gp.detectorDeColisiones.comprobarObjetos(this,false);
+        gp.detectorDeColisiones.comprobaEntidad(this,gp.arrayEnemigos);
+        gp.detectorDeColisiones.comprobarJugador(this);
+        if (!colision) {
+            switch (direccion) {
+                case "arriba":
+                    y = y - velocidad;
+                    break;
+                case "abajo":
+                    y = y + velocidad;
+                    break;
+                case "izquierda":
+                    x = x - velocidad;
+                    break;
+                case "derecha":
+                    x = x + velocidad;
+                    break;
+            }
+        }
+        contadorUpdates++;
+        if (contadorUpdates % 8 == 0) {
+            numSprite++;
+        }
+        if (numSprite >= 2) {
+            numSprite = 0;
+            contadorUpdates = 0;
+        }
+    }
+
+    public void establecerAccion(){
+        contadorAccion++;
+        if (contadorAccion==120){
+            int i =UtilDiego.numRandomentero(1,100);
+
+            if (i <= 25) {
+                direccion = "izquierda";
+            }
+            if (i>25&&i<=50){
+                direccion = "derecha";
+            }
+            if (i>50&&i<=75){
+                direccion = "arriba";
+            }
+            if (i>75&&i<=100){
+                direccion = "abajo";
+            }
+            contadorAccion=0;
+        }
     }
 
     @Override
@@ -386,7 +444,7 @@ public abstract class Entidad {
     }
 
     public void setZonaDeColisionDefectoY(int zonaDeColisionDefectoY) {
-        this.zonaDeColisionDefectoY = zonaDeColisionDefectoY;
+
     }
 
     public Spritesheet getPlantillaSprite() {
@@ -401,5 +459,9 @@ public abstract class Entidad {
         return sprite;
     }
 
-
+    protected void combate() {
+        gp.estadoJuego=gp.combate;
+        //Aquí ira todas las funciones de golpes curaciones etc...
+    }
 }
+

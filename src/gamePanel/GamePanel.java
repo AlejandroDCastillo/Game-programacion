@@ -1,17 +1,15 @@
 package gamePanel;
 import entidades.*;
 import gamePanel.escenarios.MenuInventario;
-import item.Inventario;
-import item.objetos.GestorObjetos;
+import gestores.GestorAssets;
 import item.objetos.Objetos;
-import recursos.baldosas.GestorBaldosas;
-import recursos.eventos.GestorDeEventos;
-import recursos.mapas.DetectorDeColisiones;
+import gestores.GestorBaldosas;
+import gestores.GestorDeEventos;
+import gestores.DetectorDeColisiones;
 import recursos.musica.Musica;
 import recursos.teclado.DetectorTeclas;
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -41,12 +39,12 @@ public class GamePanel extends JPanel implements Runnable{
     Musica musica=new Musica();
     //Cosas de la pantalla
     private Jugador jugador;
-    public ArrayList<Enemigo> arrayEnemigos;
     private MenuInventario menuInventario = new MenuInventario(this);
     private GestorBaldosas gestorBaldosas = new GestorBaldosas(this);
     public DetectorDeColisiones detectorDeColisiones = new DetectorDeColisiones(this);
-    public GestorObjetos gestorObjetos = new GestorObjetos(this);
+    public GestorAssets gestorAssets = new GestorAssets(this);
     public Objetos arrayobjetos[] = new Objetos[4];
+    public Entidad arrayEnemigos[]= new Entidad[10];
     private UI interfaz= new UI(this);
     private ArrayList<Entidad> arrayEntidad= new ArrayList<>();
     //ESTADO DEL JUEGO
@@ -69,7 +67,6 @@ public class GamePanel extends JPanel implements Runnable{
         this.add(menuInventario);
         startThreadDelJuego();
         establecerJuego();
-        this.arrayEnemigos=iniciarArrayEnemigos();
     }
 
     /**
@@ -84,7 +81,8 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void establecerJuego(){
-        gestorObjetos.establecerObjetos();
+        gestorAssets.establecerObjetos();
+        gestorAssets.establecerEnemigos();
         empezarMusica(1);
         estadoJuego=menuInicio;
     }
@@ -128,6 +126,11 @@ public class GamePanel extends JPanel implements Runnable{
     private void update() {
         if (estadoJuego==continuar) {
             jugador.update();
+            for (int i =0;i<arrayEnemigos.length;i++){
+                if (arrayEnemigos[i]!=null){
+                    arrayEnemigos[i].update();
+                }
+            }
         }else if (estadoJuego==pausa) {
             //no sucede nada
         }else if(estadoJuego==inventario){
@@ -148,9 +151,9 @@ public class GamePanel extends JPanel implements Runnable{
                 //el resto de cosas
                 gestorBaldosas.dibujar(g2d);
                 arrayEntidad.add(jugador);
-                for (int i = 0; i < arrayEnemigos.size(); i++) {
-                    if (arrayEnemigos.get(i) != null) {
-                        arrayEntidad.add(arrayEnemigos.get(i));
+                for (int i = 0; i < arrayEnemigos.length; i++) {
+                    if (arrayEnemigos[i] != null) {
+                        arrayEntidad.add(arrayEnemigos[i]);
                     }
                 }
                 for (int i = 0; i < arrayobjetos.length; i++) {

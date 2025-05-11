@@ -361,6 +361,7 @@ public class DetectorTeclas implements KeyListener {
         //tecla de menu
         if (gp.estadoJuego == gp.menuInicio) {
             if (gp.getInterfaz().getPantallaDelTitulo() == 0) {
+
                 if (tecla == KeyEvent.VK_W) {
                     gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() - 1);
                     if (gp.getInterfaz().getNumeroMenu() < 0) {
@@ -376,6 +377,7 @@ public class DetectorTeclas implements KeyListener {
                 if (tecla == KeyEvent.VK_ENTER) {
                     if (gp.getInterfaz().getNumeroMenu() == 0) {
                         gp.getInterfaz().pantallaDelTitulo = 1;
+                        gp.getInterfaz().setNumeroMenu(0);
                     }
                     if (gp.getInterfaz().getNumeroMenu() == 1) {
                         //para cargar
@@ -403,24 +405,27 @@ public class DetectorTeclas implements KeyListener {
                     if (gp.getInterfaz().getNumeroMenu() == 0) {
                         clase = Clase.MAGO;
                         gp.getInterfaz().pantallaDelTitulo = 2;
+                        gp.getInterfaz().setNumeroMenu(0);
 
                     }
                     if (gp.getInterfaz().getNumeroMenu() == 1) {
                         clase = Clase.GUERRERO;
                         gp.getInterfaz().pantallaDelTitulo = 2;
-
+                        gp.getInterfaz().setNumeroMenu(0);
                     }
                     if (gp.getInterfaz().getNumeroMenu() == 2) {
                         clase = Clase.CLERIGO;
                         gp.getInterfaz().pantallaDelTitulo = 2;
+                        gp.getInterfaz().setNumeroMenu(0);
                     }
                     if (gp.getInterfaz().getNumeroMenu() == 3) {
                         clase = Clase.PICARO;
                         gp.getInterfaz().pantallaDelTitulo = 2;
-
+                        gp.getInterfaz().setNumeroMenu(0);
                     }
                     if (gp.getInterfaz().getNumeroMenu() == 4) {
                         System.exit(0);
+                        gp.getInterfaz().setNumeroMenu(0);
                     }
                 }
             } else if (gp.getInterfaz().getPantallaDelTitulo() == 2) {
@@ -440,22 +445,27 @@ public class DetectorTeclas implements KeyListener {
                     if (gp.getInterfaz().getNumeroMenu() == 0) {
                         raza = Raza.HUMANO;
                         gp.getInterfaz().pantallaDelTitulo = 3;
+                        gp.getInterfaz().setNumeroMenu(0);
                     }
                     if (gp.getInterfaz().getNumeroMenu() == 1) {
                         raza = Raza.ORCO;
                         gp.getInterfaz().pantallaDelTitulo = 3;
+                        gp.getInterfaz().setNumeroMenu(0);
                     }
                     if (gp.getInterfaz().getNumeroMenu() == 2) {
                         raza = Raza.ELFO;
                         gp.getInterfaz().pantallaDelTitulo = 3;
+                        gp.getInterfaz().setNumeroMenu(0);
                     }
                     if (gp.getInterfaz().getNumeroMenu() == 3) {
                         raza = Raza.ENANO;
                         gp.getInterfaz().pantallaDelTitulo = 3;
+                        gp.getInterfaz().setNumeroMenu(0);
 
                     }
                     if (gp.getInterfaz().getNumeroMenu() == 4) {
                         System.exit(0);
+                        gp.getInterfaz().setNumeroMenu(0);
                     }
                 }
             } else if (gp.getInterfaz().getPantallaDelTitulo() == 4) {
@@ -474,12 +484,14 @@ public class DetectorTeclas implements KeyListener {
                 if (tecla == KeyEvent.VK_ENTER) {
                     if (gp.getInterfaz().getNumeroMenu() == 0) {
                         gp.setJugador(new Jugador(gp.getTeclado(), gp, textoIngresado.toString(), raza, clase, 1));
+                        gp.getInterfaz().setNumeroMenu(0);
                         gp.pararMusica();
                         gp.empezarMusica(0);
 
                         gp.estadoJuego = gp.continuar;
                     }
                     if (gp.getInterfaz().getNumeroMenu() == 1) {
+                        gp.getInterfaz().setNumeroMenu(0);
                         gp.getInterfaz().pantallaDelTitulo = 3;
                         textoIngresado.delete(0, textoIngresado.length());
                     }
