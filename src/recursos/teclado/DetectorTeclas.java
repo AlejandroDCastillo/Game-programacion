@@ -16,6 +16,8 @@ public class DetectorTeclas implements KeyListener {
     public boolean derecha;
     public boolean enterPulsado=false;
     public boolean menuBoolean = false;
+    public boolean consumible=true;
+    public boolean atacar=false;
     //boolean que esconde el desplegable de crafteos
     public boolean craftear = false;
     //bolean para desplegable de equipar
@@ -78,7 +80,7 @@ public class DetectorTeclas implements KeyListener {
                 gp.estadoJuego = gp.continuar;
             }
         }
-        //inventario
+        //menus inventario
         if (gp.estadoJuego == gp.inventario) {
             if (!craftear && !menuEquipar) {
                 if (tecla == KeyEvent.VK_W) {
@@ -320,7 +322,7 @@ public class DetectorTeclas implements KeyListener {
                 }
             }
         }
-//memu de pausa
+        //memu de pausa
         if (gp.estadoJuego == gp.pausa) {
             if (tecla == KeyEvent.VK_W) {
                 gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() - 1);
@@ -487,7 +489,6 @@ public class DetectorTeclas implements KeyListener {
                         gp.getInterfaz().setNumeroMenu(0);
                         gp.pararMusica();
                         gp.empezarMusica(0);
-
                         gp.estadoJuego = gp.continuar;
                     }
                     if (gp.getInterfaz().getNumeroMenu() == 1) {
@@ -497,6 +498,11 @@ public class DetectorTeclas implements KeyListener {
                     }
                 }
             }
+        }
+        //combate
+        if(gp.estadoJuego==gp.combate){
+            //sonido de batalla
+
         }
     }
 

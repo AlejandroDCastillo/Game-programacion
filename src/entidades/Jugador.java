@@ -336,6 +336,17 @@ public class Jugador extends Entidad {
     public void colisionMonstruo(int index){
         if (index!=999)
         if (gp.arrayEnemigos[index] != null) {
+            //efecto sonido de combate
+            gp.pararMusica();
+            gp.efectoSonido(3);
+            gp.getGraphics().setColor(Color.black);
+            gp.getGraphics().fillRect(0,0,gp.getWidth(),gp.getHeight());
+            try {
+                Thread.sleep(2000); // Espera 2000 milisegundos (2 segundos)
+            } catch (InterruptedException e) {
+                System.out.println("La espera fue interrumpida.");
+            }
+            gp.empezarMusica(4);
             gp.estadoJuego=gp.combate;
         }
     }

@@ -2,7 +2,9 @@ package gamePanel;
 
 import entidades.Clase;
 import entidades.Entidad;
+import entidades.Jugador;
 import entidades.Raza;
+import item.Item;
 import recursos.imagenes.Spritesheet;
 
 import javax.imageio.ImageIO;
@@ -80,6 +82,7 @@ public class UI {
 
             //combate
             if (gp.estadoJuego == gp.combate) {
+
                 dibujarCombate();
             }
         }
@@ -87,10 +90,107 @@ public class UI {
 
     public void dibujarCombate() {
 
-        g2d.setColor(Color.YELLOW);
-        g2d.fillRect(0, 0, gp.getWidth(), gp.getHeight());
+        g2d.setColor(Color.DARK_GRAY);
+        g2d.fillRect(0, 0, gp.getWidth(), gp.getHeight() / 2);
+        g2d.setColor(new Color(100, 0, 0));
+        g2d.fillRect(0, gp.getHeight() / 2, gp.getWidth(), gp.getHeight() / 2);
+        try {
+            //cargamos la imagen del personaje
+            String imagePath = "src/recursos/imagenes/caballero.png";
+            BufferedImage imagenPlantillaBuffered = ImageIO.read(new File(imagePath));
+            Spritesheet plantillaJugador = new Spritesheet(imagenPlantillaBuffered, 6, 4);
+            BufferedImage img = plantillaJugador.getImg(3, 0);
+            //la escalamos usando el metodo por defecto
+            Image imgEscalada = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+//            dibujamos en pantalla
+            g2d.drawImage(imgEscalada, 100, 100, null);
+        } catch (Exception e) {
+            System.out.println("ERROR: No se encuentra la imagen del jugador");
+        }
+        try {
+            //cargamos la imagen del enemigo
+            String imagePath = "src/recursos/imagenes/caballero.png";
+            BufferedImage imagenPlantillaBuffered = ImageIO.read(new File(imagePath));
+            Spritesheet plantillaJugador = new Spritesheet(imagenPlantillaBuffered, 6, 4);
+            BufferedImage img = plantillaJugador.getImg(2, 0);
+            //la escalamos usando el metodo por defecto
+            Image imgEscalada = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+//            dibujamos en pantalla
+            g2d.drawImage(imgEscalada, 550, 100, null);
+        } catch (Exception e) {
+            System.out.println("ERROR: No se encuentra la imagen del jugador");
+        }
+        //pantalla de equipacion y stats
+        try {
+            //cargamos la imagen del personaje
+            String imagePath = "src/recursos/imagenes/caballero.png";
+            BufferedImage imagenPlantillaBuffered = ImageIO.read(new File(imagePath));
+            Spritesheet plantillaJugador = new Spritesheet(imagenPlantillaBuffered, 6, 4);
+            BufferedImage img = plantillaJugador.getImg(1, 0);
+            //la escalamos usando el metodo por defecto
+            Image imgEscalada = img.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+//            dibujamos en pantalla
+            g2d.drawImage(imgEscalada, 450, 350, null);
+        } catch (Exception e) {
+            System.out.println("ERROR: No se encuentra la imagen del jugador");
+        }
+        //inventario equipar
+        try {
+            String imagePath = "src/recursos/imagenes/equipar.png";
+            BufferedImage imagenequipados = ImageIO.read(new File(imagePath));
+//            Image imgEscaladaequipar = imagenequipados.getScaledInstance(-100, -100, Image.SCALE_SMOOTH);
+            g2d.drawImage(imagenequipados, 600, 250, null);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        // objetos equipados
+        Jugador pj = gp.getJugador();
+        Item item = null;
+        if (pj.getArma() != null) {
+            item = pj.getArma();
+            g2d.drawImage(item.getPlantillaInventario().getImg(item.getX(), item.getY()), 622
+                    , 325, 45, 45, null);
+        }
+        if (pj.getArmadura() != null) {
+            item = pj.getArmadura();
+            g2d.drawImage(item.getPlantillaInventario().getImg(item.getX(), item.getY()), 622
+                    , 375, 45, 45, null);
+        }
+        if (pj.getCabeza() != null) {
+            item = pj.getCabeza();
+            g2d.drawImage(item.getPlantillaInventario().getImg(item.getX(), item.getY()), 622
+                    , 427, 45, 45, null);
+
+        }
+        if (pj.getEscudo() != null) {
+            item = pj.getEscudo();
+            g2d.drawImage(item.getPlantillaInventario().getImg(item.getX(), item.getY()), 622
+                    , 470, 45, 45, null);
+        }
+        //menu de batalla
+        dibujarTextoSombreado("Atacar", 50, 350, 25);
+        dibujarTextoSombreado("Defender", 50, 410, 25);
+        dibujarTextoSombreado("Consumibles", 50, 470, 25);
+        dibujarTextoSombreado("Salir", 50, 530, 25);
+
+        if (gp.getTeclado().consumible) {
+            dibujarVentanaGenerica(250, gp.getHeight() / 2 + 30, 200, 250);
+            dibujarTextoSombreado("P.Mana", 290, 400, 25);
+            dibujarTextoSombreado("P.Vida", 290, 500, 25);
+        }
+        if (gp.getTeclado().atacar) {
+            dibujarVentanaGenerica(250, gp.getHeight() / 2 + 30, 200, 250);
+            dibujarTextoSombreado("Basico", 290, 400, 25);
+            dibujarTextoSombreado("Critico", 290, 500, 25);
+        }
+
     }
 
+    /**
+     * metodo que dibuja el menu de equipar
+     *
+     * @param equipar
+     */
     public void dibujarMenuEquipar(boolean equipar) {
         dibujarVentanaGenerica(580, 110, 180, 280);
         String texto;
@@ -163,6 +263,11 @@ public class UI {
         }
     }
 
+    /**
+     * metodo que dibuja el menu de craftear
+     *
+     * @param craftear
+     */
     public void dibujarMenuCrafteo(boolean craftear) {
         dibujarVentanaGenerica(580, 110, 180, 280);
         String texto;
@@ -213,14 +318,14 @@ public class UI {
                 texto = "Una espadaFuego se crea con una madera,";
                 dibujarTextoSombreado(texto, x, y, 15);
                 texto = "un hierro, un oro y un carbón.";
-                dibujarTextoSombreado(texto, x,y+20, 15);
+                dibujarTextoSombreado(texto, x, y + 20, 15);
             }
             if (numeroMenu == 4) {
                 dibujarTextoSombreado(">", 590, 235, 25);
                 texto = "Una varaMago se crea con dos de madera,";
                 dibujarTextoSombreado(texto, x, y, 15);
                 texto = "un oro y un hierro.";
-                dibujarTextoSombreado(texto, x, y+20, 15);
+                dibujarTextoSombreado(texto, x, y + 20, 15);
             }
 
             if (numeroMenu == 5) {
@@ -256,6 +361,11 @@ public class UI {
         }
     }
 
+    /**
+     * metodo que dibuja el inventario
+     *
+     * @param craftear
+     */
     public void dibujarInventario(boolean craftear) {
         String texto;
         dibujarVentanaGenerica(2, 110, 140, 280);
@@ -660,10 +770,6 @@ public class UI {
         g2d.setColor(c);
         g2d.setStroke(new BasicStroke(5));
         g2d.drawRoundRect(x + 5, y + 5, width - 10, height - 10, 25, 25);
-    }
-
-    public void dibujarPantallcombate(Entidad monstruo) {
-        //Aquí irá el dibujo del combate
     }
 
     /**

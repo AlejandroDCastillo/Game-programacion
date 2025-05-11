@@ -17,6 +17,8 @@ public class Musica {
         URLMusica[0] = getClass().getResource("/recursos/musica/MusicaJuego.wav");
         URLMusica[1] = getClass().getResource("/recursos/musica/comarca.wav");
         URLMusica[2] = getClass().getResource("/recursos/musica/cofre.wav");
+        URLMusica[3] = getClass().getResource("/recursos/musica/batalla.wav");
+        URLMusica[4] = getClass().getResource("/recursos/musica/combate.wav");
     }
 
     /**
