@@ -1,10 +1,14 @@
 package entidades;
 
 import gamePanel.GamePanel;
+import gestores.GestorCombate;
 import item.Inventario;
 import item.Item;
+import item.armadura.Armadura;
+import item.armas.Arma;
 import recursos.imagenes.Spritesheet;
 import recursos.teclado.DetectorTeclas;
+import utiles.UtilDiego;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -22,11 +26,6 @@ public class Jugador extends Entidad {
     private int sed;
     private Inventario inventario;
     private int llaves = 0;
-    //obj equipados
-    private Item arma;
-    private Item armadura;
-    private Item escudo;
-    private Item cabeza;
     public int objetoInteractuado=0;
 
     /**
@@ -48,7 +47,7 @@ public class Jugador extends Entidad {
         iniciarRaza(raza);
         iniciarClase(clase);
         estadisticasNivel(nivel);
-        this.velocidad=velocidadMax;
+        this.velocidad=velocidadMax/2;
         this.velocidadDiagonal = Math.hypot(this.velocidad,this.velocidad)/2;
         this.teclado = teclado;
         this.direccion = "";
@@ -116,46 +115,63 @@ public class Jugador extends Entidad {
 
     public boolean equiparObjeto(String objeto) {
         Item obj = inventario.buscarObjeto(objeto);
-        if (obj != null) {
-            switch (objeto) {
-                case "escudo", "escudoOro", "talismanSecreto": {
-                    if (obj.getCantidad() > 0) {
-                        setEscudo(obj);
-                        return true;
-                    } else {
-                        return false;
+        if (obj !=null){
+            if (obj.getCantidad() > 0) {
+                if (obj instanceof Armadura) {
+                    Armadura objArmadura = (Armadura) obj;
+                    switch (objeto) {
+                        case "escudo", "escudoOro", "talismanSecreto": {
+                            if (objArmadura.getCantidad() > 0) {
+                                setEscudo(objArmadura);
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        }
+                        case "yelmo": {
+                            if (obj.getCantidad() > 0) {
+                                setCabeza(obj);
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        }
+                        case "peto": {
+                            if (obj.getCantidad() > 0) {
+                                setArmadura(obj);
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        }
                     }
                 }
-                case "espada", "espadaFuego", "varaMago": {
-                    if (obj.getCantidad() > 0) {
-                        setArma(obj);
-                        return true;
-                    } else {
-                        return false;
+                else if (obj instanceof Arma){
+                    Arma objArma = (Arma) inventario.buscarObjeto(objeto);
+                    switch (objeto) {
+                        case"espadaFuego":{
+                            if (objArma.getCantidad() > 0) {
+                                objArma.aumentar(this,8);
+                                setArma(objArma);
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        }
+                        case"varaMago":{
+                            if (objArma.getCantidad() > 0) {
+                                objArma.aumentar(this,20);
+                                setArma(objArma);
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        }
                     }
                 }
-                case "yelmo": {
-                    if (obj.getCantidad() > 0) {
-                        setCabeza(obj);
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
-                case "peto": {
-                    if (obj.getCantidad() > 0) {
-                        setArmadura(obj);
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
-                default:
-                    return false;
             }
-        }else{
-            return false;
         }
+            return false;
     }
 
     /**
@@ -274,6 +290,7 @@ public class Jugador extends Entidad {
             }
         }
         colisionMonstruo(monstruoIndex);
+        System.out.println(this);
         contadorUpdates++;
         if (contadorUpdates % 8 == 0) {
             numSprite++;
@@ -348,8 +365,11 @@ public class Jugador extends Entidad {
             }
             gp.empezarMusica(4);
             gp.estadoJuego=gp.combate;
+            gp.gc= new GestorCombate(this,gp.arrayEnemigos[index],gp);
         }
     }
+
+
 
     /**
      * metodo que dibuja el sprite en pantalla
@@ -364,128 +384,13 @@ public class Jugador extends Entidad {
         g2d.drawImage(obtenerImagenPlayer(), (int) x, (int) y, gp.getTamañofinalBaldosa(), gp.getTamañofinalBaldosa(), null);
     }
 
-    /**
-     * metodo para iniciar por raza las estats
-     *
-     * @param raza
-     */
-    @Override
-    public void iniciarRaza(Raza raza) {
-        switch (raza) {
-            case HUMANO -> {
-                this.destreza = 10;
-                this.fuerza = 10;
-                this.velocidadMax = 3;
-                this.magia = 10;
-                this.vidaMax = 100;
-                this.mana=50;
-            }
-            case ELFO -> {
-                this.destreza = 20;
-                this.fuerza = 5;
-                this.velocidadMax = 5;
-                this.magia = 15;
-                this.vidaMax = 70;
-                this.mana=50;
-            }
-            case ENANO -> {
-                this.destreza = 5;
-                this.fuerza = 20;
-                this.velocidadMax = 2;
-                this.magia = 5;
-                this.vidaMax = 120;
-                this.mana=50;
-            }
-            case ORCO -> {
-                this.destreza = 15;
-                this.fuerza = 15;
-                this.velocidadMax = 2;
-                this.magia = 5;
-                this.vidaMax = 100;
-                this.mana=50;
-            }
-
-        }
-    }
-
-    /**
-     * metodo para modificar stats segun clase
-     *
-     * @param clase
-     */
-    @Override
-    public void iniciarClase(Clase clase) {
-        switch (clase) {
-            case MAGO -> {
-                setMagia(getMagia() + 10);
-                setVidaMax(getVidaMax() - 20);
-                setMana(getMana()+20);
-
-            }
-            case PICARO -> {
-                setDestreza(getDestreza() + 10);
-                setFuerza(getFuerza() - 5);
-            }
-            case CLERIGO -> {
-                setMagia(getMagia() + 5);
-                setVidaMax(getVidaMax() + 10);
-                setMana(getMana()+10);
-                setDestreza(getDestreza() - 5);
-            }
-            case GUERRERO -> {
-                setFuerza(getFuerza() + 10);
-                setVidaMax(getVidaMax() + 5);
-                setMagia(0);
-            }
-        }
-    }
-
-    /**
-     * metodo para establecer una subida de nivel
-     * @param nivel
-     */
-    @Override
-    public void estadisticasNivel(int nivel) {
-        Clase c=getClase();
-        //incremento proporcional al nivel
-        int incremento = 5 * nivel;
-        switch (c) {
-            case MAGO -> {
-                setMagia(getMagia() + incremento);
-                setMana(getMana()+incremento);
-                setDestreza(getDestreza() + (int) (incremento / 4));
-                setFuerza(getFuerza() + (int) (incremento / 4));
-            }
-            case PICARO -> {
-                setDestreza(getDestreza() + incremento);
-                setFuerza(getFuerza() + (int) (incremento / 4));
-                setMagia(getMagia() + (int) (incremento / 4));
-                setMana(getMana()+(int) (incremento / 4));
-            }
-            case CLERIGO -> {
-                setMagia(getMagia() + incremento);
-                setMana(getMana()+(int) (incremento / 2));
-                setDestreza(getDestreza() + (int) (incremento / 4));
-                setFuerza(getFuerza() + (int) (incremento / 4));
-            }
-            case GUERRERO -> {
-                setFuerza(getFuerza() + incremento);
-                setDestreza(getDestreza() + (int) (incremento / 4));
-                setMagia(getMagia() + (int) (incremento / 4));
-                setMana(getMana()+(int) (incremento / 4));
-            }
-
-        }
-        setVidaMax(getVidaMax() + (int) (incremento / 2));
-
-    }
     //GETTERS SETTERS Y TO STRING
 
-    public Item getArma() {
+    public Arma getArma() {
         return arma;
     }
 
-    public void setArma(Item arma) {
+    public void setArma(Arma arma) {
         this.arma = arma;
     }
 

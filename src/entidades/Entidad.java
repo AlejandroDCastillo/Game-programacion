@@ -2,17 +2,23 @@ package entidades;
 
 import gamePanel.GamePanel;
 import item.Item;
+import item.armas.Arma;
+import item.armas.Elemento;
+import item.armas.TipoAtaque;
 import recursos.imagenes.Spritesheet;
 import utiles.UtilDiego;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import static item.armas.TipoAtaque.ArmaPesada;
+
 public abstract class Entidad {
     protected GamePanel gp;
     //stats de movimiento
     protected double x;
     protected double y;
+    protected boolean turno=false;
     protected int contadorAccion;
     //direccion tratada com ostring para un futuro switch
     protected String direccion;
@@ -37,16 +43,22 @@ public abstract class Entidad {
     protected int nivel;
     protected int mana;
     protected int defensa;
-    protected Item armadura;
     public Rectangle zonaDeColision;
     protected int zonaDeColisionDefectoX, zonaDeColisionDefectoY;
     protected boolean colision;
     protected double velocidadDiagonal;
+    protected int dañoAtaque;
+    protected Elemento elemento;
+    //obj equipados
+    protected Arma arma = new Arma("desarmado",1,0,0,1,null,TipoAtaque.ArmaLigera,0,0);
+    protected Item armadura;
+    protected Item escudo;
+    protected Item cabeza;
 
 
     public Entidad(GamePanel gp) {
         this.vida = getVidaMax();
-        this.velocidad=getVelocidadMax();
+        this.velocidad=getVelocidadMax()/2;
         this.velocidadDiagonal = Math.hypot(this.velocidad,this.velocidad)/2;
         this.gp=gp;
     }
@@ -62,34 +74,38 @@ public abstract class Entidad {
             case HUMANO -> {
                 this.destreza = 10;
                 this.fuerza = 10;
-                this.velocidadMax = 3;
+                this.velocidadMax = 7;
                 this.magia = 10;
                 this.vidaMax = 100;
                 this.mana=50;
+                this.defensa=1;
             }
             case ELFO -> {
                 this.destreza = 20;
                 this.fuerza = 5;
-                this.velocidadMax = 5;
+                this.velocidadMax = 8;
                 this.magia = 15;
                 this.vidaMax = 70;
                 this.mana=50;
+                this.defensa=0;
             }
             case ENANO -> {
                 this.destreza = 5;
                 this.fuerza = 20;
-                this.velocidadMax = 2;
+                this.velocidadMax = 4;
                 this.magia = 5;
                 this.vidaMax = 120;
                 this.mana=50;
+                this.defensa=3;
             }
             case ORCO -> {
                 this.destreza = 15;
                 this.fuerza = 15;
-                this.velocidadMax = 2;
+                this.velocidadMax = 6;
                 this.magia = 5;
                 this.vidaMax = 100;
                 this.mana=50;
+                this.defensa=2;
             }
 
         }
@@ -106,7 +122,6 @@ public abstract class Entidad {
                 setMagia(getMagia() + 10);
                 setVidaMax(getVidaMax() - 20);
                 setMana(getMana()+20);
-
             }
             case PICARO -> {
                 setDestreza(getDestreza() + 10);
@@ -117,11 +132,13 @@ public abstract class Entidad {
                 setVidaMax(getVidaMax() + 10);
                 setMana(getMana()+10);
                 setDestreza(getDestreza() - 5);
+                setDefensa(getDefensa()+1);
             }
             case GUERRERO -> {
                 setFuerza(getFuerza() + 10);
                 setVidaMax(getVidaMax() + 5);
                 setMagia(0);
+                setDefensa(getDefensa()+3);
             }
         }
     }
@@ -265,6 +282,44 @@ public abstract class Entidad {
                 ", magia=" + magia +
                 ", nivel=" + nivel +
                 '}';
+    }
+
+    public int turno(Entidad monstruo, Entidad jugador) {
+        int accion=1;
+        int random = UtilDiego.numRandomentero(0,1);
+        switch(random){
+            case 0:
+                jugador.recibirDaño(monstruo.atacar());
+                accion=0;
+                break;
+            case 1:
+                monstruo.recibirDaño(jugador.atacar()/2);
+                accion=0;
+                break;
+        }
+        return accion;
+    }
+
+
+
+    public int atacar() {
+        int dañoBase = arma.getDañoBase();
+        switch (arma.getTipoataque()){
+            case ArmaPesada -> dañoAtaque = dañoBase *fuerza/2+(destreza/10);
+            case ArmaLigera -> dañoAtaque = dañoBase *destreza/2+(fuerza/10);
+            case ArmaMágica -> {
+                dañoAtaque = dañoBase *magia;
+                mana=mana - arma.getCoste();
+            }
+        }
+    return dañoBase;
+    }
+
+    public void recibirDaño(int dañoTotal) {
+       int vida = dañoTotal - defensa;
+       if (vida > 0) {
+           this.vida-=vida;
+       }
     }
 
     public double getY() {
@@ -459,9 +514,52 @@ public abstract class Entidad {
         return sprite;
     }
 
-    protected void combate() {
-        gp.estadoJuego=gp.combate;
-        //Aquí ira todas las funciones de golpes curaciones etc...
+    public int getDañoAtaque() {
+        return dañoAtaque;
+    }
+
+    public void setDañoAtaque(int dañoAtaque) {
+        this.dañoAtaque = dañoAtaque;
+    }
+
+    public boolean isTurno() {
+        return turno;
+    }
+
+    public void setTurno(boolean turno) {
+        this.turno = turno;
+    }
+
+    public Elemento getElemento() {
+        return elemento;
+    }
+
+    public void setElemento(Elemento elemento) {
+        this.elemento = elemento;
+    }
+
+    public Arma getArma() {
+        return arma;
+    }
+
+    public void setArma(Arma arma) {
+        this.arma = arma;
+    }
+
+    public Item getEscudo() {
+        return escudo;
+    }
+
+    public void setEscudo(Item escudo) {
+        this.escudo = escudo;
+    }
+
+    public Item getCabeza() {
+        return cabeza;
+    }
+
+    public void setCabeza(Item cabeza) {
+        this.cabeza = cabeza;
     }
 }
 

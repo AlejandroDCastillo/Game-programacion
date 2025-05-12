@@ -1,12 +1,15 @@
 package utiles;
 
 
+import entidades.Entidad;
+
 import javax.naming.ldap.Control;
 import java.time.LocalDate;
 import java.util.Scanner;
 
 
 public class UtilDiego {
+
 
     public static int leerNumEntA_B(Scanner teclado, String texto, int min, int max) {
         int num;

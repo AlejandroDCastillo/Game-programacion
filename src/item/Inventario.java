@@ -2,10 +2,10 @@ package item;
 
 import entidades.Jugador;
 import gamePanel.escenarios.MenuInventario;
-import item.objetos.Escudo;
-import item.objetos.Espada;
-import item.objetos.EspadaFuego;
-import item.objetos.VaraMago;
+import item.armadura.Armadura;
+import item.armas.Arma;
+import item.armas.Elemento;
+import item.armas.TipoAtaque;
 import org.w3c.dom.*;
 
 import javax.xml.parsers.*;
@@ -45,21 +45,21 @@ public class Inventario {
      */
     private ArrayList<Item> iniciarInventario() {
         ArrayList<Item> inventario = new ArrayList<>();
-        Item agua = new Item("agua", 3, Tipo.AGUA,4,0);
-        Item comida = new Item("comida", 3, Tipo.COMIDA,3,0);
-        Item madera = new Item("madera", 1, Tipo.MADERA,12,8);
-        Item carbon = new Item("carbon", 1, Tipo.CARBON,9,2);
-        Item mena_hierro = new Item("mena_hierro", 1, Tipo.MENA_HIERRO,8,3);
-        Item mena_oro = new Item("mena_oro", 1, Tipo.MENA_ORO,6,3);
-        Item hierro = new Item("hierro", 2, Tipo.HIERRO,8,4);
-        Item oro = new Item("oro", 1, Tipo.ORO,6,4);
-        Escudo escudo = new Escudo("escudo", 1, Tipo.ESCUDO,4,12,6);
-        Espada espada = new Espada("espada", 1, Tipo.ESPADA,5,5.5,11,1);
-        EspadaFuego espadaFuego = new EspadaFuego("espadaFuego",1, Tipo.ESPADA,6.5,5,0.9,11,2);
-        VaraMago vara = new VaraMago("varaMago", 1,Tipo.VARA_DE_MAGO,3,7,5,Hechizo.PERDER_TURNO,11,5);
-        Item talisman = new Item("talismanSecreto",1,Tipo.TALISMAN_SECRETO,10,7);
-        Item yelmo=new Item("yelmo",1,Tipo.YELMO,1,7);
-        Item peto=new Item("peto",1,Tipo.PETO,6,7);
+        Item agua = new Item("agua", 3,4,0);
+        Item comida = new Item("comida", 3,3,0);
+        Item madera = new Item("madera", 1,12,8);
+        Item carbon = new Item("carbon", 1,9,2);
+        Item mena_hierro = new Item("mena_hierro", 1,8,3);
+        Item mena_oro = new Item("mena_oro", 1,6,3);
+        Item hierro = new Item("hierro", 2,8,4);
+        Item oro = new Item("oro", 1,6,4);
+        Arma espada = new Arma("espada", 1,11,1,5,null, TipoAtaque.ArmaLigera,0,2);
+        Arma varaMago = new Arma("varaMago", 1,11,5,6,Elemento.RAYO, TipoAtaque.ArmaMágica,10,3);
+        Arma espadaFuego = new Arma("espadaFuego", 1,11,2,9, Elemento.FUEGO, TipoAtaque.ArmaLigera,0,2);
+        Armadura escudo = new Armadura("escudo", 1,4,6,6);
+        Armadura talisman = new Armadura("talismanSecreto",1,10,7,4);
+        Armadura yelmo=new Armadura("yelmo",1,1,7,5);
+        Armadura peto=new Armadura("peto",1,6,7,5);
         //faltan yelmo, peto,escudo oro, talisman
 
         inventario.add(agua);
@@ -73,7 +73,7 @@ public class Inventario {
         inventario.add(escudo);
         inventario.add(espada);
         inventario.add(espadaFuego);
-        inventario.add(vara);
+        inventario.add(varaMago);
         inventario.add(talisman);
         inventario.add(yelmo);
         inventario.add(peto);

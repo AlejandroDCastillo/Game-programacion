@@ -1,11 +1,8 @@
 package gamePanel;
 import entidades.*;
 import gamePanel.escenarios.MenuInventario;
-import gestores.GestorAssets;
+import gestores.*;
 import item.objetos.Objetos;
-import gestores.GestorBaldosas;
-import gestores.GestorDeEventos;
-import gestores.DetectorDeColisiones;
 import recursos.mapas.GeneradorMapa;
 import recursos.musica.Musica;
 import recursos.teclado.DetectorTeclas;
@@ -58,7 +55,10 @@ public class GamePanel extends JPanel implements Runnable{
     public final int inventario=5;
     public final int craftear=6;
     public final int combate=7;
+    public int gameOver=8;
     public GestorDeEventos gestorDeEventos = new GestorDeEventos(this);
+    public GestorCombate gc;
+
 
     public GamePanel() {
         this.setBackground(Color.BLACK);
@@ -128,6 +128,8 @@ public class GamePanel extends JPanel implements Runnable{
         }else if(estadoJuego==inventario){
             menuInventario.update();
         }else if(estadoJuego==craftear){
+
+        }else if (estadoJuego==combate){
 
         }
     }

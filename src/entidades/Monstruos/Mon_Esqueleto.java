@@ -24,7 +24,7 @@ public class Mon_Esqueleto extends Entidad {
         iniciarRaza(raza);
         iniciarClase(clase);
         estadisticasNivel(nivel);
-        this.velocidad=velocidadMax;
+        this.velocidad=velocidadMax/2;
         this.velocidadDiagonal = Math.hypot(this.velocidad,this.velocidad)/2;
         this.direccion = "";
         x = 100;

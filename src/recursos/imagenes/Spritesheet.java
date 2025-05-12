@@ -34,7 +34,7 @@ public class Spritesheet {
      * @return
      */
     public BufferedImage getImg(int indexX,int indexY) {
-        return img.getSubimage(indexX * 16, indexY*16, 16, 16);
+        return img.getSubimage(indexX * frameWidth, indexY*frameHeight, frameWidth, frameHeight);
     }
 
     public BufferedImage invertir(BufferedImage imagenInversa) {

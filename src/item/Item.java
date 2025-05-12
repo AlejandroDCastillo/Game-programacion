@@ -1,5 +1,7 @@
 package item;
 
+import entidades.Entidad;
+import item.armadura.Aumento;
 import recursos.imagenes.Spritesheet;
 
 import javax.imageio.ImageIO;
@@ -10,25 +12,27 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.Buffer;
 
-public class Item {
+public class Item implements Aumento {
     protected String idNombre;
     protected int cantidad;
-    protected Tipo tipo;
+
     protected Spritesheet plantillaInventario;
+    protected BufferedImage imagen;
     protected int x;
     protected int y;
 
 
-    public Item(String idNombre, int cantidad,Tipo tipo,int spriteX,int spriteY) {
+    public Item(String idNombre, int cantidad,int spriteX,int spriteY) {
         this.idNombre = idNombre;
         this.cantidad = cantidad;
-        this.tipo=tipo;
+
         this.x=spriteX;
         this.y=spriteY;
         try {
             String imagePath = "src/recursos/imagenes/AssetsDeInventario.png";
             BufferedImage imagenPlantillaBuffered = ImageIO.read(new File(imagePath));
-            this.plantillaInventario  = new Spritesheet(imagenPlantillaBuffered,spriteX+1,spriteY+1);
+            this.plantillaInventario  = new Spritesheet(imagenPlantillaBuffered,13,9);
+            imagen=plantillaInventario.getImg(spriteX,spriteY);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -40,16 +44,7 @@ public class Item {
         return "Item{" +
                 "idNombre='" + idNombre + '\'' +
                 ", cantidad=" + cantidad +
-                ", tipo=" + tipo +
                 '}';
-    }
-
-    public Tipo getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(Tipo tipo) {
-        this.tipo = tipo;
     }
 
     public String getIdNombre() {
@@ -90,5 +85,9 @@ public class Item {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public void aumentar(Entidad entidad, int numero) {
+
     }
 }

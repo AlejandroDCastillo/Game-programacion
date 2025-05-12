@@ -1,6 +1,7 @@
 package recursos.teclado;
 
 import entidades.Clase;
+import entidades.Entidad;
 import entidades.Jugador;
 import entidades.Raza;
 import gamePanel.GamePanel;
@@ -18,6 +19,7 @@ public class DetectorTeclas implements KeyListener {
     public boolean menuBoolean = false;
     public boolean consumible=true;
     public boolean atacar=false;
+    public boolean huir=false;
     //boolean que esconde el desplegable de crafteos
     public boolean craftear = false;
     //bolean para desplegable de equipar
@@ -502,7 +504,30 @@ public class DetectorTeclas implements KeyListener {
         //combate
         if(gp.estadoJuego==gp.combate){
             //sonido de batalla
-
+                atacar=false;
+                huir=false;
+                consumible=false;
+                if (tecla == KeyEvent.VK_W) {
+                    gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() - 1);
+                    if (gp.getInterfaz().getNumeroMenu() < 0) {
+                        gp.getInterfaz().setNumeroMenu(2);
+                    }
+                }
+                if (tecla == KeyEvent.VK_S) {
+                    gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() + 1);
+                    if (gp.getInterfaz().getNumeroMenu() > 2) {
+                        gp.getInterfaz().setNumeroMenu(0);
+                    }
+                }
+                if (tecla == KeyEvent.VK_ENTER) {
+                    if (gp.getInterfaz().getNumeroMenu() == 0&&gp.gc.jugador.isTurno()) {
+                        gp.gc.monstruo.recibirDaño(gp.gc.jugador.atacar());
+                    }if (gp.getInterfaz().getNumeroMenu() == 1&&gp.gc.jugador.isTurno()) {
+                        consumible=true;
+                    }if (gp.getInterfaz().getNumeroMenu() == 2&&gp.gc.jugador.isTurno()) {
+                       huir = true;
+                    }
+                }
         }
     }
 
@@ -524,6 +549,38 @@ public class DetectorTeclas implements KeyListener {
         }
         if (tecla == KeyEvent.VK_ENTER) {
             enterPulsado = false;
+        }
+    }
+    public static void combate(Entidad monstruo, Entidad jugador) {
+        if (monstruo.getVelocidad()>jugador.getVelocidad()) {
+            monstruo.setTurno(true);
+            if (monstruo.turno(monstruo, jugador) <= 0) {
+                monstruo.setTurno(false);
+                jugador.setTurno(true);
+                jugador.turno(monstruo, jugador);
+            } else {
+                jugador.setTurno(true);
+                if (jugador.turno(monstruo, jugador) <= 0) {
+                    monstruo.setTurno(true);
+                    jugador.setTurno(false);
+                    monstruo.turno(monstruo, jugador);
+                }
+
+            }
+        }else{
+            jugador.setTurno(true);
+            if (jugador.turno(monstruo,jugador)<=0){
+                jugador.setTurno(false);
+                monstruo.setTurno(true);
+                monstruo.turno(monstruo,jugador);
+            }else {
+                monstruo.setTurno(true);
+                if (monstruo.turno(monstruo, jugador) <= 0) {
+                    monstruo.setTurno(false);
+                    jugador.setTurno(true);
+                    jugador.turno(monstruo, jugador);
+                }
+            }
         }
     }
 }

@@ -22,8 +22,28 @@ public class GeneradorMapa {
     public void generarMapa() {
         for (int i = 0; i < canidadNumeroColumnas; i++) {
             for (int j = 0; j < canidadNumeroFilas; j++) {
-                int numero = UtilDiego.numRandomentero(1,6); // Números aleatorios entre 0 y 99
-                numeros.append(numero);
+                if ((j==canidadNumeroFilas-1||j==0)&&(i<=6&&i>3)){
+                    numeros.append(3);
+                }else{
+                    if ((j==canidadNumeroFilas-1||j==0)||(i==canidadNumeroColumnas-1||i==0)){
+                        numeros.append(1);
+                    } else{
+                        if ((j==canidadNumeroFilas-2||j==1)||(i==canidadNumeroColumnas-2||i==1)){
+                            numeros.append(0);
+                        }else{
+                            int numero = UtilDiego.numRandomentero(2,6);
+                            if ((j==canidadNumeroFilas-1||j==0)&&(i<=9&&i>6)){
+                                numeros.append(3);
+                            }else{
+                                if ((i >= 3&&i<10) && numero == 5){
+                                    numeros.append(2);
+                                }else{
+                                    numeros.append(numero);
+                                }
+                            }
+                        }
+                    }
+                }
                 if (j < canidadNumeroFilas - 1) {
                     numeros.append(" ");
                 }

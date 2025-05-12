@@ -1,8 +1,6 @@
 package utiles;
-import entidades.Jugador;
 import item.Inventario;
 import item.Item;
-import item.Tipo;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -49,85 +47,85 @@ public class Util {
      * @param jugador
      * @param rutaArchivo
      */
-    public void guardarJugador(entidades.Jugador jugador, String rutaArchivo) {
-        try {
-            File archivo = new File(rutaArchivo);
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(archivo);
-            doc.getDocumentElement().normalize();
-
-            // Actualizar estadísticas
-            NodeList estadisticas = doc.getElementsByTagName("estadisticas").item(0).getChildNodes();
-            for (int i = 0; i < estadisticas.getLength(); i++) {
-                Node nodo = estadisticas.item(i);
-                //nos asegurtamenos de tipo elemento para evitar fallos
-                if (nodo.getNodeType() == Node.ELEMENT_NODE) {
-                    switch (nodo.getNodeName()) {
-                        case "vida":
-                            nodo.setTextContent(String.valueOf(jugador.getVida()));
-                            break;
-                        case "armadura":
-                            nodo.setTextContent(String.valueOf(jugador.getDefensa()));
-                            break;
-                        case "magia":
-                            nodo.setTextContent(String.valueOf(jugador.getMagia()));
-                            break;
-                        case "mana":
-                            nodo.setTextContent(String.valueOf(jugador.getMana()));
-                            break;
-                        case "destreza":
-                            nodo.setTextContent(String.valueOf(jugador.getDestreza()));
-                            break;
-                        case "hambre":
-                            nodo.setTextContent(String.valueOf(jugador.getHambre()));
-                            break;
-                        case "sed":
-                            nodo.setTextContent(String.valueOf(jugador.getSed()));
-                            break;
-                    }
-                }
-            }
-
-            // Actualizar inventario
-            Node inventarioNode = doc.getElementsByTagName("inventario").item(0);
-            // BorrarTodo el inventario anterior
-            while (inventarioNode.hasChildNodes()) {
-                inventarioNode.removeChild(inventarioNode.getFirstChild());
-            }
-
-            for (Item item : Inventario.getInstancia().getInventario()) {
-                Element itemElement = doc.createElement("item");
-
-                Element nombre = doc.createElement("nombre");
-                nombre.setTextContent(item.getIdNombre());
-
-                Element cantidad = doc.createElement("cantidad");
-                cantidad.setTextContent(String.valueOf(item.getCantidad()));
-
-                Element tipo = doc.createElement("tipo");
-                tipo.setTextContent(item.getTipo().toString());
-
-                itemElement.appendChild(nombre);
-                itemElement.appendChild(cantidad);
-                itemElement.appendChild(tipo);
-
-                inventarioNode.appendChild(itemElement);
-            }
-
-            // Guardar cambios en el archivo
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File(rutaArchivo));
-            transformer.transform(source, result);
-
-            System.out.println("Partida guardada correctamente.");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    public void guardarJugador(entidades.Jugador jugador, String rutaArchivo) {
+//        try {
+//            File archivo = new File(rutaArchivo);
+//            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+//            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+//            Document doc = dBuilder.parse(archivo);
+//            doc.getDocumentElement().normalize();
+//
+//            // Actualizar estadísticas
+//            NodeList estadisticas = doc.getElementsByTagName("estadisticas").item(0).getChildNodes();
+//            for (int i = 0; i < estadisticas.getLength(); i++) {
+//                Node nodo = estadisticas.item(i);
+//                //nos asegurtamenos de tipo elemento para evitar fallos
+//                if (nodo.getNodeType() == Node.ELEMENT_NODE) {
+//                    switch (nodo.getNodeName()) {
+//                        case "vida":
+//                            nodo.setTextContent(String.valueOf(jugador.getVida()));
+//                            break;
+//                        case "armadura":
+//                            nodo.setTextContent(String.valueOf(jugador.getDefensa()));
+//                            break;
+//                        case "magia":
+//                            nodo.setTextContent(String.valueOf(jugador.getMagia()));
+//                            break;
+//                        case "mana":
+//                            nodo.setTextContent(String.valueOf(jugador.getMana()));
+//                            break;
+//                        case "destreza":
+//                            nodo.setTextContent(String.valueOf(jugador.getDestreza()));
+//                            break;
+//                        case "hambre":
+//                            nodo.setTextContent(String.valueOf(jugador.getHambre()));
+//                            break;
+//                        case "sed":
+//                            nodo.setTextContent(String.valueOf(jugador.getSed()));
+//                            break;
+//                    }
+//                }
+//            }
+//
+//            // Actualizar inventario
+//            Node inventarioNode = doc.getElementsByTagName("inventario").item(0);
+//            // BorrarTodo el inventario anterior
+//            while (inventarioNode.hasChildNodes()) {
+//                inventarioNode.removeChild(inventarioNode.getFirstChild());
+//            }
+//
+//            for (Item item : Inventario.getInstancia().getInventario()) {
+//                Element itemElement = doc.createElement("item");
+//
+//                Element nombre = doc.createElement("nombre");
+//                nombre.setTextContent(item.getIdNombre());
+//
+//                Element cantidad = doc.createElement("cantidad");
+//                cantidad.setTextContent(String.valueOf(item.getCantidad()));
+//
+//                Element tipo = doc.createElement("tipo");
+//                tipo.setTextContent(item.getTipo().toString());
+//
+//                itemElement.appendChild(nombre);
+//                itemElement.appendChild(cantidad);
+//                itemElement.appendChild(tipo);
+//
+//                inventarioNode.appendChild(itemElement);
+//            }
+//
+//            // Guardar cambios en el archivo
+//            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+//            Transformer transformer = transformerFactory.newTransformer();
+//            DOMSource source = new DOMSource(doc);
+//            StreamResult result = new StreamResult(new File(rutaArchivo));
+//            transformer.transform(source, result);
+//
+//            System.out.println("Partida guardada correctamente.");
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 //    public void cargarJugador(String rutaArchivo) {
 //        try {

@@ -82,7 +82,6 @@ public class UI {
 
             //combate
             if (gp.estadoJuego == gp.combate) {
-
                 dibujarCombate();
             }
         }
@@ -168,10 +167,26 @@ public class UI {
                     , 470, 45, 45, null);
         }
         //menu de batalla
-        dibujarTextoSombreado("Atacar", 50, 350, 25);
-        dibujarTextoSombreado("Defender", 50, 410, 25);
-        dibujarTextoSombreado("Consumibles", 50, 470, 25);
-        dibujarTextoSombreado("Salir", 50, 530, 25);
+        int x = 50;
+        String texto;
+        //  dibujarVentanaGenerica(2, 110, 140, 280);
+        texto = "Atacar";
+        dibujarTextoSombreado(texto, x, 350, 25);
+//        texto = "Defender";
+//        dibujarTextoSombreado(texto, x, 410, 25);
+        texto = "Consumibles";
+        dibujarTextoSombreado(texto, x, 470, 25);
+        texto = "Huir";
+        dibujarTextoSombreado(texto, x, 530, 25);
+        if (numeroMenu == 0) {
+            g2d.drawString(">", x - 25, 350);
+        }
+        if (numeroMenu == 1) {
+            g2d.drawString(">", x - 25, 470);
+        }
+        if (numeroMenu == 2) {
+            g2d.drawString(">", x - 25, 530);
+        }
 
         if (gp.getTeclado().consumible) {
             dibujarVentanaGenerica(250, gp.getHeight() / 2 + 30, 200, 250);

@@ -4,6 +4,8 @@ import entidades.Clase;
 import entidades.Monstruos.Mon_Esqueleto;
 import entidades.Raza;
 import gamePanel.GamePanel;
+import item.armas.Arma;
+import item.armas.TipoAtaque;
 import item.objetos.Cofre;
 import item.objetos.Llave;
 import item.objetos.Puerta;
@@ -28,7 +30,8 @@ public class GestorAssets {
         }
 
         public void establecerEnemigos(){
-            gp.arrayEnemigos[0]= new Mon_Esqueleto(gp,"MonstruoPT", Raza.HUMANO, Clase.CLERIGO,1);
+            gp.arrayEnemigos[0]= new Mon_Esqueleto(gp,"MonstruoPT", Raza.HUMANO, Clase.MAGO,1);
+            gp.arrayEnemigos[0].setArma(new Arma("vara_fuego", 1,11,1,5,null, TipoAtaque.ArmaMágica,20,2));
             gp.arrayEnemigos[0].setX(5 * gp.getTamañofinalBaldosa());
             gp.arrayEnemigos[0].setY(3 * gp.getTamañofinalBaldosa());
 

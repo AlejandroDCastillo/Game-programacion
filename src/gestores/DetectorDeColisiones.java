@@ -1,9 +1,12 @@
 package gestores;
 
 import entidades.Entidad;
+import entidades.Monstruos.Mon_Esqueleto;
 import gamePanel.GamePanel;
+import utiles.UtilDiego;
 
 import javax.swing.text.html.parser.Entity;
+import java.awt.*;
 
 public class DetectorDeColisiones {
     GamePanel gp;
@@ -282,6 +285,19 @@ public class DetectorDeColisiones {
 
         if (entidad.zonaDeColision.intersects(gp.getJugador().zonaDeColision)) {
             entidad.setColision(true);
+            if (entidad instanceof Mon_Esqueleto){
+                gp.pararMusica();
+                gp.efectoSonido(3);
+                gp.getGraphics().setColor(Color.black);
+                gp.getGraphics().fillRect(0,0,gp.getWidth(),gp.getHeight());
+                try {
+                    Thread.sleep(2000); // Espera 2000 milisegundos (2 segundos)
+                } catch (InterruptedException e) {
+                    System.out.println("La espera fue interrumpida.");
+                }
+                gp.empezarMusica(4);
+                gp.estadoJuego=gp.combate;
+            }
         }
         entidad.zonaDeColision.x = entidad.getZonaDeColisionDefectoX();
         entidad.zonaDeColision.y = entidad.getZonaDeColisionDefectoY();
