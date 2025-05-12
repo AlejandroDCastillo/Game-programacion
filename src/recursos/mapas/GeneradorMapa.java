@@ -22,7 +22,7 @@ public class GeneradorMapa {
     public void generarMapa() {
         for (int i = 0; i < canidadNumeroColumnas; i++) {
             for (int j = 0; j < canidadNumeroFilas; j++) {
-                int numero = UtilDiego.numRandomentero(1,2); // Números aleatorios entre 0 y 99
+                int numero = UtilDiego.numRandomentero(1,6); // Números aleatorios entre 0 y 99
                 numeros.append(numero);
                 if (j < canidadNumeroFilas - 1) {
                     numeros.append(" ");
