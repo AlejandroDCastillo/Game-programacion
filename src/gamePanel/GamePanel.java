@@ -6,6 +6,7 @@ import item.objetos.Objetos;
 import gestores.GestorBaldosas;
 import gestores.GestorDeEventos;
 import gestores.DetectorDeColisiones;
+import recursos.mapas.GeneradorMapa;
 import recursos.musica.Musica;
 import recursos.teclado.DetectorTeclas;
 import javax.swing.*;
@@ -40,6 +41,7 @@ public class GamePanel extends JPanel implements Runnable{
     //Cosas de la pantalla
     private Jugador jugador;
     private MenuInventario menuInventario = new MenuInventario(this);
+    public GeneradorMapa generadorMapa = new GeneradorMapa(this);
     private GestorBaldosas gestorBaldosas = new GestorBaldosas(this);
     public DetectorDeColisiones detectorDeColisiones = new DetectorDeColisiones(this);
     public GestorAssets gestorAssets = new GestorAssets(this);
@@ -69,16 +71,6 @@ public class GamePanel extends JPanel implements Runnable{
         establecerJuego();
     }
 
-    /**
-     * inicializa el barray de enemigos
-     * @return
-     */
-    public ArrayList<Enemigo> iniciarArrayEnemigos(){
-        ArrayList<Enemigo>listafinal=new ArrayList<>();
-        Enemigo en1=new Enemigo("Esqueleto",Raza.ORCO,Clase.CLERIGO,1,this,"src/recursos/imagenes/esqueleto.png");
-        listafinal.add(en1);
-        return listafinal;
-    }
 
     public void establecerJuego(){
         gestorAssets.establecerObjetos();
