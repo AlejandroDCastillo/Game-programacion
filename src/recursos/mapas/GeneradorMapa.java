@@ -35,13 +35,23 @@ public class GeneradorMapa {
         }
 
         // Escribir en el archivo
+        FileWriter escritorFile=null;
         try {
-            FileWriter escritorFile = new FileWriter("src/recursos/mapas/mapa_prueba.txt");
+            escritorFile = new FileWriter("src/recursos/mapas/mapa_prueba.txt");
             PrintWriter salida = new PrintWriter(escritorFile);
-            salida.write(numeros.toString());
+            salida.println(numeros.toString());
+            salida.flush();
             System.out.println("Números generados y guardados en numeros.txt");
         } catch (IOException e) {
             System.out.println("Ocurrió un error al escribir en el archivo: " + e.getMessage());
+        }
+        finally {
+            try {
+                if (escritorFile != null)
+                    escritorFile.close();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 }
