@@ -8,6 +8,7 @@ import item.armadura.Armadura;
 import item.armas.Arma;
 import recursos.imagenes.Spritesheet;
 import recursos.teclado.DetectorTeclas;
+import utiles.UtilDiego;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -47,6 +48,7 @@ public class Jugador extends Entidad {
         iniciarRaza(raza);
         iniciarClase(clase);
         estadisticasNivel(nivel);
+        this.vida=vidaMax;
         this.velocidad=velocidadMax/2;
         this.velocidadDiagonal = Math.hypot(this.velocidad,this.velocidad)/2;
         this.teclado = teclado;
@@ -371,9 +373,13 @@ public class Jugador extends Entidad {
         }
     }
 
-
-
-
+    public void huir(){
+        int random= UtilDiego.numRandomentero(1,5);
+        if (random<=2){
+            gp.estadoJuego=gp.continuar;
+            gp.gc.monstruo.colision=false;
+        }
+    }
     /**
      * metodo que dibuja el sprite en pantalla
      *
@@ -385,10 +391,6 @@ public class Jugador extends Entidad {
         g2d.setColor(Color.black);
         g2d.fillRect((int) (x + 8), (int) (y + 16), 32, 32);
         g2d.drawImage(obtenerImagenPlayer(), (int) x, (int) y, gp.getTamañofinalBaldosa(), gp.getTamañofinalBaldosa(), null);
-    }
-
-    public int gastarTurno(){
-        return 0;
     }
 
     //GETTERS SETTERS Y TO STRING

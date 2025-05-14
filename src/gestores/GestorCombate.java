@@ -20,9 +20,16 @@ public class GestorCombate {
             gp.estadoJuego=gp.gameOver;
         }else if (monstruo.getVida()<=0) {
             gp.estadoJuego=gp.continuar;
+            for (int i =0;i<gp.arrayEnemigos.length;i++){
+                if (monstruo.getNombre().equals(gp.arrayEnemigos[i].getNombre())){
+                    gp.arrayEnemigos[i]=null;
+                    break;
+                }
+            }
         }else{
             if (monstruo.getVelocidad()>jugador.getVelocidad()) {
                 monstruo.setTurno(true);
+                monstruo.atacar();
                 accion =monstruo.turno(monstruo, jugador);
                 if (accion <= 0) {
                     monstruo.setTurno(false);

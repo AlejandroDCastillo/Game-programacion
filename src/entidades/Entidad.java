@@ -34,9 +34,9 @@ public abstract class Entidad {
     protected Clase clase;
     protected Raza raza;
     protected String nombre;
-    protected int vida = getVidaMax();
+    protected int vida;
     protected int vidaMax;
-    protected int velocidad = getVelocidadMax();
+    protected int velocidad;
     protected int velocidadMax;
     protected int fuerza;
     protected int destreza;
@@ -311,11 +311,11 @@ public abstract class Entidad {
             case ArmaPesada -> dañoAtaque = dañoBase *fuerza/2+(destreza/10);
             case ArmaLigera -> dañoAtaque = dañoBase *destreza/2+(fuerza/10);
             case ArmaMágica -> {
-                dañoAtaque = dañoBase *magia;
+                dañoAtaque = dañoBase/3 *magia;
                 mana=mana - arma.getCoste();
             }
         }
-    return dañoBase;
+    return dañoAtaque;
     }
 
     public int recibirDaño(int dañoTotal) {

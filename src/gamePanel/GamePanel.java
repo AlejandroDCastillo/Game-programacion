@@ -127,8 +127,6 @@ public class GamePanel extends JPanel implements Runnable{
             //no sucede nada
         }else if(estadoJuego==inventario){
             menuInventario.update();
-        }else if (estadoJuego==combate){
-            gc.update();
         }
     }
 
@@ -174,8 +172,6 @@ public class GamePanel extends JPanel implements Runnable{
                 interfaz.dibujar(g2d);
                 menuInventario.dibujar(g2d);
             }
-
-
         g2d.dispose();
     }
 

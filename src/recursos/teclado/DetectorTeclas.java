@@ -503,52 +503,54 @@ public class DetectorTeclas implements KeyListener {
         }
         //combate
         if(gp.estadoJuego==gp.combate){
+            if (gp.gc.jugador.getVida()<=0) {
+                gp.estadoJuego=gp.gameOver;
+            }else if (gp.gc.monstruo.getVida()<=0) {
+                gp.estadoJuego=gp.continuar;
+                for (int i =0;i<gp.arrayEnemigos.length;i++){
+                    if (gp.gc.monstruo.getNombre().equals(gp.arrayEnemigos[i].getNombre())){
+                        gp.arrayEnemigos[i]=null;
+                        break;
+                    }
+                }
+            }
             //sonido de batalla
-                atacar=false;
-                huir=false;
-                consumible=false;
-                if (tecla == KeyEvent.VK_W) {
-                    gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() - 1);
-                    if (gp.getInterfaz().getNumeroMenu() < 0) {
-                        gp.getInterfaz().setNumeroMenu(2);
-                    }
-                }
-                if (tecla == KeyEvent.VK_S) {
-                    gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() + 1);
-                    if (gp.getInterfaz().getNumeroMenu() > 2) {
-                        gp.getInterfaz().setNumeroMenu(0);
-                    }
-                }
-                if (tecla == KeyEvent.VK_ENTER) {
-                    if (gp.getInterfaz().getNumeroMenu() == 0&&gp.gc.jugador.isTurno()) {
-                        gp.gc.monstruo.recibirDaño(gp.gc.jugador.atacar());
-
-                    }if (gp.getInterfaz().getNumeroMenu() == 1&&gp.gc.jugador.isTurno()) {
-                        consumible=true;
-                    }if (gp.getInterfaz().getNumeroMenu() == 2&&gp.gc.jugador.isTurno()) {
-                       huir = true;
-                    }
-                }
-                if (atacar) {
+                if (gp.gc.jugador.isTurno()){
                     if (tecla == KeyEvent.VK_W) {
                         gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() - 1);
                         if (gp.getInterfaz().getNumeroMenu() < 0) {
-                            gp.getInterfaz().setNumeroMenu(1);
+                            gp.getInterfaz().setNumeroMenu(2);
                         }
                     }
                     if (tecla == KeyEvent.VK_S) {
                         gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() + 1);
-                        if (gp.getInterfaz().getNumeroMenu() > 1) {
+                        if (gp.getInterfaz().getNumeroMenu() > 2) {
                             gp.getInterfaz().setNumeroMenu(0);
                         }
                     }
                     if (tecla == KeyEvent.VK_ENTER) {
-                        if (gp.getInterfaz().getNumeroMenu() == 0 && gp.gc.jugador.isTurno()) {
-                        }
-                        if (gp.getInterfaz().getNumeroMenu() == 1 && gp.gc.jugador.isTurno()) {
-                            consumible = true;
+                        if (gp.getInterfaz().getNumeroMenu() == 0&&gp.gc.jugador.isTurno()) {
+                            gp.gc.monstruo.recibirDaño(gp.gc.jugador.atacar());
+                        }if (gp.getInterfaz().getNumeroMenu() == 1&&gp.gc.jugador.isTurno()) {
+                            //no hace nada
+                        }if (gp.getInterfaz().getNumeroMenu() == 2&&gp.gc.jugador.isTurno()) {
+                            gp.gc.jugador.huir();
                         }
                     }
+                    gp.gc.jugador.setTurno(false);
+                    gp.gc.monstruo.setTurno(true);
+                }else{
+                    int random=0;
+                    switch(random){
+                        case 0:
+                            gp.gc.jugador.recibirDaño(gp.gc.monstruo.atacar());
+                            break;
+                        case 1:
+                            //consumibles
+                            break;
+                    }
+                    gp.gc.jugador.setTurno(true);
+                    gp.gc.monstruo.setTurno(false);
                 }
         }
     }

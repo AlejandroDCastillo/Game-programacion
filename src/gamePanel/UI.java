@@ -85,7 +85,15 @@ public class UI {
             if (gp.estadoJuego == gp.combate) {
                 dibujarCombate();
             }
+            if (gp.estadoJuego == gp.gameOver) {
+                dibujarGamover();
+            }
         }
+    }
+
+    public void dibujarGamover(){
+        g2d.setColor(Color.black);
+        dibujarTextoSombreado("GAME OVER",100,100,50);
     }
 
     public void dibujarCombate() {
