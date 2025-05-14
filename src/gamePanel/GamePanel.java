@@ -127,10 +127,8 @@ public class GamePanel extends JPanel implements Runnable{
             //no sucede nada
         }else if(estadoJuego==inventario){
             menuInventario.update();
-        }else if(estadoJuego==craftear){
-
         }else if (estadoJuego==combate){
-
+            gc.update();
         }
     }
 

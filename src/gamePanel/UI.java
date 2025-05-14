@@ -5,6 +5,7 @@ import entidades.Entidad;
 import entidades.Jugador;
 import entidades.Raza;
 import item.Item;
+import item.armadura.Armadura;
 import recursos.imagenes.Spritesheet;
 
 import javax.imageio.ImageIO;
@@ -16,7 +17,7 @@ import java.io.IOException;
 public class UI {
 
     GamePanel gp;
-    Font fonte = new Font("Arial", Font.ITALIC, 30);
+    Font fonte;
     String mensaje = "";
     boolean hayMensaje = false;
     public boolean juegoTerminado = false;
@@ -194,9 +195,16 @@ public class UI {
             dibujarTextoSombreado("P.Vida", 290, 500, 25);
         }
         if (gp.getTeclado().atacar) {
+            x=290;
             dibujarVentanaGenerica(250, gp.getHeight() / 2 + 30, 200, 250);
             dibujarTextoSombreado("Basico", 290, 400, 25);
             dibujarTextoSombreado("Critico", 290, 500, 25);
+            if (numeroMenu == 0) {
+                g2d.drawString(">", x - 25, 350);
+            }
+            if (numeroMenu == 1) {
+                g2d.drawString(">", x - 25, 470);
+            }
         }
 
     }

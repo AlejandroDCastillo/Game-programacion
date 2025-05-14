@@ -63,3 +63,4 @@ public class Mon_Esqueleto extends Entidad {
         g2d.drawImage(tomarImagen(),(int) x,(int) y,gp.getTamañofinalBaldosa(),gp.getTamañofinalBaldosa(),null);
     }
 }
+

@@ -8,7 +8,6 @@ import item.armadura.Armadura;
 import item.armas.Arma;
 import recursos.imagenes.Spritesheet;
 import recursos.teclado.DetectorTeclas;
-import utiles.UtilDiego;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -27,7 +26,8 @@ public class Jugador extends Entidad {
     private Inventario inventario;
     private int llaves = 0;
     public int objetoInteractuado=0;
-
+    private boolean opcionAtacar=false;
+    private boolean opcionHuir=false;
     /**
      * constructor del jugador
      *
@@ -66,6 +66,8 @@ public class Jugador extends Entidad {
         }catch(IOException e){
             e.printStackTrace();
         }
+        opcionAtacar=false;
+        opcionHuir=false;
     }
 
     /**
@@ -130,7 +132,7 @@ public class Jugador extends Entidad {
                         }
                         case "yelmo": {
                             if (obj.getCantidad() > 0) {
-                                setCabeza(obj);
+                                setCabeza(objArmadura);
                                 return true;
                             } else {
                                 return false;
@@ -138,7 +140,7 @@ public class Jugador extends Entidad {
                         }
                         case "peto": {
                             if (obj.getCantidad() > 0) {
-                                setArmadura(obj);
+                                setArmadura(objArmadura);
                                 return true;
                             } else {
                                 return false;
@@ -252,7 +254,7 @@ public class Jugador extends Entidad {
         colision = false;
         gp.detectorDeColisiones.comprobarBaldosa(this);
         int objetoIndex = gp.detectorDeColisiones.comprobarObjetos(this, true);
-        int monstruoIndex = gp.detectorDeColisiones.comprobaEntidad(this,gp.arrayEnemigos);
+        int monstruoIndex = gp.detectorDeColisiones.comprobaEntidad(this, gp.arrayEnemigos);
         gp.gestorDeEventos.comprobarEventos();
         recogerObjetos(objetoIndex);
         if (!colision) {
@@ -371,6 +373,7 @@ public class Jugador extends Entidad {
 
 
 
+
     /**
      * metodo que dibuja el sprite en pantalla
      *
@@ -384,41 +387,11 @@ public class Jugador extends Entidad {
         g2d.drawImage(obtenerImagenPlayer(), (int) x, (int) y, gp.getTamañofinalBaldosa(), gp.getTamañofinalBaldosa(), null);
     }
 
+    public int gastarTurno(){
+        return 0;
+    }
+
     //GETTERS SETTERS Y TO STRING
-
-    public Arma getArma() {
-        return arma;
-    }
-
-    public void setArma(Arma arma) {
-        this.arma = arma;
-    }
-
-    @Override
-    public Item getArmadura() {
-        return armadura;
-    }
-
-    @Override
-    public void setArmadura(Item armadura) {
-        this.armadura = armadura;
-    }
-
-    public Item getEscudo() {
-        return escudo;
-    }
-
-    public void setEscudo(Item escudo) {
-        this.escudo = escudo;
-    }
-
-    public Item getCabeza() {
-        return cabeza;
-    }
-
-    public void setCabeza(Item cabeza) {
-        this.cabeza = cabeza;
-    }
 
     public DetectorTeclas getTeclado() {
         return teclado;
@@ -460,11 +433,19 @@ public class Jugador extends Entidad {
         this.inventario = inventario;
     }
 
-    public int getLlaves() {
-        return llaves;
+    public boolean isOpcionHuir() {
+        return opcionHuir;
     }
 
-    public void setLlaves(int llaves) {
-        this.llaves = llaves;
+    public void setOpcionHuir(boolean opcionHuir) {
+        this.opcionHuir = opcionHuir;
+    }
+
+    public boolean isOpcionAtacar() {
+        return opcionAtacar;
+    }
+
+    public void setOpcionAtacar(boolean opcionAtacar) {
+        this.opcionAtacar = opcionAtacar;
     }
 }

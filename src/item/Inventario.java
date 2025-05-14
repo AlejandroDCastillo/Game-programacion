@@ -56,7 +56,7 @@ public class Inventario {
         Arma espada = new Arma("espada", 1,11,1,5,null, TipoAtaque.ArmaLigera,0,2);
         Arma varaMago = new Arma("varaMago", 1,11,5,6,Elemento.RAYO, TipoAtaque.ArmaMágica,10,3);
         Arma espadaFuego = new Arma("espadaFuego", 1,11,2,9, Elemento.FUEGO, TipoAtaque.ArmaLigera,0,2);
-        Armadura escudo = new Armadura("escudo", 1,4,6,6);
+        Armadura escudo = new Armadura("escudo", 1,12,6,6);
         Armadura talisman = new Armadura("talismanSecreto",1,10,7,4);
         Armadura yelmo=new Armadura("yelmo",1,1,7,5);
         Armadura peto=new Armadura("peto",1,6,7,5);
@@ -115,9 +115,9 @@ public class Inventario {
             }
             espacioAltura = espacioAltura + 64;
         }
-        Item arma=jugador.getArma();
-        Item escudo=jugador.getEscudo();
-        Item armadura=jugador.getArmadura();
+        Arma arma=jugador.getArma();
+        Armadura escudo=jugador.getEscudo();
+        Armadura armadura= (Armadura) jugador.getArmadura();
         Item cabeza=jugador.getCabeza();
         if(arma!=null){
             g2d.drawImage(arma.getPlantillaInventario().getImg(arma.getX(),arma.getY()),
@@ -132,7 +132,7 @@ public class Inventario {
                     55, 55, null);
         }
         if(armadura!=null){
-            g2d.drawImage(escudo.getPlantillaInventario().getImg(armadura.getX(),armadura.getY()),
+            g2d.drawImage(armadura.getPlantillaInventario().getImg(armadura.getX(),armadura.getY()),
                     165,
                     138+(64*2),
                     55, 55, null);

@@ -297,6 +297,7 @@ public class DetectorDeColisiones {
                 }
                 gp.empezarMusica(4);
                 gp.estadoJuego=gp.combate;
+                gp.gc= new GestorCombate(gp.getJugador(),entidad,gp);
             }
         }
         entidad.zonaDeColision.x = entidad.getZonaDeColisionDefectoX();

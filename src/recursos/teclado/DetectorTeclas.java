@@ -522,10 +522,32 @@ public class DetectorTeclas implements KeyListener {
                 if (tecla == KeyEvent.VK_ENTER) {
                     if (gp.getInterfaz().getNumeroMenu() == 0&&gp.gc.jugador.isTurno()) {
                         gp.gc.monstruo.recibirDaño(gp.gc.jugador.atacar());
+
                     }if (gp.getInterfaz().getNumeroMenu() == 1&&gp.gc.jugador.isTurno()) {
                         consumible=true;
                     }if (gp.getInterfaz().getNumeroMenu() == 2&&gp.gc.jugador.isTurno()) {
                        huir = true;
+                    }
+                }
+                if (atacar) {
+                    if (tecla == KeyEvent.VK_W) {
+                        gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() - 1);
+                        if (gp.getInterfaz().getNumeroMenu() < 0) {
+                            gp.getInterfaz().setNumeroMenu(1);
+                        }
+                    }
+                    if (tecla == KeyEvent.VK_S) {
+                        gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() + 1);
+                        if (gp.getInterfaz().getNumeroMenu() > 1) {
+                            gp.getInterfaz().setNumeroMenu(0);
+                        }
+                    }
+                    if (tecla == KeyEvent.VK_ENTER) {
+                        if (gp.getInterfaz().getNumeroMenu() == 0 && gp.gc.jugador.isTurno()) {
+                        }
+                        if (gp.getInterfaz().getNumeroMenu() == 1 && gp.gc.jugador.isTurno()) {
+                            consumible = true;
+                        }
                     }
                 }
         }

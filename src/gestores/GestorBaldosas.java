@@ -20,6 +20,7 @@ public class GestorBaldosas {
         obtenerImagenBaldosa();
         cargarMapaBaldosas();
     }
+
     public void obtenerImagenBaldosa() {
         try {
             BufferedImage imagenPlantillaBuffered = ImageIO.read(new File("src/recursos/imagenes/baldosas/PlantillaBaldosas.png"));

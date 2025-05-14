@@ -2,6 +2,7 @@ package entidades;
 
 import gamePanel.GamePanel;
 import item.Item;
+import item.armadura.Armadura;
 import item.armas.Arma;
 import item.armas.Elemento;
 import item.armas.TipoAtaque;
@@ -51,9 +52,9 @@ public abstract class Entidad {
     protected Elemento elemento;
     //obj equipados
     protected Arma arma = new Arma("desarmado",1,0,0,1,null,TipoAtaque.ArmaLigera,0,0);
-    protected Item armadura;
-    protected Item escudo;
-    protected Item cabeza;
+    protected Armadura armadura;
+    protected Armadura escudo;
+    protected Armadura cabeza;
 
 
     public Entidad(GamePanel gp) {
@@ -285,15 +286,17 @@ public abstract class Entidad {
     }
 
     public int turno(Entidad monstruo, Entidad jugador) {
+        //Cuando funcionen los consumibles estableceré el random
+        // int random = UtilDiego.numRandomentero(0,1);
+        int random=0;
         int accion=1;
-        int random = UtilDiego.numRandomentero(0,1);
         switch(random){
             case 0:
                 jugador.recibirDaño(monstruo.atacar());
                 accion=0;
                 break;
             case 1:
-                monstruo.recibirDaño(jugador.atacar()/2);
+                //consumibles
                 accion=0;
                 break;
         }
@@ -315,11 +318,14 @@ public abstract class Entidad {
     return dañoBase;
     }
 
-    public void recibirDaño(int dañoTotal) {
+    public int recibirDaño(int dañoTotal) {
        int vida = dañoTotal - defensa;
        if (vida > 0) {
            this.vida-=vida;
+       }else{
+           vida=0;
        }
+       return vida;
     }
 
     public double getY() {
@@ -458,10 +464,6 @@ public abstract class Entidad {
         return armadura;
     }
 
-    public void setArmadura(Item armadura) {
-        this.armadura = armadura;
-    }
-
     public Rectangle getZonaDeColision() {
         return zonaDeColision;
     }
@@ -546,19 +548,23 @@ public abstract class Entidad {
         this.arma = arma;
     }
 
-    public Item getEscudo() {
+    public void setArmadura(Armadura armadura){
+        this.armadura=armadura;
+    };
+
+    public Armadura getEscudo() {
         return escudo;
     }
 
-    public void setEscudo(Item escudo) {
+    public void setEscudo(Armadura escudo) {
         this.escudo = escudo;
     }
 
-    public Item getCabeza() {
+    public Armadura getCabeza() {
         return cabeza;
     }
 
-    public void setCabeza(Item cabeza) {
+    public void setCabeza(Armadura cabeza) {
         this.cabeza = cabeza;
     }
 }
