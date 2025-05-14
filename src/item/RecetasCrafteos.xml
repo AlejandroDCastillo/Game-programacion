@@ -9,7 +9,7 @@
         </ingredientes>
     </receta>
     <receta>
-        <nombre>escudoOro</nombre>
+        <nombre>escudo_oro</nombre>
         <ingredientes>
             <ingrediente>madera</ingrediente>
             <ingrediente>oro</ingrediente>
@@ -52,7 +52,7 @@
     <receta>
         <nombre>yelmo</nombre>
         <ingredientes>
-            <ingrediente>hiero</ingrediente>
+            <ingrediente>hierro</ingrediente>
             <ingrediente>hierro</ingrediente>
         </ingredientes>
     </receta>

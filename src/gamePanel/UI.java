@@ -75,7 +75,7 @@ public class UI {
             if (gp.getTeclado().menuBoolean) {
                 dibujarInventario(gp.getTeclado().craftear);
                 if (gp.getTeclado().craftear) {
-                    dibujarMenuCrafteo(gp.getTeclado().craftear);
+                    dibujarMenuCrafteo();
                 } else if (gp.getTeclado().menuEquipar) {
                     dibujarMenuEquipar(gp.getTeclado().menuEquipar);
                 }
@@ -196,25 +196,9 @@ public class UI {
         if (numeroMenu == 2) {
             g2d.drawString(">", x - 25, 530);
         }
-
-        if (gp.getTeclado().consumible) {
-            dibujarVentanaGenerica(250, gp.getHeight() / 2 + 30, 200, 250);
-            dibujarTextoSombreado("P.Mana", 290, 400, 25);
-            dibujarTextoSombreado("P.Vida", 290, 500, 25);
-        }
-        if (gp.getTeclado().atacar) {
-            x=290;
-            dibujarVentanaGenerica(250, gp.getHeight() / 2 + 30, 200, 250);
-            dibujarTextoSombreado("Basico", 290, 400, 25);
-            dibujarTextoSombreado("Critico", 290, 500, 25);
-            if (numeroMenu == 0) {
-                g2d.drawString(">", x - 25, 350);
-            }
-            if (numeroMenu == 1) {
-                g2d.drawString(">", x - 25, 470);
-            }
-        }
-
+        dibujarVentanaGenerica(250, gp.getHeight() / 2 + 30, 200, 250);
+        dibujarTextoSombreado("P.Mana", 290, 400, 25);
+        dibujarTextoSombreado("P.Vida", 290, 500, 25);
     }
 
     /**
@@ -223,8 +207,52 @@ public class UI {
      * @param equipar
      */
     public void dibujarMenuEquipar(boolean equipar) {
+
+        //indica en pantalla si se consigue equipar o no (no sé porque lo hacemos si siempre se puede equipar)
+        //falta especificar en el texto la proteccion base de las armaduras y sus aumentos
         dibujarVentanaGenerica(580, 110, 180, 280);
+        dibujarVentanaGenerica(120, 0, 480, 110);
+        int x = 130, y = 50;
         String texto;
+        if (!gp.getTeclado().intentoEquipar) {
+            if (numeroMenu == 0) {
+
+                texto = "Un yelmo se crea con un hiero y un hierro.";
+                dibujarTextoSombreado(texto, x, y, 15);
+            }
+            if (numeroMenu == 1) {
+                texto = "Un yelmo se crea con un hiero y un hierro.";
+                dibujarTextoSombreado(texto, x, y, 15);
+            }
+            if (numeroMenu == 2) {
+                texto = "Un yelmo se crea con un hiero y un hierro.";
+                dibujarTextoSombreado(texto, x, y, 15);
+            }
+            if (numeroMenu == 3) {
+                texto = "Un yelmo se crea con un hiero y un hierro.";
+                dibujarTextoSombreado(texto, x, y, 15);
+            }
+            if (numeroMenu == 4) {
+                texto = "Un yelmo se crea con un hiero y un hierro.";
+                dibujarTextoSombreado(texto, x, y, 15);
+            }
+            if (numeroMenu == 5) {
+                texto = "Un yelmo se crea con un hiero y un hierro.";
+                dibujarTextoSombreado(texto, x, y, 15);
+            }
+            if (numeroMenu == 6) {
+                texto = "Un yelmo se crea con un hiero y un hierro.";
+                dibujarTextoSombreado(texto, x, y, 15);
+            }
+            if (numeroMenu == 7) {
+                texto = "Un yelmo se crea con un hiero y un hierro.";
+                dibujarTextoSombreado(texto, x, y, 15);
+            }
+            if (numeroMenu == 8) {
+                texto = "Un yelmo se crea con un hiero y un hierro.";
+                dibujarTextoSombreado(texto, x, y, 15);
+            }
+        }
         texto = "Escudo";
         dibujarTextoSombreado(texto, 605, 150, 20);
         texto = "Esc Oro";
@@ -243,53 +271,64 @@ public class UI {
         dibujarTextoSombreado(texto, 605, 290, 20);
         texto = "salir";
         dibujarTextoSombreado(texto, 605, 310, 20);
-        if (equipar) {
-            int x = 130, y = 50;
-            dibujarVentanaGenerica(120, 0, 480, 110);
-            if (numeroMenu == 0) {
+        switch (numeroMenu){
+            case 0:
                 dibujarTextoSombreado(">", 590, 155, 25);
-                texto = "Un yelmo se crea con un hiero y un hierro.";
-                dibujarTextoSombreado(texto, x, y, 15);
+                break;
+            case 1:
+                dibujarTextoSombreado(">", 590, 175, 25);
+                break;
+            case 2:
+                dibujarTextoSombreado(">", 590, 195, 25);
+                break;
+            case 3:
+                dibujarTextoSombreado(">", 590, 215, 25);
+                break;
+            case 4:
+                dibujarTextoSombreado(">", 590, 235, 25);
+                break;
+            case 5:
+                dibujarTextoSombreado(">", 590, 255, 25);
+                break;
+            case 6:
+                dibujarTextoSombreado(">", 590, 275, 25);
+                break;
+            case 7:
+                dibujarTextoSombreado(">", 590, 295, 25);
+                break;
+            case 8:
+                dibujarTextoSombreado(">", 590, 315, 25);
+                break;
+        }
+        if (gp.getTeclado().intentoEquipar) {
+            if (numeroMenu == 0) {
+
+                dibujarTextoSombreado(mensaje, x, y, 15);
             }
             if (numeroMenu == 1) {
-                dibujarTextoSombreado(">", 590, 175, 25);
-                texto = "Un yelmo se crea con un hiero y un hierro.";
-                dibujarTextoSombreado(texto, x, y, 15);
+                dibujarTextoSombreado(mensaje, x, y, 15);
             }
             if (numeroMenu == 2) {
-                dibujarTextoSombreado(">", 590, 195, 25);
-                texto = "Un yelmo se crea con un hiero y un hierro.";
-                dibujarTextoSombreado(texto, x, y, 15);
+                dibujarTextoSombreado(mensaje, x, y, 15);
             }
             if (numeroMenu == 3) {
-                dibujarTextoSombreado(">", 590, 215, 25);
-                texto = "Un yelmo se crea con un hiero y un hierro.";
-                dibujarTextoSombreado(texto, x, y, 15);
+                dibujarTextoSombreado(mensaje, x, y, 15);
             }
             if (numeroMenu == 4) {
-                dibujarTextoSombreado(">", 590, 235, 25);
-                texto = "Un yelmo se crea con un hiero y un hierro.";
-                dibujarTextoSombreado(texto, x, y, 15);
+                dibujarTextoSombreado(mensaje, x, y, 15);
+
             }
             if (numeroMenu == 5) {
-                dibujarTextoSombreado(">", 590, 255, 25);
-                texto = "Un yelmo se crea con un hiero y un hierro.";
-                dibujarTextoSombreado(texto, x, y, 15);
+                dibujarTextoSombreado(mensaje, x, y, 15);
             }
             if (numeroMenu == 6) {
-                dibujarTextoSombreado(">", 590, 275, 25);
-                texto = "Un yelmo se crea con un hiero y un hierro.";
-                dibujarTextoSombreado(texto, x, y, 15);
+                dibujarTextoSombreado(mensaje, x, y, 15);
             }
             if (numeroMenu == 7) {
-                dibujarTextoSombreado(">", 590, 295, 25);
-                texto = "Un yelmo se crea con un hiero y un hierro.";
-                dibujarTextoSombreado(texto, x, y, 15);
+                dibujarTextoSombreado(mensaje, x, y, 15);
             }
             if (numeroMenu == 8) {
-                dibujarTextoSombreado(">", 590, 315, 25);
-                texto = "Un yelmo se crea con un hiero y un hierro.";
-                dibujarTextoSombreado(texto, x, y, 15);
+                dibujarTextoSombreado(mensaje, x, y, 15);
             }
         }
     }
@@ -297,11 +336,61 @@ public class UI {
     /**
      * metodo que dibuja el menu de craftear
      *
-     * @param craftear
+     *
      */
-    public void dibujarMenuCrafteo(boolean craftear) {
-        dibujarVentanaGenerica(580, 110, 180, 280);
+    public void dibujarMenuCrafteo() {
         String texto;
+        int x = 130, y = 50;
+        dibujarVentanaGenerica(580, 110, 180, 280);
+        dibujarVentanaGenerica(120, 0, 480, 110);
+        if (!gp.getTeclado().intentocrafteo){
+            switch (numeroMenu){
+                case 0:
+                    texto = "Un escudo se crea con una madera y dos de hierro.";
+                    dibujarTextoSombreado(texto, x, y, 15);
+                    break;
+                case 1:
+                    texto = "Un escudo de oro se crea con una madera y dos de oro.";
+                    dibujarTextoSombreado(texto, x, y, 15);
+                    break;
+                case 2:
+                    texto = "Una espada se crea con una madera y un hierro.";
+                    dibujarTextoSombreado(texto, x, y, 15);
+                    break;
+                case 3:
+                    texto = "Una espadaFuego se crea con una madera,";
+                    dibujarTextoSombreado(texto, x, y, 15);
+                    texto = "un hierro, un oro y un carbón.";
+                    dibujarTextoSombreado(texto, x, y + 20, 15);
+                    break;
+                case 4:
+                    texto = "Una varaMago se crea con dos de madera,";
+                    dibujarTextoSombreado(texto, x, y, 15);
+                    texto = "un oro y un hierro.";
+                    dibujarTextoSombreado(texto, x, y + 20, 15);
+                    break;
+                case 5:
+                    texto = "Un talismanSecreto se crea con un hierro y dos de oro.";
+                    dibujarTextoSombreado(texto, x, y, 15);
+                    break;
+                case 6:
+                    texto = "Un yelmo se crea con un hiero y un hierro.";
+                    dibujarTextoSombreado(texto, x, y, 15);
+                    break;
+                case 7:
+                    texto = "Un peto se crea con dos de hierro y un oro.";
+                    dibujarTextoSombreado(texto, x, y, 15);
+                    break;
+                case 8:
+                    texto = "Un oro se crea con una mena_oro y un carbón.";
+                    dibujarTextoSombreado(texto, x, y, 15);
+                    break;
+                case 9:
+                    texto = "Un hierro se crea con una mena de hierro y un carbón.";
+                    dibujarTextoSombreado(texto, x, y, 15);
+                    break;
+            }
+        }
         texto = "Escudo";
         dibujarTextoSombreado(texto, 605, 150, 20);
         texto = "Esc Oro";
@@ -324,70 +413,74 @@ public class UI {
         dibujarTextoSombreado(texto, 605, 330, 20);
         texto = "salir";
         dibujarTextoSombreado(texto, 605, 350, 20);
-        if (craftear) {
-
-
-            dibujarVentanaGenerica(120, 0, 480, 110);
-            int x = 130, y = 50;
-            if (numeroMenu == 0) {
+        switch (numeroMenu){
+            case 0:
                 dibujarTextoSombreado(">", 590, 155, 25);
-                texto = "Un escudo se crea con una madera y dos de hierro.";
-                dibujarTextoSombreado(texto, x, y, 15);
+                break;
+            case 1:
+                dibujarTextoSombreado(">", 590, 175, 25);
+                break;
+            case 2:
+                dibujarTextoSombreado(">", 590, 195, 25);
+                break;
+            case 3:
+                dibujarTextoSombreado(">", 590, 215, 25);
+                break;
+            case 4:
+                dibujarTextoSombreado(">", 590, 235, 25);
+                break;
+            case 5:
+                dibujarTextoSombreado(">", 590, 255, 25);
+                break;
+            case 6:
+                dibujarTextoSombreado(">", 590, 275, 25);
+                break;
+            case 7:
+                dibujarTextoSombreado(">", 590, 295, 25);
+                break;
+            case 8:
+                dibujarTextoSombreado(">", 590, 315, 25);
+                break;
+            case 9:
+                dibujarTextoSombreado(">", 590, 335, 25);
+                break;
+        }
+
+        if (gp.getTeclado().intentocrafteo) {
+            if (numeroMenu == 0) {
+
+                dibujarTextoSombreado(mensaje, x, y, 15);
             }
             if (numeroMenu == 1) {
-                dibujarTextoSombreado(">", 590, 175, 25);
-                texto = "Un escudoOro se crea con una madera y dos de oro.";
-                dibujarTextoSombreado(texto, x, y, 15);
+                dibujarTextoSombreado(mensaje, x, y, 15);
             }
             if (numeroMenu == 2) {
-                dibujarTextoSombreado(">", 590, 195, 25);
-                texto = "Una espada se crea con una madera y un hierro.";
-                dibujarTextoSombreado(texto, x, y, 15);
+                dibujarTextoSombreado(mensaje, x, y, 15);
             }
             if (numeroMenu == 3) {
-                dibujarTextoSombreado(">", 590, 215, 25);
-                texto = "Una espadaFuego se crea con una madera,";
-                dibujarTextoSombreado(texto, x, y, 15);
-                texto = "un hierro, un oro y un carbón.";
-                dibujarTextoSombreado(texto, x, y + 20, 15);
+                dibujarTextoSombreado(mensaje, x, y, 15);
             }
             if (numeroMenu == 4) {
-                dibujarTextoSombreado(">", 590, 235, 25);
-                texto = "Una varaMago se crea con dos de madera,";
-                dibujarTextoSombreado(texto, x, y, 15);
-                texto = "un oro y un hierro.";
-                dibujarTextoSombreado(texto, x, y + 20, 15);
+                dibujarTextoSombreado(mensaje, x, y, 15);
+
             }
-
             if (numeroMenu == 5) {
-                dibujarTextoSombreado(">", 590, 255, 25);
-                texto = "Un talismanSecreto se crea con un hierro y dos de oro.";
-                dibujarTextoSombreado(texto, x, y, 15);
-
+                dibujarTextoSombreado(mensaje, x, y, 15);
             }
             if (numeroMenu == 6) {
-                dibujarTextoSombreado(">", 590, 275, 25);
-                texto = "Un yelmo se crea con un hiero y un hierro.";
-                dibujarTextoSombreado(texto, x, y, 15);
+                dibujarTextoSombreado(mensaje, x, y, 15);
             }
             if (numeroMenu == 7) {
-                dibujarTextoSombreado(">", 590, 295, 25);
-                texto = "Un peto se crea con dos de hierro y un oro.";
-                dibujarTextoSombreado(texto, x, y, 15);
-
+                dibujarTextoSombreado(mensaje, x, y, 15);
             }
             if (numeroMenu == 8) {
-                dibujarTextoSombreado(">", 590, 315, 25);
-                texto = "Un oro se crea con una mena_oro y un carbón.";
-                dibujarTextoSombreado(texto, x, y, 15);
+                dibujarTextoSombreado(mensaje, x, y, 15);
             }
             if (numeroMenu == 9) {
-                dibujarTextoSombreado(">", 590, 335, 25);
-                texto = "Un hierro se crea con una mena_hierro y un carbón.";
-                dibujarTextoSombreado(texto, x, y, 15);
+                dibujarTextoSombreado(mensaje, x, y, 15);
             }
             if (numeroMenu == 10) {
-                dibujarTextoSombreado(">", 590, 355, 25);
+                dibujarTextoSombreado(mensaje, x, y, 15);
             }
         }
     }

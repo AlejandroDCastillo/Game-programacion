@@ -173,6 +173,8 @@ public class GamePanel extends JPanel implements Runnable{
                 menuInventario.dibujar(g2d);
             }
         g2d.dispose();
+
+
     }
 
     /**

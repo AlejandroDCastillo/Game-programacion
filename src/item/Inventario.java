@@ -57,11 +57,13 @@ public class Inventario {
         Arma varaMago = new Arma("varaMago", 1,11,5,6,Elemento.RAYO, TipoAtaque.ArmaMágica,10,3);
         Arma espadaFuego = new Arma("espadaFuego", 1,11,2,9, Elemento.FUEGO, TipoAtaque.ArmaLigera,0,2);
         Armadura escudo = new Armadura("escudo", 1,12,6,6);
+        Armadura escudoOro = new Armadura("escudo_oro", 1,11,6,12);
         Armadura talisman = new Armadura("talismanSecreto",1,10,7,4);
         Armadura yelmo=new Armadura("yelmo",1,1,7,5);
         Armadura peto=new Armadura("peto",1,6,7,5);
         //faltan yelmo, peto,escudo oro, talisman
 
+        inventario.add(escudoOro);
         inventario.add(agua);
         inventario.add(comida);
         inventario.add(madera);
@@ -184,7 +186,7 @@ public class Inventario {
         ArrayList<String> recetaIngrediente = new ArrayList<>();
         try {
             // Cargar el archivo XML
-            File archivo = new File("C:\\Users\\diego\\IdeaProjects\\Survival_Dungeons\\src\\item\\RecetasCrafteos.xml");
+            File archivo = new File("src/item/RecetasCrafteos.xml");
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.parse(archivo);
