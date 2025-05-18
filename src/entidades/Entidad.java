@@ -285,27 +285,11 @@ public abstract class Entidad {
                 '}';
     }
 
-    public int turno(Entidad monstruo, Entidad jugador) {
-        //Cuando funcionen los consumibles estableceré el random
-        // int random = UtilDiego.numRandomentero(0,1);
-        int random=0;
-        int accion=1;
-        switch(random){
-            case 0:
-                jugador.recibirDaño(monstruo.atacar());
-                accion=0;
-                break;
-            case 1:
-                //consumibles
-                accion=0;
-                break;
-        }
-        return accion;
-    }
 
 
 
     public int atacar() {
+
         gp.efectoSonido(5);
         int dañoBase = arma.getDañoBase();
         switch (arma.getTipoataque()){

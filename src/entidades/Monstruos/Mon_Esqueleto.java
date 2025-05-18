@@ -57,6 +57,8 @@ public class Mon_Esqueleto extends Entidad {
         };
     }
 
+
+
     @Override
     public void dibujar(Graphics2D g2d){
         g2d.setColor(Color.red);

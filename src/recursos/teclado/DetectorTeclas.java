@@ -494,29 +494,29 @@ public class DetectorTeclas implements KeyListener {
         }
         //combate
         if(gp.estadoJuego==gp.combate){
-            if (gp.gc.jugador.getVida()<=0) {
-                gp.estadoJuego=gp.gameOver;
-               primerTurno=false;
-            }else if (gp.gc.monstruo.getVida()<=0) {
-                gp.estadoJuego=gp.continuar;
-                primerTurno=false;
-                for (int i =0;i<gp.arrayEnemigos.length;i++){
-                    if (gp.gc.monstruo.getNombre().equals(gp.arrayEnemigos[i].getNombre())){
-                        gp.arrayEnemigos[i]=null;
-                        break;
-                    }
-                }
-            }
-
-            if (gp.gc.jugador.getVelocidad()<gp.gc.monstruo.getVelocidad()&&!primerTurno) {
-                gp.gc.monstruo.setTurno(true);
-                gp.gc.jugador.setTurno(false);
-                primerTurno=true;
-            }if(gp.gc.jugador.getVelocidad()>=gp.gc.monstruo.getVelocidad()&&!primerTurno){
-                gp.gc.monstruo.setTurno(false);
-                gp.gc.jugador.setTurno(true);
-                primerTurno=true;
-            }
+//            if (gp.gc.jugador.getVida()<=0) {
+//                gp.estadoJuego=gp.gameOver;
+//               primerTurno=false;
+//            }else if (gp.gc.monstruo.getVida()<=0) {
+//                gp.estadoJuego=gp.continuar;
+//                primerTurno=false;
+//                for (int i =0;i<gp.arrayEnemigos.length;i++){
+//                    if (gp.gc.monstruo.getNombre().equals(gp.arrayEnemigos[i].getNombre())){
+//                        gp.arrayEnemigos[i]=null;
+//                        break;
+//                    }
+//                }
+//            }
+//
+//            if (gp.gc.jugador.getVelocidad()<gp.gc.monstruo.getVelocidad()&&!primerTurno) {
+//                gp.gc.monstruo.setTurno(true);
+//                gp.gc.jugador.setTurno(false);
+//                primerTurno=true;
+//            }if(gp.gc.jugador.getVelocidad()>=gp.gc.monstruo.getVelocidad()&&!primerTurno){
+//                gp.gc.monstruo.setTurno(false);
+//                gp.gc.jugador.setTurno(true);
+//                primerTurno=true;
+//            }
                 if (gp.gc.jugador.isTurno()){
                     if (tecla == KeyEvent.VK_W) {
                         gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() - 1);
@@ -548,6 +548,7 @@ public class DetectorTeclas implements KeyListener {
                                 gp.gc.monstruo.recibirDaño(gp.gc.jugador.atacar());
                                 gp.gc.jugador.setTurno(false);
                                 gp.gc.monstruo.setTurno(true);
+                                gp.gc.contadorUpdates=0;
                             }
                             if (gp.getInterfaz().getNumeroMenu() == 1 && gp.gc.jugador.isTurno()) {
                                 //consumible
@@ -580,20 +581,6 @@ public class DetectorTeclas implements KeyListener {
                             }
                         }
                     }
-                }else{
-                    if (gp.gc.monstruo.isTurno()){
-                        int random=0;
-                        switch(random){
-                            case 0:
-                                gp.gc.jugador.recibirDaño(gp.gc.monstruo.atacar());
-                                break;
-                            case 1:
-                                //consumibles
-                                break;
-                        }
-                        gp.gc.jugador.setTurno(true);
-                        gp.gc.monstruo.setTurno(false);
-                    }
                 }
         }
     }
@@ -616,38 +603,6 @@ public class DetectorTeclas implements KeyListener {
         }
         if (tecla == KeyEvent.VK_ENTER) {
             enterPulsado = false;
-        }
-    }
-    public static void combate(Entidad monstruo, Entidad jugador) {
-        if (monstruo.getVelocidad()>jugador.getVelocidad()) {
-            monstruo.setTurno(true);
-            if (monstruo.turno(monstruo, jugador) <= 0) {
-                monstruo.setTurno(false);
-                jugador.setTurno(true);
-                jugador.turno(monstruo, jugador);
-            } else {
-                jugador.setTurno(true);
-                if (jugador.turno(monstruo, jugador) <= 0) {
-                    monstruo.setTurno(true);
-                    jugador.setTurno(false);
-                    monstruo.turno(monstruo, jugador);
-                }
-
-            }
-        }else{
-            jugador.setTurno(true);
-            if (jugador.turno(monstruo,jugador)<=0){
-                jugador.setTurno(false);
-                monstruo.setTurno(true);
-                monstruo.turno(monstruo,jugador);
-            }else {
-                monstruo.setTurno(true);
-                if (monstruo.turno(monstruo, jugador) <= 0) {
-                    monstruo.setTurno(false);
-                    jugador.setTurno(true);
-                    jugador.turno(monstruo, jugador);
-                }
-            }
         }
     }
 }

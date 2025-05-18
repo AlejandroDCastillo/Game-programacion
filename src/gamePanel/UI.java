@@ -231,6 +231,21 @@ public class UI {
             g2d.fillRect(x,y,2,4);
             x+=2;
         }
+
+        //maná
+        x=110;
+         y=270;
+         stat= String.valueOf(gp.gc.jugador.getMana());
+        dibujarTextoSombreado("Mana:",x-70,y,25);
+        dibujarTextoSombreado(stat,280,270,15);
+        dibujarTextoSombreado("/100",310,270,15);
+        g2d.setColor(Color.BLUE);
+        //buvle para dibujar el cuadrado rojo
+        for (int i=0;i<gp.getJugador().getMana();i++){
+            //cuadrado rojo por cada punto de vida
+            g2d.fillRect(x,y,2,4);
+            x+=2;
+        }
         //enemigo
         x=480;
         y=250;
