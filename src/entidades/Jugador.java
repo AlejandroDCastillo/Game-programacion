@@ -98,17 +98,18 @@ public class Jugador extends Entidad {
      * @return
      */
     public boolean comer() {
+        gp.efectoSonido(6);
         Item i = inventario.buscarObjeto("comida");
         if (i.getCantidad() > 0) {
-            if (hambre >= 70) {
+            if (vida >= 70) {
                 System.out.println("comiendo");
                 i.setCantidad(i.getCantidad() - 1);
-                hambre = 100;
+                vida = 100;
                 return true;
             } else {
                 System.out.println("comiendo");
                 i.setCantidad(i.getCantidad() - 1);
-                hambre = hambre + 30;
+                vida = vida + 30;
                 return true;
             }
         } else {

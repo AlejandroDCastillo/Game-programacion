@@ -306,6 +306,7 @@ public abstract class Entidad {
 
 
     public int atacar() {
+        gp.efectoSonido(5);
         int dañoBase = arma.getDañoBase();
         switch (arma.getTipoataque()){
             case ArmaPesada -> dañoAtaque = dañoBase *fuerza/2+(destreza/10);

@@ -23,6 +23,8 @@ public class DetectorTeclas implements KeyListener {
     public boolean intentoEquipar = false;
     //bolean para desplegable de equipar
     public boolean menuEquipar = false;
+    //bolean despliegue consumir
+    public boolean consumir=false;
     public StringBuilder textoIngresado = new StringBuilder();
     Raza raza = null;
     Clase clase = null;
@@ -515,12 +517,17 @@ public class DetectorTeclas implements KeyListener {
                 gp.gc.jugador.setTurno(true);
                 primerTurno=true;
             }
-            //sonido de batalla
                 if (gp.gc.jugador.isTurno()){
                     if (tecla == KeyEvent.VK_W) {
                         gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() - 1);
                         if (gp.getInterfaz().getNumeroMenu() < 0) {
                             gp.getInterfaz().setNumeroMenu(2);
+                        }
+                        if(consumir){
+                            gp.getInterfaz().numeroMenuCons=gp.getInterfaz().numeroMenuCons-1;
+                            if (gp.getInterfaz().getNumeroMenu() > 0) {
+                                gp.getInterfaz().setNumeroMenu(2);
+                            }
                         }
                     }
                     if (tecla == KeyEvent.VK_S) {
@@ -528,18 +535,49 @@ public class DetectorTeclas implements KeyListener {
                         if (gp.getInterfaz().getNumeroMenu() > 2) {
                             gp.getInterfaz().setNumeroMenu(0);
                         }
+                        if(consumir){
+                            gp.getInterfaz().numeroMenuCons=gp.getInterfaz().numeroMenuCons+1;
+                            if (gp.getInterfaz().getNumeroMenu() > 2) {
+                                gp.getInterfaz().setNumeroMenu(0);
+                            }
+                        }
                     }
                     if (tecla == KeyEvent.VK_ENTER) {
-                        if (gp.getInterfaz().getNumeroMenu() == 0&&gp.gc.jugador.isTurno()) {
-                            gp.gc.monstruo.recibirDaño(gp.gc.jugador.atacar());
-                            gp.gc.jugador.setTurno(false);
-                            gp.gc.monstruo.setTurno(true);
-                        }if (gp.getInterfaz().getNumeroMenu() == 1&&gp.gc.jugador.isTurno()) {
-                            //no hace nada
-                        }if (gp.getInterfaz().getNumeroMenu() == 2&&gp.gc.jugador.isTurno()) {
-                            gp.gc.jugador.huir();
-                            gp.gc.jugador.setTurno(false);
-                            gp.gc.monstruo.setTurno(true);
+                        if(!consumir) {
+                            if (gp.getInterfaz().getNumeroMenu() == 0 && gp.gc.jugador.isTurno()) {
+                                gp.gc.monstruo.recibirDaño(gp.gc.jugador.atacar());
+                                gp.gc.jugador.setTurno(false);
+                                gp.gc.monstruo.setTurno(true);
+                            }
+                            if (gp.getInterfaz().getNumeroMenu() == 1 && gp.gc.jugador.isTurno()) {
+                                //consumible
+                                if (!consumir) {
+                                    consumir = true;
+                                } else {
+                                    consumir = false;
+                                }
+
+                            }
+                            if (gp.getInterfaz().getNumeroMenu() == 2 && gp.gc.jugador.isTurno()) {
+                                gp.gc.jugador.huir();
+                                gp.gc.jugador.setTurno(false);
+                                gp.gc.monstruo.setTurno(true);
+                                gp.pararMusica();
+                                gp.empezarMusica(0);
+                            }
+                        }else {
+                            if (gp.getInterfaz().numeroMenuCons == 0) {
+                                //pocion de mana
+                                gp.getJugador().beberAgua();
+                            }
+                            if (gp.getInterfaz().numeroMenuCons == 1) {
+                                //pocion de vida
+                                gp.getJugador().comer();
+                            }
+                            if (gp.getInterfaz().numeroMenuCons == 2) {
+                                //volver
+                                consumir = false;
+                            }
                         }
                     }
                 }else{
