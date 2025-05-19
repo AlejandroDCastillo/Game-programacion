@@ -316,6 +316,22 @@ public class Jugador extends Entidad {
         }
     }
 
+    @Override
+    public int atacar() {
+        gp.efectoSonido(5);
+        int dañoBase = arma.getDañoBase();
+        switch (arma.getTipoataque()){
+            case ArmaPesada -> dañoAtaque = dañoBase *fuerza/2+(destreza/10);
+            case ArmaLigera -> dañoAtaque = dañoBase *destreza/2+(fuerza/10);
+            case ArmaMágica -> {
+                dañoAtaque = dañoBase/3 *magia;
+                mana=mana - arma.getCoste();
+            }
+        }
+        gp.getInterfaz().enseñarMensaje("El jugador ha hecho un ataque \n de un total de "+dañoAtaque+" daño");
+        return dañoAtaque;
+    }
+
     /**
      * tomar el sprite correspondiente al jugador
      *

@@ -35,10 +35,12 @@ public class GestorCombate {
                 }
             }
         } if (monstruo.isTurno()){
+
             if (contadorUpdates>=80){
                 jugador.recibirDaño(monstruo.atacar());
                 monstruo.setTurno(false);
                 jugador.setTurno(true);
+                jugador.setOpcionAtacar(false);
             }
         }
     }

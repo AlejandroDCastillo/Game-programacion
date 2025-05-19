@@ -300,6 +300,7 @@ public abstract class Entidad {
                 mana=mana - arma.getCoste();
             }
         }
+        gp.getInterfaz().enseñarMensaje("El enemigo ha hecho un ataque de un total de "+dañoAtaque+" daño");
     return dañoAtaque;
     }
 

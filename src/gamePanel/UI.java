@@ -271,6 +271,10 @@ public class UI {
         dibujarTextoSombreado("Magia:"+stat,660,400,15);
         stat=String.valueOf(gp.gc.jugador.getDefensa());
         dibujarTextoSombreado("Defensa:"+stat,660,440,15);
+
+        if (gp.gc.jugador.isOpcionAtacar()){
+            dibujarVentanaGenerica(100, 30, 600, 100);
+            dibujarTextoSombreado(mensaje,110,50,15);        }
     }
 
     /**
