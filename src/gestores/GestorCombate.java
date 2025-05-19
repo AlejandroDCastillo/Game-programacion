@@ -41,6 +41,9 @@ public class GestorCombate {
                 monstruo.setTurno(false);
                 jugador.setTurno(true);
                 jugador.setOpcionAtacar(false);
+                jugador.setOpcionHuir(false);
+                monstruo.setOpcionAtacar(true);
+
             }
         }
     }

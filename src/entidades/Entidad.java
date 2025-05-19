@@ -50,6 +50,7 @@ public abstract class Entidad {
     protected double velocidadDiagonal;
     protected int dañoAtaque;
     protected Elemento elemento;
+    protected boolean opcionAtacar=false;
     //obj equipados
     protected Arma arma = new Arma("desarmado",1,0,0,1,null,TipoAtaque.ArmaLigera,0,0);
     protected Armadura armadura;
@@ -300,7 +301,13 @@ public abstract class Entidad {
                 mana=mana - arma.getCoste();
             }
         }
-        gp.getInterfaz().enseñarMensaje("El enemigo ha hecho un ataque de un total de "+dañoAtaque+" daño");
+        int random = UtilDiego.numRandomentero(1,10);
+        if (random <= 2) {
+            dañoAtaque = dañoAtaque *2;
+            gp.getInterfaz().enseñarMensaje("CRITICO!!!! El enemigo ha hecho un ataque de un total de "+dañoAtaque+" daño");
+        }else{
+            gp.getInterfaz().enseñarMensaje("El enemigo ha hecho un ataque de un total de "+dañoAtaque+" daño");
+        }
     return dañoAtaque;
     }
 
@@ -552,6 +559,14 @@ public abstract class Entidad {
 
     public void setCabeza(Armadura cabeza) {
         this.cabeza = cabeza;
+    }
+
+    public boolean isOpcionAtacar() {
+        return opcionAtacar;
+    }
+
+    public void setOpcionAtacar(boolean opcionAtacar) {
+        this.opcionAtacar = opcionAtacar;
     }
 }
 

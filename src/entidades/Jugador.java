@@ -328,7 +328,13 @@ public class Jugador extends Entidad {
                 mana=mana - arma.getCoste();
             }
         }
-        gp.getInterfaz().enseñarMensaje("El jugador ha hecho un ataque \n de un total de "+dañoAtaque+" daño");
+        int random = UtilDiego.numRandomentero(1,5);
+        if (random <= 2) {
+            dañoAtaque = dañoAtaque *2;
+            gp.getInterfaz().enseñarMensaje("CRITICO!!!! Has hecho un ataque de un total de "+dañoAtaque+" daño!");
+        }else{
+            gp.getInterfaz().enseñarMensaje("Ha hecho un ataque de un total de "+dañoAtaque+" daño!");
+        }
         return dañoAtaque;
     }
 
@@ -405,6 +411,10 @@ public class Jugador extends Entidad {
         if (random<=2){
             gp.estadoJuego=gp.continuar;
             gp.gc.monstruo.colision=false;
+            gp.getInterfaz().enseñarMensaje("CONSEGUISTE HUIR!!");
+
+        }else {
+            gp.getInterfaz().enseñarMensaje("Fracaste al huir, pierdes el turno");
         }
     }
     /**

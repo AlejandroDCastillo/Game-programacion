@@ -236,11 +236,12 @@ public class UI {
 
         //maná
         x=110;
-         y=270;
-         stat= String.valueOf(gp.gc.jugador.getMana());
+        y=270;
+        stat= String.valueOf(gp.gc.jugador.getMana());
         dibujarTextoSombreado("Mana:",x-70,y,25);
         dibujarTextoSombreado(stat,280,270,15);
-        dibujarTextoSombreado("/100",310,270,15);
+        stat = String.valueOf(gp.gc.jugador.getMana());
+        dibujarTextoSombreado("/"+stat,310,270,15);
         g2d.setColor(Color.BLUE);
         //bucle para dibujar el cuadrado azul
         for (int i=0;i<gp.getJugador().getMana();i++){
@@ -255,7 +256,7 @@ public class UI {
         stat= String.valueOf(gp.gc.monstruo.getVida());
         dibujarTextoSombreado(stat,650,250,15);
         stat=String.valueOf(gp.gc.monstruo.getVidaMax());
-        dibujarTextoSombreado("/"+stat,310,250,15);
+        dibujarTextoSombreado("/"+stat,680,250,15);
         g2d.setColor(Color.RED);
         for (int i=0;i<gp.gc.monstruo.getVida();i++){
             g2d.fillRect(x,y,2,4);
@@ -274,7 +275,17 @@ public class UI {
 
         if (gp.gc.jugador.isOpcionAtacar()){
             dibujarVentanaGenerica(100, 30, 600, 100);
-            dibujarTextoSombreado(mensaje,110,50,15);        }
+            dibujarTextoSombreado(mensaje,110,80,20);
+        }
+        if (gp.gc.monstruo.isOpcionAtacar()){
+            dibujarVentanaGenerica(100, 30, 600, 100);
+            dibujarTextoSombreado(mensaje,110,80,20);
+        }
+
+        if (gp.gc.jugador.isOpcionHuir()){
+            dibujarVentanaGenerica(100, 30, 600, 100);
+            dibujarTextoSombreado(mensaje,110,80,20);
+        }
     }
 
     /**
@@ -981,13 +992,13 @@ public class UI {
      */
     public void dibujarTextoSombreado(String texto, int x, int y, float tamaño) {
         //bucle que trata los saltos de linea.
-        for (String line : texto.split("\n")) {
+        for (String linea : texto.split("\n")) {
             g2d.setFont(g2d.getFont().deriveFont(Font.BOLD, tamaño));
             g2d.setColor(Color.BLACK);
-            g2d.drawString(texto, x, y);
+            g2d.drawString(linea, x, y);
             //sombreado
             g2d.setColor(Color.WHITE);
-            g2d.drawString(texto, x + 3, y + 3);
+            g2d.drawString(linea, x + 3, y + 3);
         }
     }
 

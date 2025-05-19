@@ -494,29 +494,6 @@ public class DetectorTeclas implements KeyListener {
         }
         //combate
         if(gp.estadoJuego==gp.combate){
-//            if (gp.gc.jugador.getVida()<=0) {
-//                gp.estadoJuego=gp.gameOver;
-//               primerTurno=false;
-//            }else if (gp.gc.monstruo.getVida()<=0) {
-//                gp.estadoJuego=gp.continuar;
-//                primerTurno=false;
-//                for (int i =0;i<gp.arrayEnemigos.length;i++){
-//                    if (gp.gc.monstruo.getNombre().equals(gp.arrayEnemigos[i].getNombre())){
-//                        gp.arrayEnemigos[i]=null;
-//                        break;
-//                    }
-//                }
-//            }
-//
-//            if (gp.gc.jugador.getVelocidad()<gp.gc.monstruo.getVelocidad()&&!primerTurno) {
-//                gp.gc.monstruo.setTurno(true);
-//                gp.gc.jugador.setTurno(false);
-//                primerTurno=true;
-//            }if(gp.gc.jugador.getVelocidad()>=gp.gc.monstruo.getVelocidad()&&!primerTurno){
-//                gp.gc.monstruo.setTurno(false);
-//                gp.gc.jugador.setTurno(true);
-//                primerTurno=true;
-//            }
                 if (gp.gc.jugador.isTurno()){
                     if (tecla == KeyEvent.VK_W) {
                         gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() - 1);
@@ -562,10 +539,14 @@ public class DetectorTeclas implements KeyListener {
                             }
                             if (gp.getInterfaz().getNumeroMenu() == 2 && gp.gc.jugador.isTurno()) {
                                 gp.gc.jugador.huir();
+                                gp.gc.jugador.setOpcionHuir(true);
                                 gp.gc.jugador.setTurno(false);
                                 gp.gc.monstruo.setTurno(true);
-                                gp.pararMusica();
-                                gp.empezarMusica(0);
+                                if (gp.estadoJuego == gp.continuar) {
+                                    gp.pararMusica();
+                                    gp.empezarMusica(0);
+                                }
+                                gp.gc.contadorUpdates=0;
                             }
                         }else {
                             if (gp.getInterfaz().numeroMenuCons == 0) {
