@@ -569,7 +569,7 @@ public class DetectorTeclas implements KeyListener {
                         }else {
                             if (gp.getInterfaz().numeroMenuCons == 0) {
                                 //pocion de mana
-                                gp.getJugador().beberAgua();
+                                boolean bebe=gp.getJugador().beberAgua();
                             }
                             if (gp.getInterfaz().numeroMenuCons == 1) {
                                 //pocion de vida

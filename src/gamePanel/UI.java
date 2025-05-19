@@ -56,6 +56,7 @@ public class UI {
     public void enseñarMensaje(String texto) {
         mensaje = texto;
         hayMensaje = true;
+//        dibujarTextoSombreado(texto,150,100,20);
     }
 
     /**
@@ -150,7 +151,7 @@ public class UI {
             String imagePath = "src/recursos/imagenes/equipar.png";
             BufferedImage imagenequipados = ImageIO.read(new File(imagePath));
 //            Image imgEscaladaequipar = imagenequipados.getScaledInstance(-100, -100, Image.SCALE_SMOOTH);
-            g2d.drawImage(imagenequipados, 600, 250, null);
+            g2d.drawImage(imagenequipados, 570, 250, null);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -159,23 +160,23 @@ public class UI {
         Item item = null;
         if (pj.getArma() != null) {
             item = pj.getArma();
-            g2d.drawImage(item.getPlantillaInventario().getImg(item.getX(), item.getY()), 622
+            g2d.drawImage(item.getPlantillaInventario().getImg(item.getX(), item.getY()), 592
                     , 325, 45, 45, null);
         }
         if (pj.getArmadura() != null) {
             item = pj.getArmadura();
-            g2d.drawImage(item.getPlantillaInventario().getImg(item.getX(), item.getY()), 622
+            g2d.drawImage(item.getPlantillaInventario().getImg(item.getX(), item.getY()), 592
                     , 375, 45, 45, null);
         }
         if (pj.getCabeza() != null) {
             item = pj.getCabeza();
-            g2d.drawImage(item.getPlantillaInventario().getImg(item.getX(), item.getY()), 622
+            g2d.drawImage(item.getPlantillaInventario().getImg(item.getX(), item.getY()), 592
                     , 427, 45, 45, null);
 
         }
         if (pj.getEscudo() != null) {
             item = pj.getEscudo();
-            g2d.drawImage(item.getPlantillaInventario().getImg(item.getX(), item.getY()), 622
+            g2d.drawImage(item.getPlantillaInventario().getImg(item.getX(), item.getY()), 592
                     , 470, 45, 45, null);
         }
         //menu de batalla
@@ -223,9 +224,10 @@ public class UI {
         String stat= String.valueOf(gp.gc.jugador.getVida());
         dibujarTextoSombreado("Vida:",x-70,y,25);
         dibujarTextoSombreado(stat,280,250,15);
-        dibujarTextoSombreado("/100",310,250,15);
+        stat=String.valueOf(gp.gc.jugador.getVidaMax());
+        dibujarTextoSombreado("/"+stat,310,250,15);
         g2d.setColor(Color.RED);
-        //buvle para dibujar el cuadrado rojo
+        //bucle para dibujar el cuadrado rojo
         for (int i=0;i<gp.getJugador().getVida();i++){
             //cuadrado rojo por cada punto de vida
             g2d.fillRect(x,y,2,4);
@@ -240,9 +242,9 @@ public class UI {
         dibujarTextoSombreado(stat,280,270,15);
         dibujarTextoSombreado("/100",310,270,15);
         g2d.setColor(Color.BLUE);
-        //buvle para dibujar el cuadrado rojo
+        //bucle para dibujar el cuadrado azul
         for (int i=0;i<gp.getJugador().getMana();i++){
-            //cuadrado rojo por cada punto de vida
+            //cuadrado rojo por cada punto de mana
             g2d.fillRect(x,y,2,4);
             x+=2;
         }
@@ -252,7 +254,8 @@ public class UI {
         dibujarTextoSombreado("Vida:",x-70,y,25);
         stat= String.valueOf(gp.gc.monstruo.getVida());
         dibujarTextoSombreado(stat,650,250,15);
-        dibujarTextoSombreado("/100",680,250,15);
+        stat=String.valueOf(gp.gc.monstruo.getVidaMax());
+        dibujarTextoSombreado("/"+stat,310,250,15);
         g2d.setColor(Color.RED);
         for (int i=0;i<gp.gc.monstruo.getVida();i++){
             g2d.fillRect(x,y,2,4);
@@ -260,8 +263,14 @@ public class UI {
         }
 
         //stats
-
-//        dibujarTextoSombreado();
+        stat=String.valueOf(gp.gc.jugador.getFuerza());
+        dibujarTextoSombreado("Dano:"+stat,660,320,15);
+        stat=String.valueOf(gp.gc.jugador.getDestreza());
+        dibujarTextoSombreado("Destreza:"+stat,660,360,15);
+        stat=String.valueOf(gp.gc.jugador.getMagia());
+        dibujarTextoSombreado("Magia:"+stat,660,400,15);
+        stat=String.valueOf(gp.gc.jugador.getDefensa());
+        dibujarTextoSombreado("Defensa:"+stat,660,440,15);
     }
 
     /**
@@ -272,7 +281,6 @@ public class UI {
     public void dibujarMenuEquipar(boolean equipar) {
 
         //indica en pantalla si se consigue equipar o no (no sé porque lo hacemos si siempre se puede equipar)
-        //falta especificar en el texto la proteccion base de las armaduras y sus aumentos
         dibujarVentanaGenerica(580, 110, 180, 280);
         dibujarVentanaGenerica(120, 0, 480, 110);
         int x = 130, y = 50;
@@ -280,40 +288,40 @@ public class UI {
         if (!gp.getTeclado().intentoEquipar) {
             if (numeroMenu == 0) {
 
-                texto = "Un yelmo se crea con un hiero y un hierro.";
-                dibujarTextoSombreado(texto, x, y, 15);
+                texto = "Ofrece +6 defensa.";
+                dibujarTextoSombreado(texto, x, y+20, 15);
             }
             if (numeroMenu == 1) {
-                texto = "Un yelmo se crea con un hiero y un hierro.";
-                dibujarTextoSombreado(texto, x, y, 15);
+                texto = "Ofrece +12 defensa.";
+                dibujarTextoSombreado(texto, x, y+20, 15);
             }
             if (numeroMenu == 2) {
-                texto = "Un yelmo se crea con un hiero y un hierro.";
-                dibujarTextoSombreado(texto, x, y, 15);
+                texto = "Ofrece +5 daño.";
+                dibujarTextoSombreado(texto, x, y+20, 15);
             }
             if (numeroMenu == 3) {
-                texto = "Un yelmo se crea con un hiero y un hierro.";
-                dibujarTextoSombreado(texto, x, y, 15);
+                texto = "Ofrece +9 daño.";
+                dibujarTextoSombreado(texto, x, y+20, 15);
             }
             if (numeroMenu == 4) {
-                texto = "Un yelmo se crea con un hiero y un hierro.";
-                dibujarTextoSombreado(texto, x, y, 15);
+                texto = "Ofrece +6 daño.";
+                dibujarTextoSombreado(texto, x, y+20, 15);
             }
             if (numeroMenu == 5) {
-                texto = "Un yelmo se crea con un hiero y un hierro.";
-                dibujarTextoSombreado(texto, x, y, 15);
+                texto = "Ofrece +4 defensa.";
+                dibujarTextoSombreado(texto, x, y+20, 15);
             }
             if (numeroMenu == 6) {
-                texto = "Un yelmo se crea con un hiero y un hierro.";
-                dibujarTextoSombreado(texto, x, y, 15);
+                texto = "Ofrece +5 defensa.";
+                dibujarTextoSombreado(texto, x, y+20, 15);
             }
             if (numeroMenu == 7) {
-                texto = "Un yelmo se crea con un hiero y un hierro.";
-                dibujarTextoSombreado(texto, x, y, 15);
+                texto = "Ofrece +5 defensa.";
+                dibujarTextoSombreado(texto, x, y+20, 15);
             }
             if (numeroMenu == 8) {
-                texto = "Un yelmo se crea con un hiero y un hierro.";
-                dibujarTextoSombreado(texto, x, y, 15);
+                texto = "Volver";
+                dibujarTextoSombreado(texto, x, y+20, 15);
             }
         }
         texto = "Escudo";
@@ -505,11 +513,13 @@ public class UI {
             case 9:
                 dibujarTextoSombreado(">", 590, 335, 25);
                 break;
+            case 10:
+                dibujarTextoSombreado(">", 590, 355, 25);
+                break;
         }
 
         if (gp.getTeclado().intentocrafteo) {
             if (numeroMenu == 0) {
-
                 dibujarTextoSombreado(mensaje, x, y, 15);
             }
             if (numeroMenu == 1) {

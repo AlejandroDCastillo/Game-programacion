@@ -99,6 +99,7 @@ public class Jugador extends Entidad {
      */
     public boolean comer() {
         gp.efectoSonido(6);
+
         Item i = inventario.buscarObjeto("comida");
         if (i.getCantidad() > 0) {
             if (vida >= 70) {
@@ -125,7 +126,7 @@ public class Jugador extends Entidad {
                 if (obj instanceof Armadura) {
                     Armadura objArmadura = (Armadura) obj;
                     switch (objeto) {
-                        case "escudo", "escudoOro", "talismanSecreto": {
+                        case "escudo", "escudo_oro", "talismanSecreto": {
                             if (objArmadura.getCantidad() > 0) {
                                 setEscudo(objArmadura);
                                 return true;
@@ -155,6 +156,15 @@ public class Jugador extends Entidad {
                     Arma objArma = (Arma) inventario.buscarObjeto(objeto);
                     switch (objeto) {
                         case"espadaFuego":{
+                            if (objArma.getCantidad() > 0) {
+                                objArma.aumentar(this,8);
+                                setArma(objArma);
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        }
+                        case"espada":{
                             if (objArma.getCantidad() > 0) {
                                 objArma.aumentar(this,8);
                                 setArma(objArma);
