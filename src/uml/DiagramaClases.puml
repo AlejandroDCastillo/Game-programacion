@@ -1,0 +1,118 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "entidades" {
+  class Entidad
+  class Jugador
+  class Raza
+  class Clase
+}
+
+package "entidades.Monstruos" {
+  class Mon_Esqueleto
+}
+
+package "gamePanel" {
+  class GamePanel
+  class UI
+  class Ventana
+}
+
+package "gamePanel.escenarios" {
+  class MenuInicio
+  class MenuInventario
+}
+
+package "gestores" {
+  class DetectorDeColisiones
+  class GestorAssets
+  class GestorBaldosas
+  class GestorCombate
+  class GestorDeEventos
+  class GestorObjetos
+}
+
+package "item" {
+  class Inventario
+  class Item
+}
+
+package "item.armadura" {
+  class Armadura
+  class Aumento
+}
+
+package "item.armas" {
+  class Arma
+  class Elemento
+  class TipoAtaque
+}
+
+package "item.objetos" {
+  class Cofre
+  class Llave
+  class Objetos
+  class Puerta
+}
+
+package "recursos.baldosas" {
+  class Baldosa
+}
+
+package "recursos.imagenes" {
+  class Spritesheet
+}
+
+package "recursos.mapas" {
+  class GeneradorMapa
+}
+
+package "recursos.musica" {
+  class Musica
+}
+
+package "recursos.teclado" {
+  class DetectorTeclas
+}
+
+package "utiles" {
+  class ControlExcepciones
+  class Util
+  class UtilDiego
+}
+
+
+Entidad <|-- Jugador
+Entidad <|-- Mon_Esqueleto
+JPanel <|-- GamePanel
+JFrame <|-- Ventana
+JFrame <|-- MenuInicio
+JPanel <|-- MenuInventario
+Runnable <|.. GamePanel
+
+
+Jugador --> Inventario
+Jugador --> DetectorTeclas
+Jugador --> Spritesheet
+GamePanel --> Jugador
+GamePanel --> DetectorTeclas
+GamePanel --> GestorDeEventos
+GamePanel --> GestorBaldosas
+GamePanel --> GestorObjetos
+GamePanel --> GestorAssets
+GamePanel --> GeneradorMapa
+GestorCombate --> Jugador
+GestorDeEventos --> Jugador
+GestorDeEventos --> DetectorDeColisiones
+GestorObjetos --> Item
+GestorBaldosas --> Baldosa
+Inventario --> Item
+Armadura --> Aumento
+Arma --> Elemento
+Arma --> TipoAtaque
+Objetos --> Cofre
+Objetos --> Puerta
+Item --> Spritesheet
+DetectorTeclas --> GamePanel
+
+@enduml

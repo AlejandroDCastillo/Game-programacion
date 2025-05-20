@@ -1,0 +1,30 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor Jugador
+
+package "Sistema de Juego" {
+
+  usecase "Iniciar el juego" as UC1
+  usecase "Mover al personaje" as UC2
+  usecase "Abrir inventario" as UC3
+  usecase "Usar objeto" as UC4
+  usecase "Interactuar con el entorno" as UC5
+  usecase "Combatir enemigos" as UC6
+  usecase "Abrir puertas/cofres" as UC7
+  usecase "Recolectar objetos" as UC8
+  usecase "Cambiar equipo\n(arma/armadura)" as UC9
+  usecase "Guardar/cargar partida" as UC10
+}
+
+Jugador --> UC1
+Jugador --> UC2
+Jugador --> UC3
+Jugador --> UC4
+Jugador --> UC5
+Jugador --> UC6
+Jugador --> UC7
+Jugador --> UC8
+Jugador --> UC9
+@enduml

@@ -1,0 +1,27 @@
+@startuml
+actor Usuario
+
+participant Main
+participant Ventana
+participant GamePanel
+participant Jugador
+participant DetectorTeclas
+participant GestorDeEventos
+
+== Inicio ==
+Usuario -> Main: ejecutar aplicación
+Main -> Ventana: new Ventana()
+Ventana -> GamePanel: new GamePanel()
+GamePanel -> DetectorTeclas: addKeyListener()
+GamePanel -> GamePanel: start() «crea hilo»
+
+== Bucle del juego ==
+loop cada fotograma
+    GamePanel -> Jugador: update()
+    Jugador -> DetectorTeclas: leer entradas
+    Jugador -> Jugador: procesar lógica de movimiento\n& acciones
+    GamePanel -> GestorDeEventos: update()
+    GestorDeEventos -> Jugador: hit()
+end
+
+@enduml
