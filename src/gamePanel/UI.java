@@ -88,6 +88,8 @@ public class UI {
                     dibujarMenuEquipar(gp.getTeclado().menuEquipar);
                 } else if(gp.getTeclado().menuStats){
                     dibujarMenuStats();
+                }else if(gp.getTeclado().consumir){
+                    dibujarMenuConsumir();
                 }
             }
 
@@ -100,6 +102,32 @@ public class UI {
             }
         }
 
+    }
+
+    public void dibujarMenuConsumir(){
+        dibujarVentanaGenerica(580, 110, 200, 280);
+        dibujarTextoSombreado("P.Vida", 600, 150, 20);
+        dibujarTextoSombreado("P.Mana", 600, 250, 20);
+        dibujarTextoSombreado("volver", 600, 350, 20);
+        //cantidad de pociones
+        //mana
+        Item pocion=gp.getJugador().getInventario().buscarObjeto("comida");
+        dibujarTextoSombreado("X"+String.valueOf(pocion.getCantidad()),660, 150, 20);
+        //vida
+         pocion=gp.getJugador().getInventario().buscarObjeto("agua");
+        dibujarTextoSombreado("X"+String.valueOf(pocion.getCantidad()),660, 250, 20);
+
+        if (gp.getTeclado().consumir) {
+            if (numeroMenuCons == 0) {
+                dibujarTextoSombreado(">", 660 - 70, 150,20);
+            }
+            if (numeroMenuCons == 1) {
+                dibujarTextoSombreado(">", 660 - 70, 250,20);
+            }
+            if (numeroMenuCons == 2) {
+                dibujarTextoSombreado(">", 660 - 70, 350,20);
+            }
+        }
     }
 
     /**
@@ -171,7 +199,9 @@ public class UI {
             x += 2;
         }
         //tutorial
-        dibujarTextoSombreado("Movimiento con A W S D, ESC Pausa,E Inv", 350, 540, 15);
+        dibujarTextoSombreado("Movimiento: con A W S D", 450, 5200, 15);
+        dibujarTextoSombreado("Pausa y volver: ESC", 450, 540, 15);
+        dibujarTextoSombreado("Inventario: E", 450, 560, 15);
 
     }
 
@@ -403,39 +433,39 @@ public class UI {
             if (numeroMenu == 0) {
 
                 texto = "Ofrece +6 defensa.";
-                dibujarTextoSombreado(texto, x, y + 20, 15);
+                dibujarTextoSombreado(texto, x, y + 20, 20);
             }
             if (numeroMenu == 1) {
                 texto = "Ofrece +12 defensa.";
-                dibujarTextoSombreado(texto, x, y + 20, 15);
+                dibujarTextoSombreado(texto, x, y + 20, 20);
             }
             if (numeroMenu == 2) {
                 texto = "Ofrece +5 daño.";
-                dibujarTextoSombreado(texto, x, y + 20, 15);
+                dibujarTextoSombreado(texto, x, y + 20, 20);
             }
             if (numeroMenu == 3) {
                 texto = "Ofrece +9 daño.";
-                dibujarTextoSombreado(texto, x, y + 20, 15);
+                dibujarTextoSombreado(texto, x, y + 20, 20);
             }
             if (numeroMenu == 4) {
                 texto = "Ofrece +6 daño.";
-                dibujarTextoSombreado(texto, x, y + 20, 15);
+                dibujarTextoSombreado(texto, x, y + 20, 20);
             }
             if (numeroMenu == 5) {
                 texto = "Ofrece +4 defensa.";
-                dibujarTextoSombreado(texto, x, y + 20, 15);
+                dibujarTextoSombreado(texto, x, y + 20, 20);
             }
             if (numeroMenu == 6) {
                 texto = "Ofrece +5 defensa.";
-                dibujarTextoSombreado(texto, x, y + 20, 15);
+                dibujarTextoSombreado(texto, x, y + 20, 20);
             }
             if (numeroMenu == 7) {
                 texto = "Ofrece +5 defensa.";
-                dibujarTextoSombreado(texto, x, y + 20, 15);
+                dibujarTextoSombreado(texto, x, y + 20, 20);
             }
             if (numeroMenu == 8) {
                 texto = "Volver";
-                dibujarTextoSombreado(texto, x, y + 20, 15);
+                dibujarTextoSombreado(texto, x, y + 20, 20);
             }
         }
         texto = "Escudo";
@@ -458,62 +488,62 @@ public class UI {
         dibujarTextoSombreado(texto, 605, 310, 20);
         switch (numeroMenu) {
             case 0:
-                dibujarTextoSombreado(">", 590, 155, 25);
+                dibujarTextoSombreado(">", 590, 155, 20);
                 break;
             case 1:
-                dibujarTextoSombreado(">", 590, 175, 25);
+                dibujarTextoSombreado(">", 590, 175, 20);
                 break;
             case 2:
-                dibujarTextoSombreado(">", 590, 195, 25);
+                dibujarTextoSombreado(">", 590, 195, 20);
                 break;
             case 3:
-                dibujarTextoSombreado(">", 590, 215, 25);
+                dibujarTextoSombreado(">", 590, 215, 20);
                 break;
             case 4:
-                dibujarTextoSombreado(">", 590, 235, 25);
+                dibujarTextoSombreado(">", 590, 235, 20);
                 break;
             case 5:
-                dibujarTextoSombreado(">", 590, 255, 25);
+                dibujarTextoSombreado(">", 590, 255, 20);
                 break;
             case 6:
-                dibujarTextoSombreado(">", 590, 275, 25);
+                dibujarTextoSombreado(">", 590, 275, 20);
                 break;
             case 7:
-                dibujarTextoSombreado(">", 590, 295, 25);
+                dibujarTextoSombreado(">", 590, 295, 20);
                 break;
             case 8:
-                dibujarTextoSombreado(">", 590, 315, 25);
+                dibujarTextoSombreado(">", 590, 315, 20);
                 break;
         }
         if (gp.getTeclado().intentoEquipar) {
             if (numeroMenu == 0) {
 
-                dibujarTextoSombreado(mensaje, x, y, 15);
+                dibujarTextoSombreado(mensaje, x, y, 20);
             }
             if (numeroMenu == 1) {
-                dibujarTextoSombreado(mensaje, x, y, 15);
+                dibujarTextoSombreado(mensaje, x, y, 20);
             }
             if (numeroMenu == 2) {
-                dibujarTextoSombreado(mensaje, x, y, 15);
+                dibujarTextoSombreado(mensaje, x, y, 20);
             }
             if (numeroMenu == 3) {
-                dibujarTextoSombreado(mensaje, x, y, 15);
+                dibujarTextoSombreado(mensaje, x, y, 20);
             }
             if (numeroMenu == 4) {
-                dibujarTextoSombreado(mensaje, x, y, 15);
+                dibujarTextoSombreado(mensaje, x, y, 20);
 
             }
             if (numeroMenu == 5) {
-                dibujarTextoSombreado(mensaje, x, y, 15);
+                dibujarTextoSombreado(mensaje, x, y, 20);
             }
             if (numeroMenu == 6) {
-                dibujarTextoSombreado(mensaje, x, y, 15);
+                dibujarTextoSombreado(mensaje, x, y, 20);
             }
             if (numeroMenu == 7) {
-                dibujarTextoSombreado(mensaje, x, y, 15);
+                dibujarTextoSombreado(mensaje, x, y, 20);
             }
             if (numeroMenu == 8) {
-                dibujarTextoSombreado(mensaje, x, y, 15);
+                dibujarTextoSombreado(mensaje, x, y, 20);
             }
         }
     }
@@ -529,48 +559,60 @@ public class UI {
         if (!gp.getTeclado().intentocrafteo) {
             switch (numeroMenu) {
                 case 0:
-                    texto = "Un escudo se crea con una madera y dos de hierro.";
-                    dibujarTextoSombreado(texto, x, y, 15);
+                    texto = "Un escudo se crea con una madera ";
+                    dibujarTextoSombreado(texto, x, y, 20);
+                    texto = "y dos de hierro.";
+                    dibujarTextoSombreado(texto, x, y + 20, 20);
                     break;
                 case 1:
-                    texto = "Un escudo de oro se crea con una madera y dos de oro.";
-                    dibujarTextoSombreado(texto, x, y, 15);
+                    texto = "Un escudo de oro se crea con una madera ";
+                    dibujarTextoSombreado(texto, x, y, 20);
+                    texto = "y dos de oro.";
+                    dibujarTextoSombreado(texto, x, y + 20, 20);
                     break;
                 case 2:
-                    texto = "Una espada se crea con una madera y un hierro.";
-                    dibujarTextoSombreado(texto, x, y, 15);
+                    texto = "Una espada se crea con una madera ";
+                    dibujarTextoSombreado(texto, x, y, 20);
+                    texto = "y un hierro.";
+                    dibujarTextoSombreado(texto, x, y + 20, 20);
                     break;
                 case 3:
                     texto = "Una espadaFuego se crea con una madera,";
-                    dibujarTextoSombreado(texto, x, y, 15);
+                    dibujarTextoSombreado(texto, x, y, 20);
                     texto = "un hierro, un oro y un carbón.";
-                    dibujarTextoSombreado(texto, x, y + 20, 15);
+                    dibujarTextoSombreado(texto, x, y + 20, 20);
                     break;
                 case 4:
                     texto = "Una varaMago se crea con dos de madera,";
-                    dibujarTextoSombreado(texto, x, y, 15);
+                    dibujarTextoSombreado(texto, x, y, 20);
                     texto = "un oro y un hierro.";
-                    dibujarTextoSombreado(texto, x, y + 20, 15);
+                    dibujarTextoSombreado(texto, x, y + 20, 20);
                     break;
                 case 5:
-                    texto = "Un talismanSecreto se crea con un hierro y dos de oro.";
-                    dibujarTextoSombreado(texto, x, y, 15);
+                    texto = "Un talismanSecreto se crea con un hierro ";
+                    dibujarTextoSombreado(texto, x, y, 20);
+                    texto = "y dos de oro.";
+                    dibujarTextoSombreado(texto, x, y + 20, 20);
                     break;
                 case 6:
                     texto = "Un yelmo se crea con un hiero y un hierro.";
-                    dibujarTextoSombreado(texto, x, y, 15);
+                    dibujarTextoSombreado(texto, x, y, 20);
                     break;
                 case 7:
                     texto = "Un peto se crea con dos de hierro y un oro.";
-                    dibujarTextoSombreado(texto, x, y, 15);
+                    dibujarTextoSombreado(texto, x, y, 20);
                     break;
                 case 8:
-                    texto = "Un oro se crea con una mena_oro y un carbón.";
-                    dibujarTextoSombreado(texto, x, y, 15);
+                    texto = "Un oro se crea con una mena_oro y ";
+                    dibujarTextoSombreado(texto, x, y, 20);
+                    texto = "un carbón.";
+                    dibujarTextoSombreado(texto, x, y + 20, 20);
                     break;
                 case 9:
-                    texto = "Un hierro se crea con una mena de hierro y un carbón.";
-                    dibujarTextoSombreado(texto, x, y, 15);
+                    texto = "Un hierro se crea con una mena de hierro y ";
+                    dibujarTextoSombreado(texto, x, y, 20);
+                    texto = "un carbón.";
+                    dibujarTextoSombreado(texto, x, y + 20, 20);
                     break;
             }
         }
@@ -598,74 +640,74 @@ public class UI {
         dibujarTextoSombreado(texto, 605, 350, 20);
         switch (numeroMenu) {
             case 0:
-                dibujarTextoSombreado(">", 590, 155, 25);
+                dibujarTextoSombreado(">", 590, 155, 20);
                 break;
             case 1:
-                dibujarTextoSombreado(">", 590, 175, 25);
+                dibujarTextoSombreado(">", 590, 175, 20);
                 break;
             case 2:
-                dibujarTextoSombreado(">", 590, 195, 25);
+                dibujarTextoSombreado(">", 590, 195, 20);
                 break;
             case 3:
-                dibujarTextoSombreado(">", 590, 215, 25);
+                dibujarTextoSombreado(">", 590, 215, 20);
                 break;
             case 4:
-                dibujarTextoSombreado(">", 590, 235, 25);
+                dibujarTextoSombreado(">", 590, 235, 20);
                 break;
             case 5:
-                dibujarTextoSombreado(">", 590, 255, 25);
+                dibujarTextoSombreado(">", 590, 255, 20);
                 break;
             case 6:
-                dibujarTextoSombreado(">", 590, 275, 25);
+                dibujarTextoSombreado(">", 590, 275, 20);
                 break;
             case 7:
-                dibujarTextoSombreado(">", 590, 295, 25);
+                dibujarTextoSombreado(">", 590, 295, 20);
                 break;
             case 8:
-                dibujarTextoSombreado(">", 590, 315, 25);
+                dibujarTextoSombreado(">", 590, 315, 20);
                 break;
             case 9:
-                dibujarTextoSombreado(">", 590, 335, 25);
+                dibujarTextoSombreado(">", 590, 335, 20);
                 break;
             case 10:
-                dibujarTextoSombreado(">", 590, 355, 25);
+                dibujarTextoSombreado(">", 590, 355, 20);
                 break;
         }
 
         if (gp.getTeclado().intentocrafteo) {
             if (numeroMenu == 0) {
-                dibujarTextoSombreado(mensaje, x, y, 15);
+                dibujarTextoSombreado(mensaje, x, y, 20);
             }
             if (numeroMenu == 1) {
-                dibujarTextoSombreado(mensaje, x, y, 15);
+                dibujarTextoSombreado(mensaje, x, y, 20);
             }
             if (numeroMenu == 2) {
-                dibujarTextoSombreado(mensaje, x, y, 15);
+                dibujarTextoSombreado(mensaje, x, y, 20);
             }
             if (numeroMenu == 3) {
-                dibujarTextoSombreado(mensaje, x, y, 15);
+                dibujarTextoSombreado(mensaje, x, y, 20);
             }
             if (numeroMenu == 4) {
-                dibujarTextoSombreado(mensaje, x, y, 15);
+                dibujarTextoSombreado(mensaje, x, y, 20);
 
             }
             if (numeroMenu == 5) {
-                dibujarTextoSombreado(mensaje, x, y, 15);
+                dibujarTextoSombreado(mensaje, x, y, 20);
             }
             if (numeroMenu == 6) {
-                dibujarTextoSombreado(mensaje, x, y, 15);
+                dibujarTextoSombreado(mensaje, x, y, 20);
             }
             if (numeroMenu == 7) {
-                dibujarTextoSombreado(mensaje, x, y, 15);
+                dibujarTextoSombreado(mensaje, x, y, 20);
             }
             if (numeroMenu == 8) {
-                dibujarTextoSombreado(mensaje, x, y, 15);
+                dibujarTextoSombreado(mensaje, x, y, 20);
             }
             if (numeroMenu == 9) {
-                dibujarTextoSombreado(mensaje, x, y, 15);
+                dibujarTextoSombreado(mensaje, x, y, 20);
             }
             if (numeroMenu == 10) {
-                dibujarTextoSombreado(mensaje, x, y, 15);
+                dibujarTextoSombreado(mensaje, x, y, 20);
             }
         }
     }
@@ -682,17 +724,22 @@ public class UI {
         dibujarTextoSombreado(texto, 25, 150, 20);
         texto = "Equipar";
         dibujarTextoSombreado(texto, 25, 200, 20);
-        texto = "Estats";
+        texto = "Stats";
         dibujarTextoSombreado(texto, 25, 250, 20);
-        if (!craftear && !gp.getTeclado().menuEquipar&&!gp.getTeclado().menuStats) {
+        texto = "Consumir";
+        dibujarTextoSombreado(texto, 25, 300, 20);
+        if (!craftear && !gp.getTeclado().menuEquipar&&!gp.getTeclado().menuStats&&!gp.getTeclado().consumir) {
             if (numeroMenu == 0) {
-                dibujarTextoSombreado(">", 8, 150, 25);
+                dibujarTextoSombreado(">", 8, 150, 20);
             }
             if (numeroMenu == 1) {
-                dibujarTextoSombreado(">", 8, 200, 25);
+                dibujarTextoSombreado(">", 8, 200, 20);
             }
             if (numeroMenu == 2) {
-                dibujarTextoSombreado(">", 8, 250, 25);
+                dibujarTextoSombreado(">", 8, 250, 20);
+            }
+            if (numeroMenu == 3) {
+                dibujarTextoSombreado(">", 8, 300, 20);
             }
         }
     }

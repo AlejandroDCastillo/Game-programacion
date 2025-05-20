@@ -22,8 +22,12 @@ public class GeneradorMapa {
     public void generarMapa() {
         for (int i = 0; i < canidadNumeroColumnas; i++) {
             for (int j = 0; j < canidadNumeroFilas; j++) {
+                if(j==8 && i==0){
+                    numeros.append(12);
+                    numeros.append(" ");
+                }
                 if ((j==canidadNumeroFilas-1||j==0)&&(i<=6&&i>3)){
-                    numeros.append(3);
+                    numeros.append(1);
                 }else{
                     if ((j==canidadNumeroFilas-1||j==0)||(i==canidadNumeroColumnas-1||i==0)){
                         numeros.append(1);
@@ -48,11 +52,11 @@ public class GeneradorMapa {
                     numeros.append(" ");
                 }
             }
-            if (i < canidadNumeroColumnas -1){
+            if (i < canidadNumeroColumnas -1) {
                 numeros.append("\n");
             }
-
         }
+
 
         // Escribir en el archivo
         FileWriter escritorFile=null;

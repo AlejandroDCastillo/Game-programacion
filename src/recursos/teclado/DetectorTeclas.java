@@ -301,18 +301,52 @@ public class DetectorTeclas implements KeyListener {
                 }
                 if (tecla ==KeyEvent.VK_ESCAPE){
                     menuStats = false;
+                    tecla=0;
                 }
             }
-            if (!menuEquipar && !menuStats && !craftear) {
+            if(consumir){
+                if (tecla == KeyEvent.VK_W) {
+                        gp.getInterfaz().numeroMenuCons = gp.getInterfaz().numeroMenuCons - 1;
+                        if (gp.getInterfaz().numeroMenuCons < 0) {
+                            gp.getInterfaz().numeroMenuCons=2;
+                        }
+                }
+                if (tecla == KeyEvent.VK_S) {
+                        gp.getInterfaz().numeroMenuCons = gp.getInterfaz().numeroMenuCons + 1;
+                        if (gp.getInterfaz().numeroMenuCons > 2) {
+                            gp.getInterfaz().numeroMenuCons=0;
+                        }
+                }
+                if(tecla== KeyEvent.VK_ENTER) {
+                    if (gp.getInterfaz().numeroMenuCons == 0) {
+                        //pocion de vida
+                        gp.getJugador().comer();
+                    }
+                    if (gp.getInterfaz().numeroMenuCons == 1) {
+                        //pocion de mana
+                        boolean bebe = gp.getJugador().beberMana();
+                    }
+                    if (gp.getInterfaz().numeroMenuCons == 2) {
+                        //volver
+                        consumir = false;
+                        tecla=0;
+                    }
+                }
+                if (tecla ==KeyEvent.VK_ESCAPE){
+                    consumir = false;
+                    tecla=0;
+                }
+            }
+            if (!menuEquipar && !menuStats && !craftear && !consumir) {
                 if (tecla == KeyEvent.VK_W ) {
                     gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() - 1);
                     if (gp.getInterfaz().getNumeroMenu() < 0) {
-                        gp.getInterfaz().setNumeroMenu(2);
+                        gp.getInterfaz().setNumeroMenu(3);
                     }
                 }
                 if (tecla == KeyEvent.VK_S) {
                     gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() + 1);
-                    if (gp.getInterfaz().getNumeroMenu() > 2) {
+                    if (gp.getInterfaz().getNumeroMenu() > 3) {
                         gp.getInterfaz().setNumeroMenu(0);
                     }
                 }
@@ -330,11 +364,17 @@ public class DetectorTeclas implements KeyListener {
                             menuEquipar = true;
                         }
                     }
-                    //para destruir
+                    //para para stats
                     if (gp.getInterfaz().numeroMenu == 2) {
                         //para ver stats de personaje
                         if (!menuStats) {
                             menuStats = true;
+                        }
+                    }
+                    //para consumir
+                    if(gp.getInterfaz().numeroMenu == 3) {
+                        if(!consumir){
+                            consumir=true;
                         }
                     }
                 }
