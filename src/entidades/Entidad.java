@@ -59,7 +59,10 @@ public abstract class Entidad {
     protected Armadura escudo;
     protected Armadura cabeza;
 
-
+    /**
+     * constructor de entidad
+     * @param gp
+     */
     public Entidad(GamePanel gp) {
         this.vida = getVidaMax();
         this.velocidad=getVelocidadMax()/2;

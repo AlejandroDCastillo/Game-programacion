@@ -11,32 +11,45 @@ import item.objetos.Llave;
 import item.objetos.Puerta;
 
 public class GestorAssets {
-        GamePanel gp;
-        public GestorAssets(GamePanel gp) {
-            this.gp = gp;
-        }
-        public void establecerObjetos(){
-            gp.arrayobjetos[0]= new Llave(gp);
-            gp.arrayobjetos[0].setX(6 * gp.getTamañofinalBaldosa());
-            gp.arrayobjetos[0].setY(5 * gp.getTamañofinalBaldosa());
+    GamePanel gp;
 
-            gp.arrayobjetos[2]= new Puerta(gp);
-            gp.arrayobjetos[2].setX(8 * gp.getTamañofinalBaldosa());
-            gp.arrayobjetos[2].setY(6 * gp.getTamañofinalBaldosa());
-
-            gp.arrayobjetos[1]= new Cofre(gp);
-            gp.arrayobjetos[1].setX(8 * gp.getTamañofinalBaldosa());
-            gp.arrayobjetos[1].setY(7 * gp.getTamañofinalBaldosa());
-        }
-
-        public void establecerEnemigos(){
-            gp.arrayEnemigos[0]= new Mon_Esqueleto(gp,"MonstruoPT", Raza.HUMANO, Clase.MAGO,1);
-            gp.arrayEnemigos[0].setArma(new Arma("vara_fuego", 1,11,1,5,null, TipoAtaque.ArmaMágica,20,2));
-            gp.arrayEnemigos[0].setX(5 * gp.getTamañofinalBaldosa());
-            gp.arrayEnemigos[0].setY(3 * gp.getTamañofinalBaldosa());
-
-
-        }
+    /**
+     * constructor
+     *
+     * @param gp
+     */
+    public GestorAssets(GamePanel gp) {
+        this.gp = gp;
     }
+
+    /**
+     *metodo que inicializa el arrayobjetos
+     */
+    public void establecerObjetos() {
+        gp.arrayobjetos[0] = new Llave(gp);
+        gp.arrayobjetos[0].setX(6 * gp.getTamañofinalBaldosa());
+        gp.arrayobjetos[0].setY(5 * gp.getTamañofinalBaldosa());
+
+        gp.arrayobjetos[2] = new Puerta(gp);
+        gp.arrayobjetos[2].setX(8 * gp.getTamañofinalBaldosa());
+        gp.arrayobjetos[2].setY(6 * gp.getTamañofinalBaldosa());
+
+        gp.arrayobjetos[1] = new Cofre(gp);
+        gp.arrayobjetos[1].setX(8 * gp.getTamañofinalBaldosa());
+        gp.arrayobjetos[1].setY(7 * gp.getTamañofinalBaldosa());
+    }
+
+    /**
+     * inicializa el array de enemigos
+     */
+    public void establecerEnemigos() {
+        gp.arrayEnemigos[0] = new Mon_Esqueleto(gp, "MonstruoPT", Raza.HUMANO, Clase.MAGO, 1);
+        gp.arrayEnemigos[0].setArma(new Arma("vara_fuego", 1, 11, 1, 5, null, TipoAtaque.ArmaMágica, 20, 2));
+        gp.arrayEnemigos[0].setX(5 * gp.getTamañofinalBaldosa());
+        gp.arrayEnemigos[0].setY(3 * gp.getTamañofinalBaldosa());
+
+
+    }
+}
 
 

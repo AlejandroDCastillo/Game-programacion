@@ -51,6 +51,8 @@ public class UI {
     }
 
     /**
+     * metodo que muestra el atributo mensaje de UI, sirve para sacar mensajes al usuario como encontrado o crafteo realizado
+     *
      * @param texto
      */
     public void enseñarMensaje(String texto) {
@@ -86,9 +88,9 @@ public class UI {
                     dibujarMenuCrafteo();
                 } else if (gp.getTeclado().menuEquipar) {
                     dibujarMenuEquipar(gp.getTeclado().menuEquipar);
-                } else if(gp.getTeclado().menuStats){
+                } else if (gp.getTeclado().menuStats) {
                     dibujarMenuStats();
-                }else if(gp.getTeclado().consumir){
+                } else if (gp.getTeclado().consumir) {
                     dibujarMenuConsumir();
                 }
             }
@@ -104,62 +106,65 @@ public class UI {
 
     }
 
-    public void dibujarMenuConsumir(){
+    /**
+     * metodo que dibuja el menu de consumir dentro de inventario
+     */
+    public void dibujarMenuConsumir() {
         dibujarVentanaGenerica(580, 110, 200, 280);
         dibujarTextoSombreado("P.Vida", 600, 150, 20);
         dibujarTextoSombreado("P.Mana", 600, 250, 20);
         dibujarTextoSombreado("volver", 600, 350, 20);
         //cantidad de pociones
         //mana
-        Item pocion=gp.getJugador().getInventario().buscarObjeto("comida");
-        dibujarTextoSombreado("X"+String.valueOf(pocion.getCantidad()),670, 150, 20);
+        Item pocion = gp.getJugador().getInventario().buscarObjeto("comida");
+        dibujarTextoSombreado("X" + String.valueOf(pocion.getCantidad()), 670, 150, 20);
         //vida
-         pocion=gp.getJugador().getInventario().buscarObjeto("agua");
-        dibujarTextoSombreado("X"+String.valueOf(pocion.getCantidad()),680, 250, 20);
+        pocion = gp.getJugador().getInventario().buscarObjeto("agua");
+        dibujarTextoSombreado("X" + String.valueOf(pocion.getCantidad()), 680, 250, 20);
 
         if (gp.getTeclado().consumir) {
             if (numeroMenuCons == 0) {
-                dibujarTextoSombreado(">", 660 - 70, 150,20);
+                dibujarTextoSombreado(">", 660 - 70, 150, 20);
             }
             if (numeroMenuCons == 1) {
-                dibujarTextoSombreado(">", 660 - 70, 250,20);
+                dibujarTextoSombreado(">", 660 - 70, 250, 20);
             }
             if (numeroMenuCons == 2) {
-                dibujarTextoSombreado(">", 660 - 70, 350,20);
+                dibujarTextoSombreado(">", 660 - 70, 350, 20);
             }
         }
     }
 
     /**
-     * metodo para enseñar las stats del jugador
+     * metodo para enseñar las stats del jugador dentro de inventario
      */
-    public void dibujarMenuStats(){
+    public void dibujarMenuStats() {
         dibujarVentanaGenerica(580, 110, 200, 280);
-        int y=160;
+        int y = 160;
         String stat = String.valueOf(gp.getJugador().getFuerza());
         dibujarTextoSombreado("Dano: " + stat, 590, y, 20);
         stat = String.valueOf(gp.getJugador().getDestreza());
-        dibujarTextoSombreado("Destreza: " + stat, 590, y+30, 20);
+        dibujarTextoSombreado("Destreza: " + stat, 590, y + 30, 20);
         stat = String.valueOf(gp.getJugador().getMagia());
-        dibujarTextoSombreado("Magia: " + stat, 590, y+60, 20);
+        dibujarTextoSombreado("Magia: " + stat, 590, y + 60, 20);
         stat = String.valueOf(gp.getJugador().getDefensa());
-        dibujarTextoSombreado("Defensa: " + stat, 590,  y+90, 20);
-        gp.getInterfaz().dibujarTextoSombreado("EXP:", 590, y+120, 20);
-         stat = String.valueOf(gp.getJugador().getEXPSubirNivel());
-        gp.getInterfaz().dibujarTextoSombreado("/" + stat,590+(gp.getJugador().getEXPSubirNivel())+20 , y+140, 20);
+        dibujarTextoSombreado("Defensa: " + stat, 590, y + 90, 20);
+        gp.getInterfaz().dibujarTextoSombreado("EXP:", 590, y + 120, 20);
+        stat = String.valueOf(gp.getJugador().getEXPSubirNivel());
+        gp.getInterfaz().dibujarTextoSombreado("/" + stat, 590 + (gp.getJugador().getEXPSubirNivel()) + 20, y + 140, 20);
         stat = String.valueOf(gp.getJugador().getEXP());
-        gp.getInterfaz().dibujarTextoSombreado(stat, 590+(gp.getJugador().getEXPSubirNivel()) , y+140, 20);
+        gp.getInterfaz().dibujarTextoSombreado(stat, 590 + (gp.getJugador().getEXPSubirNivel()), y + 140, 20);
         g2d.setColor(Color.white);
         int x = 590;
         //bucle para dibujar el cuadrado rojo
         for (int i = 0; i < gp.getJugador().getEXP(); i++) {
             //cuadrado rojo por cada punto de vida
-            g2d.fillRect(x, y+140, 2, 4);
+            g2d.fillRect(x, y + 140, 2, 4);
             x += 1;
         }
         dibujarTextoSombreado("Salir", 590, 370, 20);
         if (numeroMenu == 12) {
-            dibujarTextoSombreado(">", 590 - 25, 370,20);
+            dibujarTextoSombreado(">", 590 - 25, 370, 20);
         }
 
     }
@@ -183,15 +188,15 @@ public class UI {
             g2d.fillRect(x, y, 2, 4);
             x += 2;
         }
-        stat="Mana:";
+        stat = "Mana:";
         dibujarTextoSombreado(stat, 80, 540, 15);
-        stat=String.valueOf(gp.getJugador().getMana());
-        dibujarTextoSombreado(stat, gp.getJugador().getMana()*2+90, 560, 15);
-        stat="/100";
-        dibujarTextoSombreado(stat, gp.getJugador().getMana()*2+120,560 , 15);
+        stat = String.valueOf(gp.getJugador().getMana());
+        dibujarTextoSombreado(stat, gp.getJugador().getMana() * 2 + 90, 560, 15);
+        stat = "/100";
+        dibujarTextoSombreado(stat, gp.getJugador().getMana() * 2 + 120, 560, 15);
         g2d.setColor(Color.blue);
         y = 560;
-        x=80;
+        x = 80;
         //bucle para dibujar el cuadrado rojo
         for (int i = 0; i < gp.getJugador().getMana(); i++) {
             //cuadrado rojo por cada punto de vida
@@ -205,14 +210,19 @@ public class UI {
 
     }
 
-
+    /**
+     * metodo que escribe game over cuando el estado del juego es gamover
+     */
     public void dibujarGamover() {
         g2d.setColor(Color.black);
-        g2d.fillRect(0,0,gp.getWidth(),gp.getHeight());
+        g2d.fillRect(0, 0, gp.getWidth(), gp.getHeight());
         dibujarTextoSombreado("GAME OVER", 220, 220, 50);
 
     }
 
+    /**
+     * dibuja el UI del combate asi como las imagenes del enemigo y el jugador
+     */
     public void dibujarCombate() {
 
         g2d.setColor(Color.DARK_GRAY);
@@ -320,11 +330,11 @@ public class UI {
         dibujarTextoSombreado("volver", 290, 550, 25);
         //cantidad de pociones
         //vida
-        Item pocion=gp.getJugador().getInventario().buscarObjeto("comida");
-        dibujarTextoSombreado("X"+String.valueOf(pocion.getCantidad()),380, 450, 25);
+        Item pocion = gp.getJugador().getInventario().buscarObjeto("comida");
+        dibujarTextoSombreado("X" + String.valueOf(pocion.getCantidad()), 380, 450, 25);
         //mana
-        pocion=gp.getJugador().getInventario().buscarObjeto("agua");
-        dibujarTextoSombreado("X"+String.valueOf(pocion.getCantidad()),380, 350, 25);
+        pocion = gp.getJugador().getInventario().buscarObjeto("agua");
+        dibujarTextoSombreado("X" + String.valueOf(pocion.getCantidad()), 380, 350, 25);
 
         if (gp.getTeclado().consumir) {
             if (numeroMenuCons == 0) {
@@ -346,23 +356,23 @@ public class UI {
         stat = "Vida:";
         gp.getInterfaz().dibujarTextoSombreado(stat, 70, 250, 15);
         g2d.setColor(Color.RED);
-         x = 110;
-         int y = 250;
+        x = 110;
+        int y = 250;
         //bucle para dibujar el cuadrado rojo
         for (int i = 0; i < gp.getJugador().getVida(); i++) {
             //cuadrado rojo por cada punto de vida
             g2d.fillRect(x, y, 2, 4);
             x += 2;
         }
-        stat="Mana:";
+        stat = "Mana:";
         dibujarTextoSombreado(stat, 60, 270, 15);
-        stat=String.valueOf(gp.getJugador().getMana());
-        dibujarTextoSombreado(stat, gp.getJugador().getMana()*2+110, 270, 15);
-        stat="/100";
-        dibujarTextoSombreado(stat, gp.getJugador().getMana()*2+140,270 , 15);
+        stat = String.valueOf(gp.getJugador().getMana());
+        dibujarTextoSombreado(stat, gp.getJugador().getMana() * 2 + 110, 270, 15);
+        stat = "/100";
+        dibujarTextoSombreado(stat, gp.getJugador().getMana() * 2 + 140, 270, 15);
         g2d.setColor(Color.blue);
         y = 270;
-        x=110;
+        x = 110;
         //bucle para dibujar el cuadrado azul
         for (int i = 0; i < gp.getJugador().getMana(); i++) {
             //cuadrado rojo por cada punto de mana
@@ -411,7 +421,7 @@ public class UI {
             dibujarTextoSombreado(mensaje, 110, 80, 20);
         }
 
-        if (gp.gc.monstruo.getVida()<=0){
+        if (gp.gc.monstruo.getVida() <= 0) {
             dibujarVentanaGenerica(100, 30, 600, 100);
             dibujarTextoSombreado(mensaje, 110, 80, 20);
         }
@@ -728,7 +738,7 @@ public class UI {
         dibujarTextoSombreado(texto, 25, 250, 20);
         texto = "Consumir";
         dibujarTextoSombreado(texto, 25, 300, 20);
-        if (!craftear && !gp.getTeclado().menuEquipar&&!gp.getTeclado().menuStats&&!gp.getTeclado().consumir) {
+        if (!craftear && !gp.getTeclado().menuEquipar && !gp.getTeclado().menuStats && !gp.getTeclado().consumir) {
             if (numeroMenu == 0) {
                 dibujarTextoSombreado(">", 8, 150, 20);
             }
@@ -749,22 +759,22 @@ public class UI {
      */
     public void dibujarPausa() {
 
-        dibujarTextoSombreado("PAUSA", 250, gp.getHeight() / 4,95);
+        dibujarTextoSombreado("PAUSA", 250, gp.getHeight() / 4, 95);
 
         String texto = "Musica";
         int x = 250;
         int y = 300;
-        dibujarTextoSombreado(texto, x, y,40);
+        dibujarTextoSombreado(texto, x, y, 40);
         if (numeroMenu == 0) {
-            dibujarTextoSombreado(">", x - 25, y,40);
+            dibujarTextoSombreado(">", x - 25, y, 40);
         }
 
         texto = "Salir";
         x = 250;
         y = 350;
-        dibujarTextoSombreado(texto, x, y,40);
+        dibujarTextoSombreado(texto, x, y, 40);
         if (numeroMenu == 1) {
-            dibujarTextoSombreado(">", x - 25, y,40);
+            dibujarTextoSombreado(">", x - 25, y, 40);
         }
 
     }
@@ -1131,6 +1141,8 @@ public class UI {
             g2d.drawString(linea, x + 3, y + 3);
         }
     }
+
+    //getters and setters
 
     public GamePanel getGp() {
         return gp;

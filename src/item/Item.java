@@ -21,13 +21,20 @@ public class Item implements Aumento {
     protected int x;
     protected int y;
 
-
+    /**
+     * constructor de Item
+     * @param idNombre
+     * @param cantidad
+     * @param spriteX
+     * @param spriteY
+     */
     public Item(String idNombre, int cantidad,int spriteX,int spriteY) {
         this.idNombre = idNombre;
         this.cantidad = cantidad;
-
+        //posicion del sprite para cada item
         this.x=spriteX;
         this.y=spriteY;
+        //cargams la imagen para guardarla en cada uno de los item
         try {
             String imagePath = "src/recursos/imagenes/AssetsDeInventario.png";
             BufferedImage imagenPlantillaBuffered = ImageIO.read(new File(imagePath));
@@ -36,9 +43,12 @@ public class Item implements Aumento {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
+    /**
+     * metodo toString para comprobaciones por consola
+     * @return
+     */
     @Override
     public String toString() {
         return "Item{" +
@@ -46,6 +56,8 @@ public class Item implements Aumento {
                 ", cantidad=" + cantidad +
                 '}';
     }
+
+    //getters y setters
 
     public String getIdNombre() {
         return idNombre;

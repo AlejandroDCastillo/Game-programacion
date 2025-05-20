@@ -12,36 +12,45 @@ public class GeneradorMapa {
     int canidadNumeroFilas;
     int canidadNumeroColumnas;
     StringBuilder numeros = new StringBuilder();
+
+    /**
+     * constructor del generador
+     *
+     * @param gp
+     */
     public GeneradorMapa(GamePanel gp) {
         this.gp = gp;
-        canidadNumeroColumnas=gp.getGetCantidadBaldosaAltura();
-        canidadNumeroFilas=gp.getCantidadBaldosaAnchura();
+        canidadNumeroColumnas = gp.getGetCantidadBaldosaAltura();
+        canidadNumeroFilas = gp.getCantidadBaldosaAnchura();
         generarMapa();
     }
 
+    /**
+     * metodo que sobrescribe un archivos numerico para la creacion del mapa por baldosas
+     */
     public void generarMapa() {
         for (int i = 0; i < canidadNumeroColumnas; i++) {
             for (int j = 0; j < canidadNumeroFilas; j++) {
-                if(j==8 && i==0){
+                if (j == 8 && i == 0) {
                     numeros.append(12);
                     numeros.append(" ");
                 }
-                if ((j==canidadNumeroFilas-1||j==0)&&(i<=6&&i>3)){
+                if ((j == canidadNumeroFilas - 1 || j == 0) && (i <= 6 && i > 3)) {
                     numeros.append(1);
-                }else{
-                    if ((j==canidadNumeroFilas-1||j==0)||(i==canidadNumeroColumnas-1||i==0)){
+                } else {
+                    if ((j == canidadNumeroFilas - 1 || j == 0) || (i == canidadNumeroColumnas - 1 || i == 0)) {
                         numeros.append(1);
-                    } else{
-                        if ((j==canidadNumeroFilas-2||j==1)||(i==canidadNumeroColumnas-2||i==1)){
+                    } else {
+                        if ((j == canidadNumeroFilas - 2 || j == 1) || (i == canidadNumeroColumnas - 2 || i == 1)) {
                             numeros.append(0);
-                        }else{
-                            int numero = UtilDiego.numRandomentero(2,6);
-                            if ((j==canidadNumeroFilas-1||j==0)&&(i<=9&&i>6)){
+                        } else {
+                            int numero = UtilDiego.numRandomentero(2, 6);
+                            if ((j == canidadNumeroFilas - 1 || j == 0) && (i <= 9 && i > 6)) {
                                 numeros.append(3);
-                            }else{
-                                if ((i >= 3&&i<10) && numero == 5){
+                            } else {
+                                if ((i >= 3 && i < 10) && numero == 5) {
                                     numeros.append(2);
-                                }else{
+                                } else {
                                     numeros.append(numero);
                                 }
                             }
@@ -52,14 +61,14 @@ public class GeneradorMapa {
                     numeros.append(" ");
                 }
             }
-            if (i < canidadNumeroColumnas -1) {
+            if (i < canidadNumeroColumnas - 1) {
                 numeros.append("\n");
             }
         }
 
 
         // Escribir en el archivo
-        FileWriter escritorFile=null;
+        FileWriter escritorFile = null;
         try {
             escritorFile = new FileWriter("src/recursos/mapas/mapa_prueba.txt");
             PrintWriter salida = new PrintWriter(escritorFile);
@@ -68,8 +77,7 @@ public class GeneradorMapa {
             System.out.println("Números generados y guardados en numeros.txt");
         } catch (IOException e) {
             System.out.println("Ocurrió un error al escribir en el archivo: " + e.getMessage());
-        }
-        finally {
+        } finally {
             try {
                 if (escritorFile != null)
                     escritorFile.close();

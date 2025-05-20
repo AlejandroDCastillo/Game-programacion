@@ -39,19 +39,32 @@ public class Musica {
         }
     }
 
+    /**
+     * metodo que empieza el clip cargado previamente
+     */
     public void empezar() {
         clip.start();
         estado=true;
     }
 
+    /**
+     * metodo que reproduce un clip en bucle
+     */
     public void bucle() {
         clip.loop(clip.LOOP_CONTINUOUSLY);
     }
 
+    /**
+     * metodo que para el clip activo
+     */
     public void parar() {
         detener();
         estado=false;
     }
+
+    /**
+     * fuerza el cierre del clip para evitar errores en la musica
+     */
     public void detener() {
         if (clip != null) {
             if (clip.isRunning()) {
@@ -64,6 +77,10 @@ public class Musica {
         }
     }
 
+    /**
+     * usa clip efecto para reproducir un sonido corto
+     * @param i
+     */
     public void reproducirEfecto(int i) {
         try {
             AudioInputStream ais = AudioSystem.getAudioInputStream(URLMusica[i]);
@@ -74,6 +91,7 @@ public class Musica {
             System.out.println("ERROR al cargar efecto: " + e.getMessage());
         }
     }
+//getter y setters
 
     public boolean getEstado(){
         return estado;

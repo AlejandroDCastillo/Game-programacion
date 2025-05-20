@@ -9,6 +9,11 @@ import java.io.File;
 import java.io.IOException;
 
 public class Puerta extends Objetos {
+
+    /**
+     * inicia el obj puerta
+     * @param gp
+     */
     public Puerta(GamePanel gp) {
         super(gp);
         this.nombre = "Puerta";

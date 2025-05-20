@@ -31,10 +31,20 @@ public class DetectorTeclas implements KeyListener {
     Clase clase = null;
     private GamePanel gp;
 
+    /**
+     * constructor
+     *
+     * @param gamePanel
+     */
     public DetectorTeclas(GamePanel gamePanel) {
         this.gp = gamePanel;
     }
 
+    /**
+     * metodo sobrescrito, sirve para la introduccion de texto por teclado
+     *
+     * @param e the event to be processed
+     */
     @Override
     public void keyTyped(KeyEvent e) {
         if (gp.estadoJuego == gp.menuInicio) {
@@ -52,6 +62,11 @@ public class DetectorTeclas implements KeyListener {
         }
     }
 
+    /**
+     * metodo que escucha las letras pulsadas para realizar acciones en el game panel
+     *
+     * @param e the event to be processed
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         //movimiento
@@ -195,10 +210,11 @@ public class DetectorTeclas implements KeyListener {
                             intentocrafteo = false;
                             break;
                     }
-                }if (tecla ==KeyEvent.VK_ESCAPE){
+                }
+                if (tecla == KeyEvent.VK_ESCAPE) {
                     craftear = false;
                     intentocrafteo = false;
-                    tecla=0;
+                    tecla = 0;
                 }
             }
             if (menuEquipar) {
@@ -288,10 +304,11 @@ public class DetectorTeclas implements KeyListener {
                             menuEquipar = false;
                             intentoEquipar = false;
                     }
-                }if (tecla ==KeyEvent.VK_ESCAPE){
+                }
+                if (tecla == KeyEvent.VK_ESCAPE) {
                     menuEquipar = false;
                     intentoEquipar = false;
-                    tecla=0;
+                    tecla = 0;
                 }
             }
             if (menuStats) {
@@ -299,25 +316,25 @@ public class DetectorTeclas implements KeyListener {
                 if (tecla == KeyEvent.VK_ENTER) {
                     menuStats = false;
                 }
-                if (tecla ==KeyEvent.VK_ESCAPE){
+                if (tecla == KeyEvent.VK_ESCAPE) {
                     menuStats = false;
-                    tecla=0;
+                    tecla = 0;
                 }
             }
-            if(consumir){
+            if (consumir) {
                 if (tecla == KeyEvent.VK_W) {
-                        gp.getInterfaz().numeroMenuCons = gp.getInterfaz().numeroMenuCons - 1;
-                        if (gp.getInterfaz().numeroMenuCons < 0) {
-                            gp.getInterfaz().numeroMenuCons=2;
-                        }
+                    gp.getInterfaz().numeroMenuCons = gp.getInterfaz().numeroMenuCons - 1;
+                    if (gp.getInterfaz().numeroMenuCons < 0) {
+                        gp.getInterfaz().numeroMenuCons = 2;
+                    }
                 }
                 if (tecla == KeyEvent.VK_S) {
-                        gp.getInterfaz().numeroMenuCons = gp.getInterfaz().numeroMenuCons + 1;
-                        if (gp.getInterfaz().numeroMenuCons > 2) {
-                            gp.getInterfaz().numeroMenuCons=0;
-                        }
+                    gp.getInterfaz().numeroMenuCons = gp.getInterfaz().numeroMenuCons + 1;
+                    if (gp.getInterfaz().numeroMenuCons > 2) {
+                        gp.getInterfaz().numeroMenuCons = 0;
+                    }
                 }
-                if(tecla== KeyEvent.VK_ENTER) {
+                if (tecla == KeyEvent.VK_ENTER) {
                     if (gp.getInterfaz().numeroMenuCons == 0) {
                         //pocion de vida
                         gp.getJugador().comer();
@@ -329,16 +346,16 @@ public class DetectorTeclas implements KeyListener {
                     if (gp.getInterfaz().numeroMenuCons == 2) {
                         //volver
                         consumir = false;
-                        tecla=0;
+                        tecla = 0;
                     }
                 }
-                if (tecla ==KeyEvent.VK_ESCAPE){
+                if (tecla == KeyEvent.VK_ESCAPE) {
                     consumir = false;
-                    tecla=0;
+                    tecla = 0;
                 }
             }
             if (!menuEquipar && !menuStats && !craftear && !consumir) {
-                if (tecla == KeyEvent.VK_W ) {
+                if (tecla == KeyEvent.VK_W) {
                     gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() - 1);
                     if (gp.getInterfaz().getNumeroMenu() < 0) {
                         gp.getInterfaz().setNumeroMenu(3);
@@ -372,16 +389,16 @@ public class DetectorTeclas implements KeyListener {
                         }
                     }
                     //para consumir
-                    if(gp.getInterfaz().numeroMenu == 3) {
-                        if(!consumir){
-                            consumir=true;
+                    if (gp.getInterfaz().numeroMenu == 3) {
+                        if (!consumir) {
+                            consumir = true;
                         }
                     }
                 }
                 if (tecla == KeyEvent.VK_ESCAPE) {
-                    menuBoolean=false;
-                    gp.estadoJuego=gp.continuar;
-                    tecla=0;
+                    menuBoolean = false;
+                    gp.estadoJuego = gp.continuar;
+                    tecla = 0;
                 }
 
             }
@@ -607,7 +624,7 @@ public class DetectorTeclas implements KeyListener {
                             gp.gc.jugador.setTurno(false);
                             gp.gc.monstruo.setTurno(true);
                             gp.gc.contadorUpdates = 0;
-                            if(gp.getJugador().isOpcionHuir()){
+                            if (gp.getJugador().isOpcionHuir()) {
                                 gp.pararMusica();
                                 gp.empezarMusica(0);
                             }
@@ -626,7 +643,8 @@ public class DetectorTeclas implements KeyListener {
                             consumir = false;
                         }
                     }
-                }if (tecla == KeyEvent.VK_ESCAPE) {
+                }
+                if (tecla == KeyEvent.VK_ESCAPE) {
                     if (consumir) {
                         consumir = false;
                     }
@@ -636,6 +654,11 @@ public class DetectorTeclas implements KeyListener {
     }
 
 
+    /**
+     * detector de teclas para el movimiento del personaje
+     *
+     * @param e the event to be processed
+     */
     @Override
     public void keyReleased(KeyEvent e) {
         int tecla = e.getKeyCode();

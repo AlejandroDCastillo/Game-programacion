@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MenuInicio extends JFrame{
+public class MenuInicio extends JFrame {
 
     /**
      * contructor con los listener de botones y los tres botones
@@ -57,7 +57,7 @@ public class MenuInicio extends JFrame{
      * metodo para el boton iniciar nueva partida, aqui tendremos nuestro generador de jugador
      */
     private void iniciarNuevaPartida() {
-        Ventana v=new Ventana();
+        Ventana v = new Ventana();
         v.setTitle("Survival Dungeons");
         v.setVisible(true);
         System.out.println("Nueva partida iniciada");

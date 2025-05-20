@@ -1,4 +1,5 @@
 package gamePanel;
+
 import entidades.*;
 import gamePanel.escenarios.MenuInventario;
 import gestores.*;
@@ -6,35 +7,36 @@ import item.objetos.Objetos;
 import recursos.mapas.GeneradorMapa;
 import recursos.musica.Musica;
 import recursos.teclado.DetectorTeclas;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class GamePanel extends JPanel implements Runnable{
+public class GamePanel extends JPanel implements Runnable {
     //Creamos el hilo para que no suscedan conflictos con los procesos
-     Thread threadJuego;
-     //creamos el detector de teclas(KeyListener)
-     private DetectorTeclas teclado = new DetectorTeclas(this);
-     //creamos una bandera para indicar que el juego esta funcionando
+    Thread threadJuego;
+    //creamos el detector de teclas(KeyListener)
+    private DetectorTeclas teclado = new DetectorTeclas(this);
+    //creamos una bandera para indicar que el juego esta funcionando
     private boolean running = true;
     //taamaño inicial de baldosa
-    private int tamañoBaldosa=16;
+    private int tamañoBaldosa = 16;
     //escalado para que se proporcional todo
-    private int escala =3;
+    private int escala = 3;
     //especificamos tamaños altura y anchura de baldosa
-    protected int tamañofinalBaldosa=tamañoBaldosa*escala;
+    protected int tamañofinalBaldosa = tamañoBaldosa * escala;
     //especificamos cantidad de baldosas a lo largo y ancho de la pantalla
-    protected int cantidadBaldosaAnchura=16;
-    protected int getCantidadBaldosaAltura=12;
+    protected int cantidadBaldosaAnchura = 16;
+    protected int getCantidadBaldosaAltura = 12;
     //especificamoos el tamaño total del gamePANEL
-    private int tamañoAnchuraPantalla=cantidadBaldosaAnchura*tamañofinalBaldosa;
-    private int tamañoAlturaPantalla=getCantidadBaldosaAltura*tamañofinalBaldosa;
+    private int tamañoAnchuraPantalla = cantidadBaldosaAnchura * tamañofinalBaldosa;
+    private int tamañoAlturaPantalla = getCantidadBaldosaAltura * tamañofinalBaldosa;
     //Frames por segundo
     protected int FPS = 60;
     //MUSICA
-    Musica musica= new Musica();
+    Musica musica = new Musica();
     //Cosas de la pantalla
     private Jugador jugador;
     private MenuInventario menuInventario = new MenuInventario(this);
@@ -43,29 +45,32 @@ public class GamePanel extends JPanel implements Runnable{
     public DetectorDeColisiones detectorDeColisiones = new DetectorDeColisiones(this);
     public GestorAssets gestorAssets = new GestorAssets(this);
     public Objetos arrayobjetos[] = new Objetos[4];
-    public Entidad arrayEnemigos[]= new Entidad[10];
-    private UI interfaz= new UI(this);
-    private ArrayList<Entidad> arrayEntidad= new ArrayList<>();
+    public Entidad arrayEnemigos[] = new Entidad[10];
+    private UI interfaz = new UI(this);
+    private ArrayList<Entidad> arrayEntidad = new ArrayList<>();
     //ESTADO DEL JUEGO
-    public final int menuInicio=0;
-    public int estadoJuego=1;
-    public final int continuar=2;
-    public final int pausa=3;
-    public final int cargarPartida=4;
-    public final int inventario=5;
-    public final int craftear=6;
-    public final int combate=7;
-    public int gameOver=8;
-    public int mapa=9;
+    public final int menuInicio = 0;
+    public int estadoJuego = 1;
+    public final int continuar = 2;
+    public final int pausa = 3;
+    public final int cargarPartida = 4;
+    public final int inventario = 5;
+    public final int craftear = 6;
+    public final int combate = 7;
+    public int gameOver = 8;
+    public int mapa = 9;
+    //conbate
     public GestorDeEventos gestorDeEventos = new GestorDeEventos(this);
     public GestorCombate gc;
 
-
+    /**
+     * constructor de game panel
+     */
     public GamePanel() {
         this.setBackground(Color.BLACK);
         this.setFocusable(true);
         this.setDoubleBuffered(true);
-        this.setPreferredSize(new Dimension(tamañoAnchuraPantalla,tamañoAlturaPantalla));
+        this.setPreferredSize(new Dimension(tamañoAnchuraPantalla, tamañoAlturaPantalla));
         this.addKeyListener(teclado);
         this.add(menuInventario);
         startThreadDelJuego();
@@ -73,14 +78,19 @@ public class GamePanel extends JPanel implements Runnable{
 
     }
 
-
-    public void establecerJuego(){
+    /**
+     * metodo que inicializa el juego
+     */
+    public void establecerJuego() {
         gestorAssets.establecerObjetos();
         gestorAssets.establecerEnemigos();
         empezarMusica(1);
-        estadoJuego=menuInicio;
+        estadoJuego = menuInicio;
     }
 
+    /**
+     * iniciamos el hilo o thread del juego
+     */
     public void startThreadDelJuego() {
         threadJuego = new Thread(this);
         threadJuego.start();
@@ -89,93 +99,104 @@ public class GamePanel extends JPanel implements Runnable{
     /**
      * Nuestro game loop (bucle del juego infinito)
      */
-    public void run(){
-        double delta =0;
-        double intervaloDeDibujo=1000000000/FPS;
-        long ultimoTiempo=System.nanoTime();
-        long tiempoActual; long temporizador=0; int contadorDeVecesDibujado=0; int contadorTiempoDibujado=0;
-        while(threadJuego!=null) {
-          tiempoActual = System.nanoTime();
-          delta += (tiempoActual - ultimoTiempo)/intervaloDeDibujo;
-          temporizador += (tiempoActual - ultimoTiempo);
-          ultimoTiempo = tiempoActual;
-          if(delta >= 1) {
-              update();
-              repaint();
-              delta --;
-              if (temporizador >= 1000000000) {
-                  System.out.println("FPS: " + contadorDeVecesDibujado);
-                  //System.out.printf("X:" +jugador.getX() +"Y:"+jugador.getY());
-                  contadorDeVecesDibujado=0;
+    public void run() {
+        double delta = 0;
+        double intervaloDeDibujo = 1000000000 / FPS;
+        long ultimoTiempo = System.nanoTime();
+        long tiempoActual;
+        long temporizador = 0;
+        int contadorDeVecesDibujado = 0;
+        int contadorTiempoDibujado = 0;
+        while (threadJuego != null) {
+            tiempoActual = System.nanoTime();
+            delta += (tiempoActual - ultimoTiempo) / intervaloDeDibujo;
+            temporizador += (tiempoActual - ultimoTiempo);
+            ultimoTiempo = tiempoActual;
+            if (delta >= 1) {
+                update();
+                repaint();
+                delta--;
+                if (temporizador >= 1000000000) {
+                    System.out.println("FPS: " + contadorDeVecesDibujado);
+                    //System.out.printf("X:" +jugador.getX() +"Y:"+jugador.getY());
+                    contadorDeVecesDibujado = 0;
 
-              }
-              contadorDeVecesDibujado++;
+                }
+                contadorDeVecesDibujado++;
 
-          }
+            }
 
 
         }
     }
 
+    /**
+     * el update de tod el juego, en el incluimos el resto de updates de las demas clases
+     */
     private void update() {
-        if (estadoJuego==continuar) {
+        if (estadoJuego == continuar) {
             jugador.update();
-            for (int i =0;i<arrayEnemigos.length;i++){
-                if (arrayEnemigos[i]!=null){
+            for (int i = 0; i < arrayEnemigos.length; i++) {
+                if (arrayEnemigos[i] != null) {
                     arrayEnemigos[i].update();
                 }
             }
-        }else if (estadoJuego==pausa) {
+        } else if (estadoJuego == pausa) {
             //no sucede nada
-        }else if(estadoJuego==inventario){
+        } else if (estadoJuego == inventario) {
             menuInventario.update();
-        }else if(estadoJuego==combate){
+        } else if (estadoJuego == combate) {
             gc.update();
         }
     }
 
+    /**
+     * en este metodo dibujamos todos los componentes de nuestra pantalla
+     *
+     * @param g the <code>Graphics</code> context in which to paint
+     */
     public void paint(Graphics g) {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
-            //menu inicio
-            if(estadoJuego==menuInicio) {
-                //dibuja el menu de inicio
-                interfaz.dibujar(g2d);
-            }else {
-                //el resto de cosas
-                gestorBaldosas.dibujar(g2d);
-                arrayEntidad.add(jugador);
-                for (int i = 0; i < arrayEnemigos.length; i++) {
-                    if (arrayEnemigos[i] != null) {
-                        arrayEntidad.add(arrayEnemigos[i]);
-                    }
+        //menu inicio
+        if (estadoJuego == menuInicio) {
+            //dibuja el menu de inicio
+            interfaz.dibujar(g2d);
+        } else {
+            //el resto de cosas
+            gestorBaldosas.dibujar(g2d);
+            arrayEntidad.add(jugador);
+            for (int i = 0; i < arrayEnemigos.length; i++) {
+                if (arrayEnemigos[i] != null) {
+                    arrayEntidad.add(arrayEnemigos[i]);
                 }
-                for (int i = 0; i < arrayobjetos.length; i++) {
-                    if (arrayobjetos[i] != null) {
-                        arrayEntidad.add( arrayobjetos[i]);
-                    }
-                }
-                //Ordenar la arrayList de entidad
-                Collections.sort(arrayEntidad, new Comparator<Entidad>() {
-                    @Override
-                    public int compare(Entidad o1, Entidad o2) {
-
-                        int resultado = Integer.compare((int) o1.getY(), (int) o2.getY());
-                        return resultado;
-                    }
-                });
-                //Dibujar Entidades
-                for (int i = 0; i < arrayEntidad.size(); i++) {
-                    arrayEntidad.get(i).dibujar(g2d);
-                }
-                //Vaciar lista Entidad
-                for (int i = 0; i < arrayEntidad.size(); i++) {
-                    arrayEntidad.remove(i);
-                }
-                interfaz.dibujar(g2d);
-                menuInventario.dibujar(g2d);
-
             }
+            for (int i = 0; i < arrayobjetos.length; i++) {
+                if (arrayobjetos[i] != null) {
+                    arrayEntidad.add(arrayobjetos[i]);
+                }
+            }
+            //Ordenar la arrayList de entidad
+            Collections.sort(arrayEntidad, new Comparator<Entidad>() {
+                @Override
+                public int compare(Entidad o1, Entidad o2) {
+
+                    int resultado = Integer.compare((int) o1.getY(), (int) o2.getY());
+                    return resultado;
+                }
+            });
+            //Dibujar Entidades
+            for (int i = 0; i < arrayEntidad.size(); i++) {
+                arrayEntidad.get(i).dibujar(g2d);
+            }
+            //Vaciar lista Entidad
+            for (int i = 0; i < arrayEntidad.size(); i++) {
+                arrayEntidad.remove(i);
+            }
+            interfaz.dibujar(g2d);
+            menuInventario.dibujar(g2d);
+
+        }
         g2d.dispose();
 
 
@@ -183,27 +204,33 @@ public class GamePanel extends JPanel implements Runnable{
 
     /**
      * sirve para iniciar la musica que deseemos de la coleccion URL
+     *
      * @param i indice que deseamos escoger
      */
-    public void empezarMusica(int i){
+    public void empezarMusica(int i) {
         musica.setArchivo(i);
         musica.empezar();
         musica.bucle();
     }
 
-    public void pararMusica(){
+    /**
+     * para la musica que este cargada en el clip musica y clip efecto
+     */
+    public void pararMusica() {
         musica.parar();
     }
 
     /**
      * sirve para efectos de sonido
+     *
      * @param i
      */
-    public void efectoSonido(int i){
+    public void efectoSonido(int i) {
         musica.reproducirEfecto(i);
     }
 
 
+//getters y setters
 
     public Thread getThreadJuego() {
         return threadJuego;

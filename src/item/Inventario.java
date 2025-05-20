@@ -45,22 +45,22 @@ public class Inventario {
      */
     private ArrayList<Item> iniciarInventario() {
         ArrayList<Item> inventario = new ArrayList<>();
-        Item agua = new Item("agua", 3,4,0);
-        Item comida = new Item("comida", 3,3,0);
-        Item madera = new Item("madera", 1,12,8);
-        Item carbon = new Item("carbon", 1,9,2);
-        Item mena_hierro = new Item("mena_hierro", 1,8,3);
-        Item mena_oro = new Item("mena_oro", 1,6,3);
-        Item hierro = new Item("hierro", 2,8,4);
-        Item oro = new Item("oro", 1,6,4);
-        Arma espada = new Arma("espada", 1,11,1,5,null, TipoAtaque.ArmaLigera,0,2);
-        Arma varaMago = new Arma("varaMago", 1,11,5,6,Elemento.RAYO, TipoAtaque.ArmaMágica,10,3);
-        Arma espadaFuego = new Arma("espadaFuego", 1,11,2,9, Elemento.FUEGO, TipoAtaque.ArmaLigera,0,2);
-        Armadura escudo = new Armadura("escudo", 1,12,6,6);
-        Armadura escudoOro = new Armadura("escudo_oro", 1,11,6,12);
-        Armadura talisman = new Armadura("talismanSecreto",1,10,7,4);
-        Armadura yelmo=new Armadura("yelmo",1,1,7,5);
-        Armadura peto=new Armadura("peto",1,6,7,5);
+        Item agua = new Item("agua", 3, 4, 0);
+        Item comida = new Item("comida", 3, 3, 0);
+        Item madera = new Item("madera", 1, 12, 8);
+        Item carbon = new Item("carbon", 1, 9, 2);
+        Item mena_hierro = new Item("mena_hierro", 1, 8, 3);
+        Item mena_oro = new Item("mena_oro", 1, 6, 3);
+        Item hierro = new Item("hierro", 2, 8, 4);
+        Item oro = new Item("oro", 1, 6, 4);
+        Arma espada = new Arma("espada", 1, 11, 1, 5, null, TipoAtaque.ArmaLigera, 0, 2);
+        Arma varaMago = new Arma("varaMago", 1, 11, 5, 6, Elemento.RAYO, TipoAtaque.ArmaMágica, 10, 3);
+        Arma espadaFuego = new Arma("espadaFuego", 1, 11, 2, 9, Elemento.FUEGO, TipoAtaque.ArmaLigera, 0, 2);
+        Armadura escudo = new Armadura("escudo", 1, 12, 6, 6);
+        Armadura escudoOro = new Armadura("escudo_oro", 1, 11, 6, 12);
+        Armadura talisman = new Armadura("talismanSecreto", 1, 10, 7, 4);
+        Armadura yelmo = new Armadura("yelmo", 1, 1, 7, 5);
+        Armadura peto = new Armadura("peto", 1, 6, 7, 5);
         //faltan yelmo, peto,escudo oro, talisman
 
         inventario.add(escudoOro);
@@ -85,32 +85,33 @@ public class Inventario {
 
     /**
      * metodo que muestra las imagenes del inventario llamado desde el UI.
+     *
      * @param g2d
      * @param menuInventario clase para imprimir el esqueleto del inventario
      */
-    public void mostrarInventario(Graphics2D g2d, MenuInventario menuInventario,Jugador jugador) {
+    public void mostrarInventario(Graphics2D g2d, MenuInventario menuInventario, Jugador jugador) {
         int espacioAltura = 0;
-        int contInventario=0;
+        int contInventario = 0;
         ordenarInventario();
         for (int i = 0; i < 4; i++) {
             int espacio = 0;
             for (int j = 0; j < 4; j++) {
-                for (int k =contInventario;k<inventario.size();k++) {
-                    Item item=inventario.get(k);
+                for (int k = contInventario; k < inventario.size(); k++) {
+                    Item item = inventario.get(k);
                     if (item.getCantidad() > 0) {
-                        g2d.drawImage(item.getPlantillaInventario().getImg(item.getX(),item.getY()),
-                                275+espacio,
-                                138+espacioAltura,
+                        g2d.drawImage(item.getPlantillaInventario().getImg(item.getX(), item.getY()),
+                                275 + espacio,
+                                138 + espacioAltura,
                                 55, 55, null);
                         //mostrar cantidad
                         g2d.getFont().deriveFont(20f);
-                        String cantidad= String.valueOf(item.getCantidad());
-                        g2d.setColor(new Color(200,200,200,180));
-                        g2d.drawString(cantidad,322+espacio,192+espacioAltura);
+                        String cantidad = String.valueOf(item.getCantidad());
+                        g2d.setColor(new Color(200, 200, 200, 180));
+                        g2d.drawString(cantidad, 322 + espacio, 192 + espacioAltura);
                         //sombreado
-                        g2d.setColor(new Color(0,0,0,180));
-                        g2d.drawString(cantidad,320+espacio,190+espacioAltura);
-                        espacio = espacio +menuInventario.getGp().getTamañofinalBaldosa()+menuInventario.getGp().getTamañofinalBaldosa()/2;
+                        g2d.setColor(new Color(0, 0, 0, 180));
+                        g2d.drawString(cantidad, 320 + espacio, 190 + espacioAltura);
+                        espacio = espacio + menuInventario.getGp().getTamañofinalBaldosa() + menuInventario.getGp().getTamañofinalBaldosa() / 2;
                         break;
                     }
                 }
@@ -118,35 +119,39 @@ public class Inventario {
             }
             espacioAltura = espacioAltura + 64;
         }
-        Arma arma=jugador.getArma();
-        Armadura escudo=jugador.getEscudo();
-        Armadura armadura= (Armadura) jugador.getArmadura();
-        Item cabeza=jugador.getCabeza();
-        if(arma!=null){
-            g2d.drawImage(arma.getPlantillaInventario().getImg(arma.getX(),arma.getY()),
+        Arma arma = jugador.getArma();
+        Armadura escudo = jugador.getEscudo();
+        Armadura armadura = (Armadura) jugador.getArmadura();
+        Item cabeza = jugador.getCabeza();
+        if (arma != null) {
+            g2d.drawImage(arma.getPlantillaInventario().getImg(arma.getX(), arma.getY()),
                     165,
                     138,
                     55, 55, null);
         }
-        if(escudo!=null){
-            g2d.drawImage(escudo.getPlantillaInventario().getImg(escudo.getX(),escudo.getY()),
+        if (escudo != null) {
+            g2d.drawImage(escudo.getPlantillaInventario().getImg(escudo.getX(), escudo.getY()),
                     165,
-                    138+64,
+                    138 + 64,
                     55, 55, null);
         }
-        if(armadura!=null){
-            g2d.drawImage(armadura.getPlantillaInventario().getImg(armadura.getX(),armadura.getY()),
+        if (armadura != null) {
+            g2d.drawImage(armadura.getPlantillaInventario().getImg(armadura.getX(), armadura.getY()),
                     165,
-                    138+(64*2),
+                    138 + (64 * 2),
                     55, 55, null);
         }
-        if(cabeza!=null){
-            g2d.drawImage(cabeza.getPlantillaInventario().getImg(cabeza.getX(),cabeza.getY()),
+        if (cabeza != null) {
+            g2d.drawImage(cabeza.getPlantillaInventario().getImg(cabeza.getX(), cabeza.getY()),
                     165,
-                    138+(64*3),
+                    138 + (64 * 3),
                     55, 55, null);
         }
     }
+
+    /**
+     * metodo de ordenación por el metodo burbujas
+     */
     public void ordenarInventario() {
         for (int i = 0; i < inventario.size() - 1; i++) {
             for (int j = 0; j < inventario.size() - i - 1; j++) {
@@ -220,10 +225,10 @@ public class Inventario {
         } catch (Exception e) {
             System.out.println(e);
         }
-        ArrayList<Item> recetaFinal=new ArrayList<>();
-        for(int j=0;j<recetaIngrediente.size();j++) {
+        ArrayList<Item> recetaFinal = new ArrayList<>();
+        for (int j = 0; j < recetaIngrediente.size(); j++) {
             //usamos buscar objeto para encontrar lo necesario
-            Item item=buscarObjeto(recetaIngrediente.get(j));
+            Item item = buscarObjeto(recetaIngrediente.get(j));
             recetaFinal.add(item);
         }
 
@@ -231,6 +236,8 @@ public class Inventario {
         //devolvemos un array de items necesarios
         return recetaFinal;
     }
+
+    //getters y setters
 
     public ArrayList<Item> getInventario() {
         return inventario;

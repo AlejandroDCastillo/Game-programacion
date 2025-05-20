@@ -26,9 +26,10 @@ public class Jugador extends Entidad {
     private int sed;
     private Inventario inventario;
     private int llaves = 0;
-    public int objetoInteractuado=0;
-    private boolean opcionAtacar=false;
-    private boolean opcionHuir=false;
+    public int objetoInteractuado = 0;
+    private boolean opcionAtacar = false;
+    private boolean opcionHuir = false;
+
     /**
      * constructor del jugador
      *
@@ -41,16 +42,16 @@ public class Jugador extends Entidad {
      */
     public Jugador(DetectorTeclas teclado, GamePanel gp, String nombre, Raza raza, Clase clase, int nivel) {
         super(gp);
-        this.nombre=nombre;
-        this.raza=raza;
-        this.clase=clase;
-        this.nivel=nivel;
+        this.nombre = nombre;
+        this.raza = raza;
+        this.clase = clase;
+        this.nivel = nivel;
         iniciarRaza(raza);
         iniciarClase(clase);
         estadisticasNivel(nivel);
-        this.vida=vidaMax;
-        this.velocidad=velocidadMax/2;
-        this.velocidadDiagonal = Math.hypot(this.velocidad,this.velocidad)/2;
+        this.vida = vidaMax;
+        this.velocidad = velocidadMax / 2;
+        this.velocidadDiagonal = Math.hypot(this.velocidad, this.velocidad) / 2;
         this.teclado = teclado;
         this.direccion = "";
         x = 200;
@@ -61,15 +62,17 @@ public class Jugador extends Entidad {
         zonaDeColision = new Rectangle(8, 16, 32, 32);
         zonaDeColisionDefectoX = zonaDeColision.x;
         zonaDeColisionDefectoY = zonaDeColision.y;
-        try{
+        //sprite
+        try {
             String imagePath = "src/recursos/imagenes/caballero.png";
             BufferedImage imagenPlantillaBuffered = ImageIO.read(new File(imagePath));
             plantillaSprite = new Spritesheet(imagenPlantillaBuffered, 6, 4);
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        opcionAtacar=false;
-        opcionHuir=false;
+        //boolean del combate
+        opcionAtacar = false;
+        opcionHuir = false;
         calcularEXPsubirNivel();
     }
 
@@ -77,12 +80,12 @@ public class Jugador extends Entidad {
      * metodo para beber agua suma +30 a la sed
      */
     public boolean beberMana() {
-        gp.efectoSonido(6);
         Item i = inventario.buscarObjeto("agua");
         if (i.getCantidad() > 0) {
+            gp.efectoSonido(6);
             if (sed >= 70) {
                 i.setCantidad(i.getCantidad() - 1);
-               mana = 100;
+                mana = 100;
             } else {
                 i.setCantidad(i.getCantidad() - 1);
                 mana = mana + 30;
@@ -100,10 +103,9 @@ public class Jugador extends Entidad {
      * @return
      */
     public boolean comer() {
-        gp.efectoSonido(6);
-
         Item i = inventario.buscarObjeto("comida");
         if (i.getCantidad() > 0) {
+            gp.efectoSonido(6);
             if (vida >= 70) {
                 System.out.println("comiendo");
                 i.setCantidad(i.getCantidad() - 1);
@@ -121,9 +123,14 @@ public class Jugador extends Entidad {
         }
     }
 
+    /**
+     * metodo boolean que sirve para equipar un objeto y modificar las stats
+     * @param objeto
+     * @return
+     */
     public boolean equiparObjeto(String objeto) {
         Item obj = inventario.buscarObjeto(objeto);
-        if (obj !=null){
+        if (obj != null) {
             if (obj.getCantidad() > 0) {
                 if (obj instanceof Armadura) {
                     Armadura objArmadura = (Armadura) obj;
@@ -153,31 +160,30 @@ public class Jugador extends Entidad {
                             }
                         }
                     }
-                }
-                else if (obj instanceof Arma){
+                } else if (obj instanceof Arma) {
                     Arma objArma = (Arma) inventario.buscarObjeto(objeto);
                     switch (objeto) {
-                        case"espadaFuego":{
+                        case "espadaFuego": {
                             if (objArma.getCantidad() > 0) {
-                                objArma.aumentar(this,8);
+                                objArma.aumentar(this, 8);
                                 setArma(objArma);
                                 return true;
                             } else {
                                 return false;
                             }
                         }
-                        case"espada":{
+                        case "espada": {
                             if (objArma.getCantidad() > 0) {
-                                objArma.aumentar(this,8);
+                                objArma.aumentar(this, 8);
                                 setArma(objArma);
                                 return true;
                             } else {
                                 return false;
                             }
                         }
-                        case"varaMago":{
+                        case "varaMago": {
                             if (objArma.getCantidad() > 0) {
-                                objArma.aumentar(this,20);
+                                objArma.aumentar(this, 20);
                                 setArma(objArma);
                                 return true;
                             } else {
@@ -188,7 +194,7 @@ public class Jugador extends Entidad {
                 }
             }
         }
-            return false;
+        return false;
     }
 
     /**
@@ -318,24 +324,28 @@ public class Jugador extends Entidad {
         }
     }
 
+    /**
+     * metodo heredado para atacar, es usado solo por jugador
+     * @return
+     */
     @Override
     public int atacar() {
         gp.efectoSonido(5);
         int dañoBase = arma.getDañoBase();
-        switch (arma.getTipoataque()){
-            case ArmaPesada -> dañoAtaque = dañoBase *fuerza/2+(destreza/10);
-            case ArmaLigera -> dañoAtaque = dañoBase *destreza/2+(fuerza/10);
+        switch (arma.getTipoataque()) {
+            case ArmaPesada -> dañoAtaque = dañoBase * fuerza / 2 + (destreza / 10);
+            case ArmaLigera -> dañoAtaque = dañoBase * destreza / 2 + (fuerza / 10);
             case ArmaMágica -> {
-                dañoAtaque = dañoBase/3 *magia;
-                mana=mana - arma.getCoste();
+                dañoAtaque = dañoBase / 3 * magia;
+                mana = mana - arma.getCoste();
             }
         }
-        int random = UtilDiego.numRandomentero(1,5);
+        int random = UtilDiego.numRandomentero(1, 5);
         if (random <= 2) {
-            dañoAtaque = dañoAtaque *2;
-            gp.getInterfaz().enseñarMensaje("CRITICO!!!! Has hecho un ataque de un total de "+dañoAtaque+" daño!");
-        }else{
-            gp.getInterfaz().enseñarMensaje("Ha hecho un ataque de un total de "+dañoAtaque+" daño!");
+            dañoAtaque = dañoAtaque * 2;
+            gp.getInterfaz().enseñarMensaje("CRITICO!!!! Has hecho un ataque de un total de " + dañoAtaque + " daño!");
+        } else {
+            gp.getInterfaz().enseñarMensaje("Ha hecho un ataque de un total de " + dañoAtaque + " daño!");
         }
         return dañoAtaque;
     }
@@ -344,10 +354,9 @@ public class Jugador extends Entidad {
      * tomar el sprite correspondiente al jugador
      *
      * @return
-     *
      */
-    public BufferedImage obtenerImagenPlayer()  {
-        if (gp.estadoJuego==gp.menuInicio) {
+    public BufferedImage obtenerImagenPlayer() {
+        if (gp.estadoJuego == gp.menuInicio) {
             return sprite = plantillaSprite.getImg(numSprite, 2, gp.getTamañofinalBaldosa());
         }
         return switch (direccion) {
@@ -361,6 +370,10 @@ public class Jugador extends Entidad {
         };
     }
 
+    /**
+     * metodo para recoger los objetos q esten en el suelo
+     * @param index
+     */
     public void recogerObjetos(int index) {
         String nombreObjeto = "";
         if (index != 999) {
@@ -375,7 +388,7 @@ public class Jugador extends Entidad {
                 break;
             case "cofre":
                 if (llaves > 0) {
-                    gp.arrayobjetos[index].setImagen(gp.arrayobjetos[index].plantillaSprite.getImg(9,0,gp.getTamañofinalBaldosa()));
+                    gp.arrayobjetos[index].setImagen(gp.arrayobjetos[index].plantillaSprite.getImg(9, 0, gp.getTamañofinalBaldosa()));
                     if (contadorUpdates % 18 == 0) {
                         gp.arrayobjetos[index] = null;
                     }
@@ -389,38 +402,46 @@ public class Jugador extends Entidad {
 
     }
 
-    public void colisionMonstruo(int index){
-        if (index!=999)
-        if (gp.arrayEnemigos[index] != null) {
-            //efecto sonido de combate
-            gp.pararMusica();
-            gp.efectoSonido(3);
-            gp.getGraphics().setColor(Color.black);
-            gp.getGraphics().fillRect(0,0,gp.getWidth(),gp.getHeight());
-            try {
-                Thread.sleep(2000); // Espera 2000 milisegundos (2 segundos)
-            } catch (InterruptedException e) {
-                System.out.println("La espera fue interrumpida.");
+    /**
+     * metodo que comprueba si hay colision con enemigo para iniciar estado de juego combate
+     * @param index
+     */
+    public void colisionMonstruo(int index) {
+        if (index != 999)
+            if (gp.arrayEnemigos[index] != null) {
+                //efecto sonido de combate
+                gp.pararMusica();
+                gp.efectoSonido(3);
+                gp.getGraphics().setColor(Color.black);
+                gp.getGraphics().fillRect(0, 0, gp.getWidth(), gp.getHeight());
+                try {
+                    Thread.sleep(2000); // Espera 2000 milisegundos (2 segundos)
+                } catch (InterruptedException e) {
+                    System.out.println("La espera fue interrumpida.");
+                }
+                gp.empezarMusica(4);
+                gp.estadoJuego = gp.combate;
+                gp.gc = new GestorCombate(this, gp.arrayEnemigos[index], gp);
             }
-            gp.empezarMusica(4);
-            gp.estadoJuego=gp.combate;
-            gp.gc= new GestorCombate(this,gp.arrayEnemigos[index],gp);
-        }
     }
 
-
-    public boolean huir(){
-        int random= UtilDiego.numRandomentero(1,5);
-        if (random<=2){
-            gp.estadoJuego=gp.continuar;
+    /**
+     * metodo que randomiza la huida de una batalla
+     * @return
+     */
+    public boolean huir() {
+        int random = UtilDiego.numRandomentero(1, 5);
+        if (random <= 2) {
+            gp.estadoJuego = gp.continuar;
             gp.getInterfaz().enseñarMensaje("CONSEGUISTE HUIR!!");
 
             return true;
-        }else {
+        } else {
             gp.getInterfaz().enseñarMensaje("Fracaste al huir, pierdes el turno");
             return false;
         }
     }
+
     /**
      * metodo que dibuja el sprite en pantalla
      *
@@ -428,7 +449,7 @@ public class Jugador extends Entidad {
      * @throws IOException
      */
     @Override
-    public void dibujar(Graphics2D g2d)  {
+    public void dibujar(Graphics2D g2d) {
         g2d.setColor(Color.black);
         g2d.fillRect((int) (x + 8), (int) (y + 16), 32, 32);
         g2d.drawImage(obtenerImagenPlayer(), (int) x, (int) y, gp.getTamañofinalBaldosa(), gp.getTamañofinalBaldosa(), null);

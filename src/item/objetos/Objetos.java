@@ -15,14 +15,26 @@ public abstract class Objetos extends Entidad {
     public int zonaDeColisionDefectoX = 0, zonaDeColisionDefectoY = 0;
     protected int objetoInteractuado = 0;
 
+    /**
+     * constructor de objetos del suelo
+     *
+     * @param gp
+     */
     public Objetos(GamePanel gp) {
         super(gp);
-        direccion="abajo";
+        direccion = "abajo";
     }
 
+    /**
+     * metodo que dibuja obj en el JPanel
+     *
+     * @param g2d
+     */
     public void dibujar(Graphics2D g2d) {
         g2d.drawImage(imagen, (int) x, (int) y, gp.getTamañofinalBaldosa(), gp.getTamañofinalBaldosa(), null);
     }
+
+    //getters y setters
 
     public String getNombre() {
         return nombre;

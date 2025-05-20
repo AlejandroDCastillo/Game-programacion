@@ -15,6 +15,11 @@ import java.io.IOException;
 public class MenuInventario extends JPanel {
     private GamePanel gp;
     private DetectorTeclas teclado;
+
+    /**
+     * inicializa una clase para el menu de inventario, el resto de menus los hicimos dentro del UI en lugar de como clase
+     * @param gp
+     */
     public MenuInventario(GamePanel gp) {
         this.gp = gp;
         this.teclado = gp.getTeclado();
@@ -25,6 +30,12 @@ public class MenuInventario extends JPanel {
         setBackground(Color.WHITE);
         setVisible(false);
     }
+
+    /**
+     * carga la imagen del inventario para cuando inventario este true
+     * @param imagePath
+     * @return
+     */
     public BufferedImage fondoPanel(String imagePath) {
         try {
             // Cargar la imagen
@@ -38,10 +49,17 @@ public class MenuInventario extends JPanel {
         return null;
     }
 
+    /**
+     * metodo que actualiza el inventario para poder visualizar en tiempo real los items disponibles
+     */
     public void update() {
         setVisible(teclado.menuBoolean);
     }
 
+    /**
+     * dibuja la imagen del inventario en el Jpanel
+     * @param g
+     */
     public void dibujar(Graphics g) {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
@@ -51,7 +69,7 @@ public class MenuInventario extends JPanel {
         }
         g2d.dispose();
     }
-
+//getters and setters
     public DetectorTeclas getTeclado() {
         return teclado;
     }

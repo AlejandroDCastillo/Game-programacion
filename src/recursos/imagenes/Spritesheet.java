@@ -7,22 +7,28 @@ import java.awt.image.AffineTransformOp;
 
 public class Spritesheet {
 
-    private int counter = -1;       // current frame we're on (0-indexed)
-    private int frameWidth, frameHeight;   // width and height of each frame (px)
-    private int numFramesX;          // number of frames in the sequence
-    private int numFramesY;
-    private BufferedImage img;// the image itself
+    private int counter = -1;       // fotograma actual (empezando desde 0)
+    private int frameWidth, frameHeight;   // ancho y alto de cada fotograma (en píxeles)
+    private int numFramesX;          // número de fotogramas en la secuencia (horizontal)
+    private int numFramesY;          // número de fotogramas en la secuencia (vertical)
+    private BufferedImage img;       // la imagen en sí
 
-    // initialize with image and the number of frames it contains
-    public Spritesheet(BufferedImage img,int numFramesX, int numFramesY) {
+    // inicializa con la imagen y el número de fotogramas que contiene
+    public Spritesheet(BufferedImage img, int numFramesX, int numFramesY) {
         this.img = img;
         this.numFramesX = numFramesX;
         this.numFramesY = numFramesY;
-        frameWidth = img.getWidth() / this.numFramesX;  // calculate width of each frame (px)
-        frameHeight = img.getHeight()/this.numFramesY;
+        frameWidth = img.getWidth() / this.numFramesX;   // calcula el ancho de cada fotograma (px)
+        frameHeight = img.getHeight() / this.numFramesY; // calcula el alto de cada fotograma (px)
     }
 
-
+    /**
+     * metodo para cargar una imagen de un sprite es decir los pixeles que necesita del sprite
+     * @param indexX
+     * @param indexY
+     * @param tamañoBaldosa
+     * @return
+     */
     public BufferedImage getImg(int indexX,int indexY,int tamañoBaldosa) {
             return img.getSubimage(indexX * frameWidth, indexY*frameHeight, frameWidth, frameHeight);
     }
@@ -37,6 +43,11 @@ public class Spritesheet {
         return img.getSubimage(indexX * frameWidth, indexY*frameHeight, frameWidth, frameHeight);
     }
 
+    /**
+     * metodo que invierte la img del sprite
+     * @param imagenInversa
+     * @return
+     */
     public BufferedImage invertir(BufferedImage imagenInversa) {
         BufferedImage invertedImage = new BufferedImage(frameWidth,frameHeight, BufferedImage.TYPE_INT_ARGB);
         AffineTransform transform = new AffineTransform();
@@ -47,6 +58,12 @@ public class Spritesheet {
         return invertedImage;
     }
 
+    /**
+     * metodo para rotar la img del sprite
+     * @param imagenOriginal
+     * @param grados
+     * @return
+     */
     public BufferedImage rotarImagen(BufferedImage imagenOriginal, double grados) {
         BufferedImage imagenRotada = new BufferedImage(frameWidth,frameHeight, BufferedImage.TYPE_INT_ARGB);
         int ancho = imagenOriginal.getWidth();
@@ -60,50 +77,84 @@ public class Spritesheet {
         return imagenRotada;
     }
 
-    private Point2D hallarPtoATraslacion (BufferedImage imagenOriginal,int grados) {
+
+
+    /**
+     * Calcula un punto de referencia en la imagen original según el ángulo de rotación.
+     * Este punto se utiliza como base para determinar cómo se traslada la imagen al rotarla.
+     *
+     * @param imagenOriginal La imagen original que se va a transformar.
+     * @param grados El ángulo de rotación en grados.
+     * @return Un punto (Point2D) que representa una esquina de la imagen original,
+     *         dependiendo del ángulo de rotación.
+     */
+    private Point2D hallarPtoATraslacion(BufferedImage imagenOriginal, int grados) {
         Point2D p2din;
         int alturaImagen = imagenOriginal.getHeight();
         int anchoImagen = imagenOriginal.getWidth();
         if (grados >= 0 && grados <= 90){
             p2din = new Point2D.Double(0.0, 0.0);
-        }else if (grados > 90 && grados <= 180){
+        } else if (grados > 90 && grados <= 180){
             p2din = new Point2D.Double(0.0, alturaImagen);
-        }else if (grados > 180 && grados <= 270){
+        } else if (grados > 180 && grados <= 270){
             p2din = new Point2D.Double(anchoImagen, alturaImagen);
-        }else{
+        } else {
             p2din = new Point2D.Double(anchoImagen, 0.0);
         }
         return p2din;
     }
 
-    private Point2D hallarPtoBTraslacion (BufferedImage imagenOriginal,int grados) {
+    /**
+     * Calcula otro punto de referencia en la imagen original, complementario al anterior,
+     * según el ángulo de rotación. Este también se utiliza para ajustar correctamente
+     * la traslación después de la rotación.
+     *
+     * @param imagenOriginal La imagen original que se va a transformar.
+     * @param grados El ángulo de rotación en grados.
+     * @return Un punto (Point2D) diferente al del primer método, usado para calcular
+     *         la traslación final de la imagen.
+     */
+    private Point2D hallarPtoBTraslacion(BufferedImage imagenOriginal, int grados) {
         Point2D p2din;
         int alturaImagen = imagenOriginal.getHeight();
         int anchoImagen = imagenOriginal.getWidth();
         if (grados >= 0 && grados <= 90){
             p2din = new Point2D.Double(0.0, alturaImagen);
-        }else if (grados > 90 && grados <= 180){
+        } else if (grados > 90 && grados <= 180){
             p2din = new Point2D.Double(anchoImagen, alturaImagen);
-        }else if (grados > 180 && grados <= 270){
+        } else if (grados > 180 && grados <= 270){
             p2din = new Point2D.Double(anchoImagen, 0.0);
-        }else{
+        } else {
             p2din = new Point2D.Double(0.0, 0.0);
         }
         return p2din;
     }
 
-    public void findTranslation (AffineTransform at,BufferedImage imagenOriginal,int grados) {
+    /**
+     * Ajusta una transformación afín (AffineTransform) para que la imagen
+     * rotada quede bien posicionada en pantalla. Utiliza dos puntos de referencia
+     * para calcular la traslación necesaria después de aplicar la rotación.
+     *
+     * @param at La transformación afín que se va a modificar (normalmente contiene ya una rotación).
+     * @param imagenOriginal La imagen que se está rotando y trasladando.
+     * @param grados El ángulo de rotación aplicado a la imagen.
+     */
+    public void findTranslation(AffineTransform at, BufferedImage imagenOriginal, int grados) {
         Point2D p2din, p2dout;
-        p2din = hallarPtoATraslacion(imagenOriginal,grados);
+        p2din = hallarPtoATraslacion(imagenOriginal, grados);
         p2dout = at.transform(p2din, null);
         double ytrans = p2dout.getY();
-        p2din = hallarPtoBTraslacion(imagenOriginal,grados);
+
+        p2din = hallarPtoBTraslacion(imagenOriginal, grados);
         p2dout = at.transform(p2din, null);
         double xtrans = p2dout.getX();
+
         AffineTransform tat = new AffineTransform();
         tat.translate(-xtrans, -ytrans);
         at.preConcatenate(tat);
     }
+
+    //getters y setters
 
     public int getFrameWidth() {
         return frameWidth;
