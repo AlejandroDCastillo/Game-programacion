@@ -339,6 +339,9 @@ public class Jugador extends Entidad {
                 dañoAtaque = dañoBase / 3 * magia;
                 mana = mana - arma.getCoste();
             }
+            case Desarmado -> {
+                dañoAtaque=5;
+            }
         }
         int random = UtilDiego.numRandomentero(1, 5);
         if (random <= 2) {
