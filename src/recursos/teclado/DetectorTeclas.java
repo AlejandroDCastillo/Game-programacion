@@ -624,10 +624,7 @@ public class DetectorTeclas implements KeyListener {
                             gp.gc.jugador.setTurno(false);
                             gp.gc.monstruo.setTurno(true);
                             gp.gc.contadorUpdates = 0;
-                            if (gp.getJugador().isOpcionHuir()) {
-                                gp.pararMusica();
-                                gp.empezarMusica(0);
-                            }
+
                         }
                     } else {
                         if (gp.getInterfaz().numeroMenuCons == 0) {

@@ -437,7 +437,10 @@ public class Jugador extends Entidad {
         if (random <= 2) {
             gp.estadoJuego = gp.continuar;
             gp.getInterfaz().enseñarMensaje("CONSEGUISTE HUIR!!");
-
+            if (gp.getJugador().isOpcionHuir()) {
+                gp.pararMusica();
+                gp.empezarMusica(0);
+            }
             return true;
         } else {
             gp.getInterfaz().enseñarMensaje("Fracaste al huir, pierdes el turno");
