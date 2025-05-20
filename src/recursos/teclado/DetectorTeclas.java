@@ -84,6 +84,7 @@ public class DetectorTeclas implements KeyListener {
                 gp.estadoJuego = gp.continuar;
             }
         }
+
         //menus inventario
         if (gp.estadoJuego == gp.inventario) {
             if (craftear) {
@@ -194,6 +195,10 @@ public class DetectorTeclas implements KeyListener {
                             intentocrafteo = false;
                             break;
                     }
+                }if (tecla ==KeyEvent.VK_ESCAPE){
+                    craftear = false;
+                    intentocrafteo = false;
+                    tecla=0;
                 }
             }
             if (menuEquipar) {
@@ -283,11 +288,18 @@ public class DetectorTeclas implements KeyListener {
                             menuEquipar = false;
                             intentoEquipar = false;
                     }
+                }if (tecla ==KeyEvent.VK_ESCAPE){
+                    menuEquipar = false;
+                    intentoEquipar = false;
+                    tecla=0;
                 }
             }
             if (menuStats) {
                 gp.getInterfaz().numeroMenu = 12;
                 if (tecla == KeyEvent.VK_ENTER) {
+                    menuStats = false;
+                }
+                if (tecla ==KeyEvent.VK_ESCAPE){
                     menuStats = false;
                 }
             }
@@ -326,6 +338,12 @@ public class DetectorTeclas implements KeyListener {
                         }
                     }
                 }
+                if (tecla == KeyEvent.VK_ESCAPE) {
+                    menuBoolean=false;
+                    gp.estadoJuego=gp.continuar;
+                    tecla=0;
+                }
+
             }
         }
         //memu de pausa
@@ -544,12 +562,12 @@ public class DetectorTeclas implements KeyListener {
 
                         }
                         if (gp.getInterfaz().getNumeroMenu() == 2 && gp.gc.jugador.isTurno()) {
-                            boolean huir = gp.gc.jugador.huir();
+                            gp.gc.jugador.huir();
                             gp.gc.jugador.setOpcionHuir(true);
                             gp.gc.jugador.setTurno(false);
                             gp.gc.monstruo.setTurno(true);
                             gp.gc.contadorUpdates = 0;
-                            if(huir){
+                            if(gp.getJugador().isOpcionHuir()){
                                 gp.pararMusica();
                                 gp.empezarMusica(0);
                             }
@@ -567,6 +585,10 @@ public class DetectorTeclas implements KeyListener {
                             //volver
                             consumir = false;
                         }
+                    }
+                }if (tecla == KeyEvent.VK_ESCAPE) {
+                    if (consumir) {
+                        consumir = false;
                     }
                 }
             }

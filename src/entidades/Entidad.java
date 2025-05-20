@@ -12,14 +12,16 @@ import utiles.UtilDiego;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static item.armas.TipoAtaque.ArmaPesada;
-
 public abstract class Entidad {
     protected GamePanel gp;
     //stats de movimiento
     protected double x;
     protected double y;
     protected boolean turno=false;
+    protected int baseEXP=50;
+    protected int EXP=0;
+    protected int EXPSubirNivel;
+    protected double factor=1.2;
     protected int contadorAccion;
     //direccion tratada com ostring para un futuro switch
     protected String direccion;
@@ -52,7 +54,7 @@ public abstract class Entidad {
     protected Elemento elemento;
     protected boolean opcionAtacar=false;
     //obj equipados
-    protected Arma arma = new Arma("desarmado",1,0,0,1,null,TipoAtaque.ArmaLigera,0,0);
+    protected Arma arma = new Arma("desarmado",1,0,0,3,null,TipoAtaque.Desarmado,0,0);
     protected Armadura armadura;
     protected Armadura escudo;
     protected Armadura cabeza;
@@ -212,10 +214,17 @@ public abstract class Entidad {
     public void update() {
         establecerAccion();
         colision=false;
+        if (gp.getJugador().isOpcionHuir()){
+            if (contadorUpdates>=24){
+                gp.getJugador().setOpcionHuir(true);
+            }
+        }else{
+            gp.detectorDeColisiones.comprobarJugador(this);
+        }
         gp.detectorDeColisiones.comprobarBaldosa(this);
         gp.detectorDeColisiones.comprobarObjetos(this,false);
         gp.detectorDeColisiones.comprobaEntidad(this,gp.arrayEnemigos);
-        gp.detectorDeColisiones.comprobarJugador(this);
+
         if (!colision) {
             switch (direccion) {
                 case "arriba":
@@ -298,6 +307,7 @@ public abstract class Entidad {
                 dañoAtaque = dañoBase/3 *magia;
                 mana=mana - arma.getCoste();
             }
+            case Desarmado -> dañoAtaque=dañoBase;
         }
         int random = UtilDiego.numRandomentero(1,10);
         if (random <= 2) {
@@ -313,10 +323,31 @@ public abstract class Entidad {
        int vida = dañoTotal - defensa;
        if (vida > 0) {
            this.vida-=vida;
+           if (this.vida<=0){
+               this.vida=0;
+           }
        }else{
            vida=0;
        }
        return vida;
+    }
+
+    /**
+     * Calcula la experiencia otorgada por un enemigo según su nivel.
+     *
+     * @param nivelEnemigo Nivel del enemigo derrotado.
+     * @return Experiencia obtenida.
+     */
+    public int calcularExperiencia(int nivelEnemigo) {
+        double experiencia = baseEXP * Math.pow(factor, nivelEnemigo - 1);
+        return (int) Math.round(experiencia); // Redondea al entero más cercano
+    }
+
+    public void calcularEXPsubirNivel(){
+        this.EXPSubirNivel=baseEXP*(nivel*2);
+        if (EXP==EXPSubirNivel){
+            nivel++;
+        }
     }
 
     public double getY() {
@@ -565,6 +596,38 @@ public abstract class Entidad {
 
     public void setOpcionAtacar(boolean opcionAtacar) {
         this.opcionAtacar = opcionAtacar;
+    }
+
+    public int getBaseEXP() {
+        return baseEXP;
+    }
+
+    public void setBaseEXP(int baseEXP) {
+        this.baseEXP = baseEXP;
+    }
+
+    public int getEXP() {
+        return EXP;
+    }
+
+    public void setEXP(int EXP) {
+        this.EXP = EXP;
+    }
+
+    public double getFactor() {
+        return factor;
+    }
+
+    public void setFactor(double factor) {
+        this.factor = factor;
+    }
+
+    public int getEXPSubirNivel() {
+        return EXPSubirNivel;
+    }
+
+    public void setEXPSubirNivel(int EXPSubirNivel) {
+        this.EXPSubirNivel = EXPSubirNivel;
     }
 }
 

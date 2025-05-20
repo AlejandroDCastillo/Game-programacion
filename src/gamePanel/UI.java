@@ -116,6 +116,19 @@ public class UI {
         dibujarTextoSombreado("Magia: " + stat, 590, y+60, 20);
         stat = String.valueOf(gp.getJugador().getDefensa());
         dibujarTextoSombreado("Defensa: " + stat, 590,  y+90, 20);
+        gp.getInterfaz().dibujarTextoSombreado("EXP:", 590, y+120, 20);
+         stat = String.valueOf(gp.getJugador().getEXPSubirNivel());
+        gp.getInterfaz().dibujarTextoSombreado("/" + stat,590+(gp.getJugador().getEXPSubirNivel())+20 , y+140, 20);
+        stat = String.valueOf(gp.getJugador().getEXP());
+        gp.getInterfaz().dibujarTextoSombreado(stat, 590+(gp.getJugador().getEXPSubirNivel()) , y+140, 20);
+        g2d.setColor(Color.white);
+        int x = 590;
+        //bucle para dibujar el cuadrado rojo
+        for (int i = 0; i < gp.getJugador().getEXP(); i++) {
+            //cuadrado rojo por cada punto de vida
+            g2d.fillRect(x, y+140, 2, 4);
+            x += 1;
+        }
         dibujarTextoSombreado("Salir", 590, 370, 20);
         if (numeroMenu == 12) {
             dibujarTextoSombreado(">", 590 - 25, 370,20);
@@ -165,7 +178,9 @@ public class UI {
 
     public void dibujarGamover() {
         g2d.setColor(Color.black);
-        dibujarTextoSombreado("GAME OVER", 300, 250, 50);
+        g2d.fillRect(0,0,gp.getWidth(),gp.getHeight());
+        dibujarTextoSombreado("GAME OVER", 220, 220, 50);
+
     }
 
     public void dibujarCombate() {
@@ -362,6 +377,11 @@ public class UI {
         }
 
         if (gp.gc.jugador.isOpcionHuir()) {
+            dibujarVentanaGenerica(100, 30, 600, 100);
+            dibujarTextoSombreado(mensaje, 110, 80, 20);
+        }
+
+        if (gp.gc.monstruo.getVida()<=0){
             dibujarVentanaGenerica(100, 30, 600, 100);
             dibujarTextoSombreado(mensaje, 110, 80, 20);
         }

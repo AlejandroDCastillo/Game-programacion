@@ -70,6 +70,7 @@ public class Jugador extends Entidad {
         }
         opcionAtacar=false;
         opcionHuir=false;
+        calcularEXPsubirNivel();
     }
 
     /**
@@ -306,7 +307,7 @@ public class Jugador extends Entidad {
             }
         }
         colisionMonstruo(monstruoIndex);
-        System.out.println(this);
+        calcularEXPsubirNivel();
         contadorUpdates++;
         if (contadorUpdates % 8 == 0) {
             numSprite++;
@@ -412,7 +413,6 @@ public class Jugador extends Entidad {
         int random= UtilDiego.numRandomentero(1,5);
         if (random<=2){
             gp.estadoJuego=gp.continuar;
-            gp.gc.monstruo.colision=false;
             gp.getInterfaz().enseñarMensaje("CONSEGUISTE HUIR!!");
 
             return true;

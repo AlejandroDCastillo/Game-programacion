@@ -29,15 +29,21 @@ public class GestorCombate {
             gp.empezarMusica(0);
             gp.estadoJuego=gp.gameOver;
         }else if (monstruo.getVida()<=0) {
+            int exp=monstruo.calcularExperiencia(monstruo.getNivel());
+            jugador.setEXP(exp);
             gp.pararMusica();
             gp.empezarMusica(0);
-            gp.estadoJuego=gp.continuar;
-            for (int i =0;i<gp.arrayEnemigos.length;i++){
-                if (monstruo.getNombre().equals(gp.arrayEnemigos[i].getNombre())){
-                    gp.arrayEnemigos[i]=null;
-                    break;
+            gp.getInterfaz().enseñarMensaje("Has recibido "+exp+" de experiencia");
+            if (contadorUpdates>=80) {
+                gp.estadoJuego=gp.continuar;
+                for (int i =0;i<gp.arrayEnemigos.length;i++){
+                    if (monstruo.getNombre().equals(gp.arrayEnemigos[i].getNombre())){
+                        gp.arrayEnemigos[i]=null;
+                        break;
+                    }
                 }
             }
+
         } if (monstruo.isTurno()){
 
             if (contadorUpdates>=80){
