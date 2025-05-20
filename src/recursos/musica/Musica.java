@@ -6,7 +6,8 @@ import javax.sound.sampled.Clip;
 import java.net.URL;
 
 public class Musica {
-    Clip clip;
+    public Clip clip;
+    public Clip clipEfecto;
     URL URLMusica[]=new URL[30];
     private boolean estado;
 
@@ -14,6 +15,7 @@ public class Musica {
      * constructor de la musica, en la cual pasamos con getresource los archivos que usemos
      */
     public Musica() {
+        System.out.println("SE INICIA MUSICA");
         URLMusica[0] = getClass().getResource("/recursos/musica/MusicaJuego.wav");
         URLMusica[1] = getClass().getResource("/recursos/musica/comarca.wav");
         URLMusica[2] = getClass().getResource("/recursos/musica/cofre.wav");
@@ -47,9 +49,32 @@ public class Musica {
     }
 
     public void parar() {
-        clip.stop();
+        detener();
         estado=false;
     }
+    public void detener() {
+        if (clip != null) {
+            if (clip.isRunning()) {
+                clip.stop();
+                System.out.println("Clip detenido");
+            }
+            clip.close();
+            System.out.println("Clip cerrado");
+            clip = null;
+        }
+    }
+
+    public void reproducirEfecto(int i) {
+        try {
+            AudioInputStream ais = AudioSystem.getAudioInputStream(URLMusica[i]);
+            clipEfecto = AudioSystem.getClip();
+            clipEfecto.open(ais);
+            clipEfecto.start();
+        } catch (Exception e) {
+            System.out.println("ERROR al cargar efecto: " + e.getMessage());
+        }
+    }
+
     public boolean getEstado(){
         return estado;
     }

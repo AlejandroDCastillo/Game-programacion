@@ -75,19 +75,20 @@ public class Jugador extends Entidad {
     /**
      * metodo para beber agua suma +30 a la sed
      */
-    public boolean beberAgua() {
+    public boolean beberMana() {
+        gp.efectoSonido(6);
         Item i = inventario.buscarObjeto("agua");
         if (i.getCantidad() > 0) {
             if (sed >= 70) {
                 i.setCantidad(i.getCantidad() - 1);
-                sed = 100;
+               mana = 100;
             } else {
                 i.setCantidad(i.getCantidad() - 1);
-                sed = sed + 30;
+                mana = mana + 30;
             }
             return true;
         } else {
-            System.out.println("No queda agua");
+            System.out.println("No queda mana");
             return false;
         }
     }
@@ -406,15 +407,18 @@ public class Jugador extends Entidad {
         }
     }
 
-    public void huir(){
+
+    public boolean huir(){
         int random= UtilDiego.numRandomentero(1,5);
         if (random<=2){
             gp.estadoJuego=gp.continuar;
             gp.gc.monstruo.colision=false;
             gp.getInterfaz().enseñarMensaje("CONSEGUISTE HUIR!!");
 
+            return true;
         }else {
             gp.getInterfaz().enseñarMensaje("Fracaste al huir, pierdes el turno");
+            return false;
         }
     }
     /**

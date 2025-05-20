@@ -25,8 +25,12 @@ public class GestorCombate {
     public void combate(){
 
         if (jugador.getVida()<=0) {
+            gp.pararMusica();
+            gp.empezarMusica(0);
             gp.estadoJuego=gp.gameOver;
         }else if (monstruo.getVida()<=0) {
+            gp.pararMusica();
+            gp.empezarMusica(0);
             gp.estadoJuego=gp.continuar;
             for (int i =0;i<gp.arrayEnemigos.length;i++){
                 if (monstruo.getNombre().equals(gp.arrayEnemigos[i].getNombre())){
@@ -37,6 +41,7 @@ public class GestorCombate {
         } if (monstruo.isTurno()){
 
             if (contadorUpdates>=80){
+                gp.efectoSonido(5);
                 jugador.recibirDaño(monstruo.atacar());
                 monstruo.setTurno(false);
                 jugador.setTurno(true);

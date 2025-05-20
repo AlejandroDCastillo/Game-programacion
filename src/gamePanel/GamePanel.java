@@ -34,7 +34,7 @@ public class GamePanel extends JPanel implements Runnable{
     //Frames por segundo
     protected int FPS = 60;
     //MUSICA
-    Musica musica=new Musica();
+    Musica musica= new Musica();
     //Cosas de la pantalla
     private Jugador jugador;
     private MenuInventario menuInventario = new MenuInventario(this);
@@ -56,6 +56,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int craftear=6;
     public final int combate=7;
     public int gameOver=8;
+    public int mapa=9;
     public GestorDeEventos gestorDeEventos = new GestorDeEventos(this);
     public GestorCombate gc;
 
@@ -69,6 +70,7 @@ public class GamePanel extends JPanel implements Runnable{
         this.add(menuInventario);
         startThreadDelJuego();
         establecerJuego();
+
     }
 
 
@@ -153,7 +155,6 @@ public class GamePanel extends JPanel implements Runnable{
                         arrayEntidad.add( arrayobjetos[i]);
                     }
                 }
-
                 //Ordenar la arrayList de entidad
                 Collections.sort(arrayEntidad, new Comparator<Entidad>() {
                     @Override
@@ -173,6 +174,7 @@ public class GamePanel extends JPanel implements Runnable{
                 }
                 interfaz.dibujar(g2d);
                 menuInventario.dibujar(g2d);
+
             }
         g2d.dispose();
 
@@ -198,8 +200,7 @@ public class GamePanel extends JPanel implements Runnable{
      * @param i
      */
     public void efectoSonido(int i){
-        musica.setArchivo(i);
-        musica.empezar();
+        musica.reproducirEfecto(i);
     }
 
 

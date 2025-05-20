@@ -1,7 +1,6 @@
 package recursos.teclado;
 
 import entidades.Clase;
-import entidades.Entidad;
 import entidades.Jugador;
 import entidades.Raza;
 import gamePanel.GamePanel;
@@ -14,9 +13,9 @@ public class DetectorTeclas implements KeyListener {
     public boolean abajo;
     public boolean izquierda;
     public boolean derecha;
-    public boolean enterPulsado=false;
+    public boolean enterPulsado = false;
     public boolean menuBoolean = false;
-    public boolean primerTurno =false;
+    public boolean primerTurno = false;
     //boolean que esconde el desplegable de crafteos
     public boolean craftear = false;
     public boolean intentocrafteo = false;
@@ -24,7 +23,9 @@ public class DetectorTeclas implements KeyListener {
     //bolean para desplegable de equipar
     public boolean menuEquipar = false;
     //bolean despliegue consumir
-    public boolean consumir=false;
+    public boolean consumir = false;
+    //bolean para menu de stats
+    public boolean menuStats = false;
     public StringBuilder textoIngresado = new StringBuilder();
     Raza raza = null;
     Clase clase = null;
@@ -57,8 +58,8 @@ public class DetectorTeclas implements KeyListener {
         int tecla = e.getKeyCode();
         if (gp.estadoJuego == gp.continuar) {
             if (tecla == KeyEvent.VK_A) {
-            izquierda = true;
-        }
+                izquierda = true;
+            }
             if (tecla == KeyEvent.VK_D) {
                 derecha = true;
             }
@@ -102,8 +103,8 @@ public class DetectorTeclas implements KeyListener {
                 if (tecla == KeyEvent.VK_ENTER) {
                     intentocrafteo = true;
                     boolean crafteo;
-                    String string1="Crafteo realizado con exito";
-                    String string2="Crafteo no realizado";
+                    String string1 = "Crafteo realizado con exito";
+                    String string2 = "Crafteo no realizado";
                     switch (gp.getInterfaz().getNumeroMenu()) {
                         case 0:
                             crafteo = gp.getJugador().craftear("escudo");
@@ -194,7 +195,8 @@ public class DetectorTeclas implements KeyListener {
                             break;
                     }
                 }
-            }  if (menuEquipar) {
+            }
+            if (menuEquipar) {
                 if (tecla == KeyEvent.VK_W) {
                     gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() - 1);
                     if (gp.getInterfaz().getNumeroMenu() < 0) {
@@ -208,13 +210,13 @@ public class DetectorTeclas implements KeyListener {
                     }
                 }
                 if (tecla == KeyEvent.VK_ENTER) {
-                    intentoEquipar=true;
+                    intentoEquipar = true;
                     boolean equipar;
-                    String string1="Se ha equipado";
-                    String string2="No se ha equipado";
-                    switch (gp.getInterfaz().numeroMenu){
+                    String string1 = "Se ha equipado";
+                    String string2 = "No se ha equipado";
+                    switch (gp.getInterfaz().numeroMenu) {
                         case 0:
-                            equipar=gp.getJugador().equiparObjeto("escudo");
+                            equipar = gp.getJugador().equiparObjeto("escudo");
                             if (equipar) {
                                 gp.getInterfaz().enseñarMensaje(string1);
                             } else {
@@ -222,15 +224,15 @@ public class DetectorTeclas implements KeyListener {
                             }
                             break;
                         case 1:
-                            equipar=gp.getJugador().equiparObjeto("escudo_oro");
+                            equipar = gp.getJugador().equiparObjeto("escudo_oro");
                             if (equipar) {
                                 gp.getInterfaz().enseñarMensaje(string1);
                             } else {
                                 gp.getInterfaz().enseñarMensaje(string2);
                             }
-                                break;
+                            break;
                         case 2:
-                            equipar=gp.getJugador().equiparObjeto("espada");
+                            equipar = gp.getJugador().equiparObjeto("espada");
                             if (equipar) {
                                 gp.getInterfaz().enseñarMensaje(string1);
                             } else {
@@ -238,7 +240,7 @@ public class DetectorTeclas implements KeyListener {
                             }
                             break;
                         case 3:
-                            equipar=gp.getJugador().equiparObjeto("espadaFuego");
+                            equipar = gp.getJugador().equiparObjeto("espadaFuego");
                             if (equipar) {
                                 gp.getInterfaz().enseñarMensaje(string1);
                             } else {
@@ -246,7 +248,7 @@ public class DetectorTeclas implements KeyListener {
                             }
                             break;
                         case 4:
-                            equipar=gp.getJugador().equiparObjeto("varaMago");
+                            equipar = gp.getJugador().equiparObjeto("varaMago");
                             if (equipar) {
                                 gp.getInterfaz().enseñarMensaje(string1);
                             } else {
@@ -254,7 +256,7 @@ public class DetectorTeclas implements KeyListener {
                             }
                             break;
                         case 5:
-                            equipar=gp.getJugador().equiparObjeto("talismanSecreto");
+                            equipar = gp.getJugador().equiparObjeto("talismanSecreto");
                             if (equipar) {
                                 gp.getInterfaz().enseñarMensaje(string1);
                             } else {
@@ -262,7 +264,7 @@ public class DetectorTeclas implements KeyListener {
                             }
                             break;
                         case 6:
-                            equipar=gp.getJugador().equiparObjeto("yelmo");
+                            equipar = gp.getJugador().equiparObjeto("yelmo");
                             if (equipar) {
                                 gp.getInterfaz().enseñarMensaje(string1);
                             } else {
@@ -270,7 +272,7 @@ public class DetectorTeclas implements KeyListener {
                             }
                             break;
                         case 7:
-                            equipar=gp.getJugador().equiparObjeto("peto");
+                            equipar = gp.getJugador().equiparObjeto("peto");
                             if (equipar) {
                                 gp.getInterfaz().enseñarMensaje(string1);
                             } else {
@@ -278,23 +280,31 @@ public class DetectorTeclas implements KeyListener {
                             }
                             break;
                         case 8:
-                            menuEquipar=false;
-                            intentoEquipar=false;
+                            menuEquipar = false;
+                            intentoEquipar = false;
                     }
                 }
-            }else if (tecla == KeyEvent.VK_W&&!craftear&&!menuEquipar) {
+            }
+            if (menuStats) {
+                gp.getInterfaz().numeroMenu = 12;
+                if (tecla == KeyEvent.VK_ENTER) {
+                    menuStats = false;
+                }
+            }
+            if (!menuEquipar && !menuStats && !craftear) {
+                if (tecla == KeyEvent.VK_W ) {
                     gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() - 1);
                     if (gp.getInterfaz().getNumeroMenu() < 0) {
                         gp.getInterfaz().setNumeroMenu(2);
                     }
                 }
-                if (tecla == KeyEvent.VK_S&&!craftear&&!menuEquipar) {
+                if (tecla == KeyEvent.VK_S) {
                     gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() + 1);
                     if (gp.getInterfaz().getNumeroMenu() > 2) {
                         gp.getInterfaz().setNumeroMenu(0);
                     }
                 }
-                if (tecla == KeyEvent.VK_ENTER&&!craftear&&!menuEquipar) {
+                if (tecla == KeyEvent.VK_ENTER) {
                     //PARA craftear
                     if (gp.getInterfaz().numeroMenu == 0) {
                         System.out.println("craftear");
@@ -304,43 +314,43 @@ public class DetectorTeclas implements KeyListener {
                     }
                     //para equipar
                     if (gp.getInterfaz().numeroMenu == 1) {
-                       if (!menuEquipar) {
+                        if (!menuEquipar) {
                             menuEquipar = true;
                         }
                     }
                     //para destruir
                     if (gp.getInterfaz().numeroMenu == 2) {
-                        //para destruir
-                        System.out.println("destruir");
+                        //para ver stats de personaje
+                        if (!menuStats) {
+                            menuStats = true;
+                        }
                     }
                 }
+            }
         }
         //memu de pausa
         if (gp.estadoJuego == gp.pausa) {
             if (tecla == KeyEvent.VK_W) {
                 gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() - 1);
                 if (gp.getInterfaz().getNumeroMenu() < 0) {
-                    gp.getInterfaz().setNumeroMenu(2);
+                    gp.getInterfaz().setNumeroMenu(1);
                 }
             }
             if (tecla == KeyEvent.VK_S) {
                 gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() + 1);
-                if (gp.getInterfaz().getNumeroMenu() > 2) {
+                if (gp.getInterfaz().getNumeroMenu() > 1) {
                     gp.getInterfaz().setNumeroMenu(0);
                 }
             }
             if (tecla == KeyEvent.VK_ENTER) {
                 if (gp.getInterfaz().getNumeroMenu() == 0) {
-                    //PARA GUARDAR PARTIDA
-                }
-                if (gp.getInterfaz().getNumeroMenu() == 1) {
                     if (gp.getMusica().getEstado()) {
                         gp.pararMusica();
                     } else {
                         gp.empezarMusica(0);
                     }
                 }
-                if (gp.getInterfaz().getNumeroMenu() == 2) {
+                if (gp.getInterfaz().getNumeroMenu() == 1) {
                     System.exit(0);
                 }
             }
@@ -360,12 +370,12 @@ public class DetectorTeclas implements KeyListener {
                 if (tecla == KeyEvent.VK_W) {
                     gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() - 1);
                     if (gp.getInterfaz().getNumeroMenu() < 0) {
-                        gp.getInterfaz().setNumeroMenu(2);
+                        gp.getInterfaz().setNumeroMenu(1);
                     }
                 }
                 if (tecla == KeyEvent.VK_S) {
                     gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() + 1);
-                    if (gp.getInterfaz().getNumeroMenu() > 2) {
+                    if (gp.getInterfaz().getNumeroMenu() > 1) {
                         gp.getInterfaz().setNumeroMenu(0);
                     }
                 }
@@ -375,10 +385,6 @@ public class DetectorTeclas implements KeyListener {
                         gp.getInterfaz().setNumeroMenu(0);
                     }
                     if (gp.getInterfaz().getNumeroMenu() == 1) {
-                        //para cargar
-                        gp.estadoJuego = 3;
-                    }
-                    if (gp.getInterfaz().getNumeroMenu() == 2) {
                         System.exit(0);
                     }
                 }
@@ -493,77 +499,77 @@ public class DetectorTeclas implements KeyListener {
             }
         }
         //combate
-        if(gp.estadoJuego==gp.combate){
-                if (gp.gc.jugador.isTurno()){
-                    if (tecla == KeyEvent.VK_W) {
-                        gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() - 1);
-                        if (gp.getInterfaz().getNumeroMenu() < 0) {
+        if (gp.estadoJuego == gp.combate) {
+            if (gp.gc.jugador.isTurno()) {
+                if (tecla == KeyEvent.VK_W) {
+                    gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() - 1);
+                    if (gp.getInterfaz().getNumeroMenu() < 0) {
+                        gp.getInterfaz().setNumeroMenu(2);
+                    }
+                    if (consumir) {
+                        gp.getInterfaz().numeroMenuCons = gp.getInterfaz().numeroMenuCons - 1;
+                        if (gp.getInterfaz().getNumeroMenu() > 0) {
                             gp.getInterfaz().setNumeroMenu(2);
-                        }
-                        if(consumir){
-                            gp.getInterfaz().numeroMenuCons=gp.getInterfaz().numeroMenuCons-1;
-                            if (gp.getInterfaz().getNumeroMenu() > 0) {
-                                gp.getInterfaz().setNumeroMenu(2);
-                            }
-                        }
-                    }
-                    if (tecla == KeyEvent.VK_S) {
-                        gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() + 1);
-                        if (gp.getInterfaz().getNumeroMenu() > 2) {
-                            gp.getInterfaz().setNumeroMenu(0);
-                        }
-                        if(consumir){
-                            gp.getInterfaz().numeroMenuCons=gp.getInterfaz().numeroMenuCons+1;
-                            if (gp.getInterfaz().getNumeroMenu() > 2) {
-                                gp.getInterfaz().setNumeroMenu(0);
-                            }
-                        }
-                    }
-                    if (tecla == KeyEvent.VK_ENTER) {
-                        if(!consumir) {
-                            if (gp.getInterfaz().getNumeroMenu() == 0 && gp.gc.jugador.isTurno()){
-                                gp.gc.monstruo.recibirDaño(gp.gc.jugador.atacar());
-                                gp.gc.jugador.setOpcionAtacar(true);
-                                gp.gc.jugador.setTurno(false);
-                                gp.gc.monstruo.setTurno(true);
-                                gp.gc.contadorUpdates=0;
-                            }
-                            if (gp.getInterfaz().getNumeroMenu() == 1 && gp.gc.jugador.isTurno()) {
-                                //consumible
-                                if (!consumir) {
-                                    consumir = true;
-                                } else {
-                                    consumir = false;
-                                }
-
-                            }
-                            if (gp.getInterfaz().getNumeroMenu() == 2 && gp.gc.jugador.isTurno()) {
-                                gp.gc.jugador.huir();
-                                gp.gc.jugador.setOpcionHuir(true);
-                                gp.gc.jugador.setTurno(false);
-                                gp.gc.monstruo.setTurno(true);
-                                if (gp.estadoJuego == gp.continuar) {
-                                    gp.pararMusica();
-                                    gp.empezarMusica(0);
-                                }
-                                gp.gc.contadorUpdates=0;
-                            }
-                        }else {
-                            if (gp.getInterfaz().numeroMenuCons == 0) {
-                                //pocion de mana
-                                boolean bebe=gp.getJugador().beberAgua();
-                            }
-                            if (gp.getInterfaz().numeroMenuCons == 1) {
-                                //pocion de vida
-                                gp.getJugador().comer();
-                            }
-                            if (gp.getInterfaz().numeroMenuCons == 2) {
-                                //volver
-                                consumir = false;
-                            }
                         }
                     }
                 }
+                if (tecla == KeyEvent.VK_S) {
+                    gp.getInterfaz().setNumeroMenu(gp.getInterfaz().getNumeroMenu() + 1);
+                    if (gp.getInterfaz().getNumeroMenu() > 2) {
+                        gp.getInterfaz().setNumeroMenu(0);
+                    }
+                    if (consumir) {
+                        gp.getInterfaz().numeroMenuCons = gp.getInterfaz().numeroMenuCons + 1;
+                        if (gp.getInterfaz().getNumeroMenu() > 2) {
+                            gp.getInterfaz().setNumeroMenu(0);
+                        }
+                    }
+                }
+                if (tecla == KeyEvent.VK_ENTER) {
+                    if (!consumir) {
+                        if (gp.getInterfaz().getNumeroMenu() == 0 && gp.gc.jugador.isTurno()) {
+                            gp.gc.monstruo.recibirDaño(gp.gc.jugador.atacar());
+                            gp.gc.jugador.setOpcionAtacar(true);
+                            gp.gc.jugador.setTurno(false);
+                            gp.gc.monstruo.setTurno(true);
+                            gp.gc.contadorUpdates = 0;
+                        }
+                        if (gp.getInterfaz().getNumeroMenu() == 1 && gp.gc.jugador.isTurno()) {
+                            //consumible
+                            if (!consumir) {
+                                consumir = true;
+                            } else {
+                                consumir = false;
+                            }
+
+                        }
+                        if (gp.getInterfaz().getNumeroMenu() == 2 && gp.gc.jugador.isTurno()) {
+                            boolean huir = gp.gc.jugador.huir();
+                            gp.gc.jugador.setOpcionHuir(true);
+                            gp.gc.jugador.setTurno(false);
+                            gp.gc.monstruo.setTurno(true);
+                            gp.gc.contadorUpdates = 0;
+                            if(huir){
+                                gp.pararMusica();
+                                gp.empezarMusica(0);
+                            }
+                        }
+                    } else {
+                        if (gp.getInterfaz().numeroMenuCons == 0) {
+                            //pocion de mana
+                            boolean bebe = gp.getJugador().beberMana();
+                        }
+                        if (gp.getInterfaz().numeroMenuCons == 1) {
+                            //pocion de vida
+                            gp.getJugador().comer();
+                        }
+                        if (gp.getInterfaz().numeroMenuCons == 2) {
+                            //volver
+                            consumir = false;
+                        }
+                    }
+                }
+            }
         }
     }
 
