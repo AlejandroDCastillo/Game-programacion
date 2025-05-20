@@ -112,10 +112,10 @@ public class UI {
         //cantidad de pociones
         //mana
         Item pocion=gp.getJugador().getInventario().buscarObjeto("comida");
-        dibujarTextoSombreado("X"+String.valueOf(pocion.getCantidad()),660, 150, 20);
+        dibujarTextoSombreado("X"+String.valueOf(pocion.getCantidad()),670, 150, 20);
         //vida
          pocion=gp.getJugador().getInventario().buscarObjeto("agua");
-        dibujarTextoSombreado("X"+String.valueOf(pocion.getCantidad()),660, 250, 20);
+        dibujarTextoSombreado("X"+String.valueOf(pocion.getCantidad()),680, 250, 20);
 
         if (gp.getTeclado().consumir) {
             if (numeroMenuCons == 0) {
@@ -199,7 +199,7 @@ public class UI {
             x += 2;
         }
         //tutorial
-        dibujarTextoSombreado("Movimiento: con A W S D", 450, 5200, 15);
+        dibujarTextoSombreado("Movimiento: con A W S D", 450, 520, 15);
         dibujarTextoSombreado("Pausa y volver: ESC", 450, 540, 15);
         dibujarTextoSombreado("Inventario: E", 450, 560, 15);
 
@@ -783,7 +783,9 @@ public class UI {
             String texto = "SURVIVAL DUNGEONS";
             int x = 5;
             int y = gp.getHeight() / 4;
-            dibujarTextoSombreado(texto, x, y, 65);
+            g2d.setFont((getFonte().deriveFont(65f)));
+            g2d.setColor(Color.white);
+            g2d.drawString(texto, x, y);
             //sombreado
             g2d.setColor(Color.BLACK);
             g2d.drawString(texto, x + 3, y + 3);
