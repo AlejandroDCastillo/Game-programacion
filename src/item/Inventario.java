@@ -54,7 +54,7 @@ public class Inventario {
         Item hierro = new Item("hierro", 2, 8, 4);
         Item oro = new Item("oro", 1, 6, 4);
         Arma espada = new Arma("espada", 1, 11, 1, 5, null, TipoAtaque.ArmaLigera, 0, 2);
-        Arma varaMago = new Arma("varaMago", 1, 11, 5, 6, Elemento.RAYO, TipoAtaque.ArmaMágica, 10, 3);
+        Arma varaMago = new Arma("varaMago", 1, 11, 5, 6, Elemento.RAYO, TipoAtaque.ArmaMágica, 10, 4);
         Arma espadaFuego = new Arma("espadaFuego", 1, 11, 2, 9, Elemento.FUEGO, TipoAtaque.ArmaLigera, 0, 2);
         Armadura escudo = new Armadura("escudo", 1, 12, 6, 6);
         Armadura escudoOro = new Armadura("escudo_oro", 1, 11, 6, 12);

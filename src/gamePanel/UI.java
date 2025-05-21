@@ -1,11 +1,9 @@
 package gamePanel;
 
 import entidades.Clase;
-import entidades.Entidad;
 import entidades.Jugador;
 import entidades.Raza;
 import item.Item;
-import item.armadura.Armadura;
 import recursos.imagenes.Spritesheet;
 
 import javax.imageio.ImageIO;
@@ -13,8 +11,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 public class UI {
 
@@ -149,17 +145,19 @@ public class UI {
         dibujarTextoSombreado("Magia: " + stat, 590, y + 60, 20);
         stat = String.valueOf(gp.getJugador().getDefensa());
         dibujarTextoSombreado("Defensa: " + stat, 590, y + 90, 20);
-        gp.getInterfaz().dibujarTextoSombreado("EXP:", 590, y + 120, 20);
-        stat = String.valueOf(gp.getJugador().getEXPSubirNivel());
-        gp.getInterfaz().dibujarTextoSombreado("/" + stat, 590 + (gp.getJugador().getEXPSubirNivel()) + 20, y + 140, 20);
-        stat = String.valueOf(gp.getJugador().getEXP());
-        gp.getInterfaz().dibujarTextoSombreado(stat, 590 + (gp.getJugador().getEXPSubirNivel()), y + 140, 20);
+        stat = String.valueOf(gp.getJugador().getNivel());
+        dibujarTextoSombreado("Nivel: " + stat, 590, y + 120, 20);
+        gp.getInterfaz().dibujarTextoSombreado("EXP:", 590, y + 140, 20);
+        stat = String.valueOf(gp.getJugador().getExpSubirNivel());
+        gp.getInterfaz().dibujarTextoSombreado("/" + stat, 590+100, y + 140, 20);
+        stat = String.valueOf(gp.getJugador().getExp());
+        gp.getInterfaz().dibujarTextoSombreado(stat, 590+80, y + 140, 20);
         g2d.setColor(Color.white);
         int x = 590;
         //bucle para dibujar el cuadrado rojo
-        for (int i = 0; i < gp.getJugador().getEXP(); i++) {
+        for (int i = 0; i < gp.getJugador().getExp(); i++) {
             //cuadrado rojo por cada punto de vida
-            g2d.fillRect(x, y + 140, 2, 4);
+            g2d.fillRect(x, y + 160, 2, 4);
             x += 1;
         }
         dibujarTextoSombreado("Salir", 590, 370, 20);
@@ -192,8 +190,8 @@ public class UI {
         dibujarTextoSombreado(stat, 80, 540, 15);
         stat = String.valueOf(gp.getJugador().getMana());
         dibujarTextoSombreado(stat, gp.getJugador().getMana() * 2 + 90, 560, 15);
-        stat = "/100";
-        dibujarTextoSombreado(stat, gp.getJugador().getMana() * 2 + 120, 560, 15);
+        stat = "/";
+        dibujarTextoSombreado(stat+gp.getJugador().getManaMax(), gp.getJugador().getMana() * 2 + 120, 560, 15);
         g2d.setColor(Color.blue);
         y = 560;
         x = 80;

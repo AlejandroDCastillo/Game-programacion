@@ -30,6 +30,5 @@ bin/
 
 ## mapa aleatorio##
 src/recursos/mapas/mapa_prueba.txt
-
 ##UML proyecto##
 src/GestorAssets_structure.puml

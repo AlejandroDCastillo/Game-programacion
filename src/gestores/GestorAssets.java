@@ -2,6 +2,7 @@ package gestores;
 
 import entidades.Clase;
 import entidades.Monstruos.Mon_Esqueleto;
+import entidades.Monstruos.Mon_Goblin;
 import entidades.Raza;
 import gamePanel.GamePanel;
 import item.armas.Arma;
@@ -44,9 +45,13 @@ public class GestorAssets {
      */
     public void establecerEnemigos() {
         gp.arrayEnemigos[0] = new Mon_Esqueleto(gp, "MonstruoPT", Raza.HUMANO, Clase.MAGO, 1);
-        gp.arrayEnemigos[0].setArma(new Arma("vara_fuego", 1, 11, 1, 5, null, TipoAtaque.ArmaMágica, 20, 2));
+        gp.arrayEnemigos[0].setArma(new Arma("vara_fuego", 1, 11, 1, 2, null, TipoAtaque.ArmaMágica, 20, 2));
         gp.arrayEnemigos[0].setX(5 * gp.getTamañofinalBaldosa());
         gp.arrayEnemigos[0].setY(3 * gp.getTamañofinalBaldosa());
+        gp.arrayEnemigos[1] = new Mon_Goblin(gp, "Goblin_1", Raza.ORCO, Clase.GUERRERO, 1);
+        gp.arrayEnemigos[1].setArma(new Arma("Claymore", 1, 11, 1, 2, null, TipoAtaque.ArmaPesada, 0, 2));
+        gp.arrayEnemigos[1].setX(5 * gp.getTamañofinalBaldosa());
+        gp.arrayEnemigos[1].setY(8 * gp.getTamañofinalBaldosa());
 
 
     }

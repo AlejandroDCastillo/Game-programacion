@@ -9,6 +9,7 @@ public class GestorCombate {
     public Entidad monstruo;
     GamePanel gp;
     public int contadorUpdates = 1;
+    boolean expRecibida = false;
 
     /**
      * constructor del gestor
@@ -44,16 +45,25 @@ public class GestorCombate {
             //muere el enemigo
         } else if (monstruo.getVida() <= 0) {
             int exp = monstruo.calcularExperiencia(monstruo.getNivel());
-            jugador.setEXP(exp);
+            if (!expRecibida)
+            jugador.subirEXP(exp);
+            expRecibida = true;
             gp.pararMusica();
             gp.empezarMusica(0);
             gp.getInterfaz().enseñarMensaje("Has recibido " + exp + " de experiencia");
             if (contadorUpdates >= 80) {
                 gp.estadoJuego = gp.continuar;
+                monstruo.setTurno(false);
+                jugador.setTurno(false);
+                jugador.setOpcionAtacar(false);
+                jugador.setOpcionHuir(false);
+                monstruo.setOpcionAtacar(false);
                 for (int i = 0; i < gp.arrayEnemigos.length; i++) {
+                    if (gp.arrayEnemigos[i]!=null){
                     if (monstruo.getNombre().equals(gp.arrayEnemigos[i].getNombre())) {
-                        gp.arrayEnemigos[i] = null;
-                        break;
+                            gp.arrayEnemigos[i] = null;
+                            break;
+                        }
                     }
                 }
             }

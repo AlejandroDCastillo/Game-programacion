@@ -19,8 +19,8 @@ public abstract class Entidad {
     protected double y;
     protected boolean turno=false;
     protected int baseEXP=50;
-    protected int EXP=0;
-    protected int EXPSubirNivel;
+    protected int exp =0;
+    protected int expSubirNivel;
     protected double factor=1.2;
     protected int contadorAccion;
     //direccion tratada com ostring para un futuro switch
@@ -45,6 +45,7 @@ public abstract class Entidad {
     protected int magia;
     protected int nivel;
     protected int mana;
+    protected int manaMax;
     protected int defensa;
     public Rectangle zonaDeColision;
     protected int zonaDeColisionDefectoX, zonaDeColisionDefectoY;
@@ -65,6 +66,7 @@ public abstract class Entidad {
      */
     public Entidad(GamePanel gp) {
         this.vida = getVidaMax();
+        this.mana=getManaMax();
         this.velocidad=getVelocidadMax()/2;
         this.velocidadDiagonal = Math.hypot(this.velocidad,this.velocidad)/2;
         this.gp=gp;
@@ -84,7 +86,7 @@ public abstract class Entidad {
                 this.velocidadMax = 7;
                 this.magia = 10;
                 this.vidaMax = 100;
-                this.mana=50;
+                this.manaMax=50;
                 this.defensa=1;
             }
             case ELFO -> {
@@ -93,7 +95,7 @@ public abstract class Entidad {
                 this.velocidadMax = 8;
                 this.magia = 15;
                 this.vidaMax = 70;
-                this.mana=50;
+                this.manaMax=50;
                 this.defensa=0;
             }
             case ENANO -> {
@@ -111,7 +113,7 @@ public abstract class Entidad {
                 this.velocidadMax = 6;
                 this.magia = 5;
                 this.vidaMax = 100;
-                this.mana=50;
+                this.manaMax=50;
                 this.defensa=2;
             }
 
@@ -128,7 +130,7 @@ public abstract class Entidad {
             case MAGO -> {
                 setMagia(getMagia() + 10);
                 setVidaMax(getVidaMax() - 20);
-                setMana(getMana()+20);
+                setManaMax(getManaMax()+20);
             }
             case PICARO -> {
                 setDestreza(getDestreza() + 10);
@@ -137,7 +139,7 @@ public abstract class Entidad {
             case CLERIGO -> {
                 setMagia(getMagia() + 5);
                 setVidaMax(getVidaMax() + 10);
-                setMana(getMana()+10);
+                setManaMax(getManaMax()+10);
                 setDestreza(getDestreza() - 5);
                 setDefensa(getDefensa()+1);
             }
@@ -161,7 +163,7 @@ public abstract class Entidad {
         switch (c) {
             case MAGO -> {
                 setMagia(getMagia() + incremento);
-                setMana(getMana()+incremento);
+                setManaMax(getManaMax()+incremento);
                 setDestreza(getDestreza() + (int) (incremento / 4));
                 setFuerza(getFuerza() + (int) (incremento / 4));
             }
@@ -169,11 +171,11 @@ public abstract class Entidad {
                 setDestreza(getDestreza() + incremento);
                 setFuerza(getFuerza() + (int) (incremento / 4));
                 setMagia(getMagia() + (int) (incremento / 4));
-                setMana(getMana()+(int) (incremento / 4));
+                setManaMax(getManaMax()+(int) (incremento / 4));
             }
             case CLERIGO -> {
                 setMagia(getMagia() + incremento);
-                setMana(getMana()+(int) (incremento / 2));
+                setManaMax(getManaMax()+(int) (incremento / 2));
                 setDestreza(getDestreza() + (int) (incremento / 4));
                 setFuerza(getFuerza() + (int) (incremento / 4));
             }
@@ -181,7 +183,7 @@ public abstract class Entidad {
                 setFuerza(getFuerza() + incremento);
                 setDestreza(getDestreza() + (int) (incremento / 4));
                 setMagia(getMagia() + (int) (incremento / 4));
-                setMana(getMana()+(int) (incremento / 4));
+                setManaMax(getManaMax()+(int) (incremento / 4));
             }
 
         }
@@ -347,10 +349,11 @@ public abstract class Entidad {
     }
 
     public void calcularEXPsubirNivel(){
-        this.EXPSubirNivel=baseEXP*(nivel*2);
-        if (EXP==EXPSubirNivel){
-            nivel++;
-        }
+        this.expSubirNivel =baseEXP*(nivel*2);
+    }
+
+    public void subirEXP(int exp){
+        this.exp = this.exp + exp;
     }
 
     public double getY() {
@@ -609,12 +612,12 @@ public abstract class Entidad {
         this.baseEXP = baseEXP;
     }
 
-    public int getEXP() {
-        return EXP;
+    public int getExp() {
+        return exp;
     }
 
-    public void setEXP(int EXP) {
-        this.EXP = EXP;
+    public void setExp(int exp) {
+        this.exp = exp;
     }
 
     public double getFactor() {
@@ -625,12 +628,20 @@ public abstract class Entidad {
         this.factor = factor;
     }
 
-    public int getEXPSubirNivel() {
-        return EXPSubirNivel;
+    public int getExpSubirNivel() {
+        return expSubirNivel;
     }
 
-    public void setEXPSubirNivel(int EXPSubirNivel) {
-        this.EXPSubirNivel = EXPSubirNivel;
+    public void setExpSubirNivel(int expSubirNivel) {
+        this.expSubirNivel = expSubirNivel;
+    }
+
+    public int getManaMax() {
+        return manaMax;
+    }
+
+    public void setManaMax(int manaMax) {
+        this.manaMax = manaMax;
     }
 }
 

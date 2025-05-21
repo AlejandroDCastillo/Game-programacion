@@ -2,6 +2,7 @@ package gestores;
 
 import entidades.Entidad;
 import entidades.Monstruos.Mon_Esqueleto;
+import entidades.Monstruos.Monstruo;
 import gamePanel.GamePanel;
 import utiles.UtilDiego;
 
@@ -336,7 +337,7 @@ public class DetectorDeColisiones {
 
         if (entidad.zonaDeColision.intersects(gp.getJugador().zonaDeColision)) {
             entidad.setColision(true);
-            if (entidad instanceof Mon_Esqueleto) {
+            if (entidad instanceof Monstruo) {
                 gp.pararMusica();
                 gp.efectoSonido(3);
                 gp.getGraphics().setColor(Color.black);

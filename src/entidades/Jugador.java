@@ -50,6 +50,7 @@ public class Jugador extends Entidad {
         iniciarClase(clase);
         estadisticasNivel(nivel);
         this.vida = vidaMax;
+        this.mana=manaMax;
         this.velocidad = velocidadMax / 2;
         this.velocidadDiagonal = Math.hypot(this.velocidad, this.velocidad) / 2;
         this.teclado = teclado;
@@ -314,6 +315,11 @@ public class Jugador extends Entidad {
         }
         colisionMonstruo(monstruoIndex);
         calcularEXPsubirNivel();
+        if (exp >= expSubirNivel){
+            nivel++;
+            this.exp=exp-expSubirNivel;
+            estadisticasNivel(nivel);
+        }
         contadorUpdates++;
         if (contadorUpdates % 8 == 0) {
             numSprite++;
