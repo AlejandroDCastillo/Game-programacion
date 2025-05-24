@@ -65,9 +65,9 @@ public class Jugador extends Entidad {
         zonaDeColisionDefectoY = zonaDeColision.y;
         //sprite
         try {
-            String imagePath = "src/recursos/imagenes/caballero.png";
+            String imagePath = "src/recursos/imagenes/caballero/Soldier with shadows/Soldier.png";
             BufferedImage imagenPlantillaBuffered = ImageIO.read(new File(imagePath));
-            plantillaSprite = new Spritesheet(imagenPlantillaBuffered, 6, 4);
+            plantillaSprite = new Spritesheet(imagenPlantillaBuffered, 9, 7);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -362,18 +362,21 @@ public class Jugador extends Entidad {
      * @return
      */
     public BufferedImage obtenerImagenPlayer() {
+        int x,y;
         if (gp.estadoJuego == gp.menuInicio) {
-            return sprite = plantillaSprite.getImg(numSprite, 2, gp.getTamañofinalBaldosa());
+            y=2;
+            return sprite = plantillaSprite.getImg(1, 2, gp.getTamañofinalBaldosa());
         }
-        return switch (direccion) {
-            case "izquierda", "arriba-izquierda", "abajo-izquierda" ->
-                    sprite = plantillaSprite.getImg(2, numSprite, gp.getTamañofinalBaldosa());
-            case "derecha", "arriba-derecha", "abajo-derecha" ->
-                    sprite = plantillaSprite.getImg(3, numSprite, gp.getTamañofinalBaldosa());
-            case "arriba" -> sprite = plantillaSprite.getImg(numSprite, 1, gp.getTamañofinalBaldosa());
-            case "abajo" -> sprite = plantillaSprite.getImg(numSprite, 0, gp.getTamañofinalBaldosa());
-            default -> sprite = plantillaSprite.getImg(1, 3, gp.getTamañofinalBaldosa());
-        };
+        if (gp.estadoJuego == gp.continuar) {
+            y=1;
+            return switch (direccion) {
+                case "izquierda", "arriba-izquierda", "abajo-izquierda" ->
+                        sprite = plantillaSprite.invertir(plantillaSprite.getImg(numSprite, y, gp.getTamañofinalBaldosa()));
+                default -> sprite = plantillaSprite.getImg(numSprite, y, gp.getTamañofinalBaldosa());
+            };
+        }
+        return sprite = plantillaSprite.getImg(1, 2, gp.getTamañofinalBaldosa());
+
     }
 
     /**
@@ -458,7 +461,8 @@ public class Jugador extends Entidad {
     public void dibujar(Graphics2D g2d) {
         g2d.setColor(Color.black);
         g2d.fillRect((int) (x + 8), (int) (y + 16), 32, 32);
-        g2d.drawImage(obtenerImagenPlayer(), (int) x, (int) y, gp.getTamañofinalBaldosa(), gp.getTamañofinalBaldosa(), null);
+        Image imgEscalada = obtenerImagenPlayer().getScaledInstance(300, 300, Image.SCALE_SMOOTH);
+        g2d.drawImage(imgEscalada, (int) x-125, (int) y-125, null);
     }
 
     //GETTERS SETTERS Y TO STRING

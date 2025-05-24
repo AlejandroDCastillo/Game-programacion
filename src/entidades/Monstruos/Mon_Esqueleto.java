@@ -28,11 +28,6 @@ public class Mon_Esqueleto extends Monstruo {
         super(gp, nombre, raza, clase, nivel);
     }
 
-    @Override
-    public void dibujar(Graphics2D g2d) {
-        g2d.setColor(Color.red);
-        g2d.fillRect((int) (x + 8), (int) (y + 16), 32, 32);
-        g2d.drawImage(tomarImagen(), (int) x, (int) y, gp.getTamañofinalBaldosa(), gp.getTamañofinalBaldosa(), null);
-    }
+
 }
 

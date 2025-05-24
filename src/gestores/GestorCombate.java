@@ -10,6 +10,7 @@ public class GestorCombate {
     GamePanel gp;
     public int contadorUpdates = 1;
     boolean expRecibida = false;
+    private int numSprites = 0;
 
     /**
      * constructor del gestor
@@ -80,6 +81,8 @@ public class GestorCombate {
                 monstruo.setOpcionAtacar(true);
 
             }
+        }else if (jugador.isTurno()) {
+            monstruo.setOpcionAtacar(false);
         }
     }
 
@@ -89,9 +92,20 @@ public class GestorCombate {
     public void update() {
         combate();
         //estipulamos la duracion de cada turno
+        if (contadorUpdates%8==0&&(monstruo.isOpcionAtacar()||jugador.isOpcionAtacar())) {
+            numSprites++;
+        }
+        if (numSprites>=4){
+            numSprites=0;
+        }
         if (contadorUpdates >= 80) {
             contadorUpdates = 0;
+
         }
         contadorUpdates++;
+    }
+
+    public int getNumSprite() {
+        return numSprites;
     }
 }

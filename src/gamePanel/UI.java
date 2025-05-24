@@ -229,27 +229,21 @@ public class UI {
         g2d.fillRect(0, gp.getHeight() / 2, gp.getWidth(), gp.getHeight() / 2);
         try {
             //cargamos la imagen del personaje
-            String imagePath = "src/recursos/imagenes/caballero.png";
-            BufferedImage imagenPlantillaBuffered = ImageIO.read(new File(imagePath));
-            Spritesheet plantillaJugador = new Spritesheet(imagenPlantillaBuffered, 6, 4);
-            BufferedImage img = plantillaJugador.getImg(3, 0);
+            BufferedImage img = gp.gc.jugador.obtenerImagenPlayer();
             //la escalamos usando el metodo por defecto
-            Image imgEscalada = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+            Image imgEscalada = img.getScaledInstance(500, 500, Image.SCALE_SMOOTH);
 //            dibujamos en pantalla
-            g2d.drawImage(imgEscalada, 100, 100, null);
+            g2d.drawImage(imgEscalada,  -55, -75, null);
         } catch (Exception e) {
             System.out.println("ERROR: No se encuentra la imagen del jugador");
         }
         try {
             //cargamos la imagen del enemigo
-            String imagePath = "src/recursos/imagenes/caballero.png";
-            BufferedImage imagenPlantillaBuffered = ImageIO.read(new File(imagePath));
-            Spritesheet plantillaJugador = new Spritesheet(imagenPlantillaBuffered, 6, 4);
-            BufferedImage img = plantillaJugador.getImg(2, 0);
+          BufferedImage img = gp.gc.monstruo.getSprite();
             //la escalamos usando el metodo por defecto
-            Image imgEscalada = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+            Image imgEscalada = img.getScaledInstance(500, 500, Image.SCALE_SMOOTH);
 //            dibujamos en pantalla
-            g2d.drawImage(imgEscalada, 550, 100, null);
+            g2d.drawImage(imgEscalada,  285, -75, null);
         } catch (Exception e) {
             System.out.println("ERROR: No se encuentra la imagen del jugador");
         }
@@ -805,14 +799,14 @@ public class UI {
             //imagen del personaje
             try {
                 //cargamos la imagen del personaje
-                String imagePath = "src/recursos/imagenes/caballero.png";
+                String imagePath = "src/recursos/imagenes/caballero/Soldier with shadows/Soldier.png";
                 BufferedImage imagenPlantillaBuffered = ImageIO.read(new File(imagePath));
-                Spritesheet plantillaJugador = new Spritesheet(imagenPlantillaBuffered, 6, 4);
-                BufferedImage img = plantillaJugador.getImg(0, 2);
+                Spritesheet plantillaJugador = new Spritesheet(imagenPlantillaBuffered, 9, 7);
+                BufferedImage img = plantillaJugador.getImg(1, 2);
                 //la escalamos usando el metodo por defecto
-                Image imgEscalada = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+                Image imgEscalada = img.getScaledInstance(500, 500, Image.SCALE_SMOOTH);
 //            dibujamos en pantalla
-                g2d.drawImage(imgEscalada, 350, 400, null);
+                g2d.drawImage(imgEscalada, 120, 170, null);
             } catch (Exception e) {
                 System.out.println("ERROR: No se encuentra la imagen del jugador");
             }

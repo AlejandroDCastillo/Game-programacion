@@ -13,7 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 
-public class Monstruo extends Entidad {
+public abstract class Monstruo extends Entidad {
     public Monstruo(GamePanel gp, String nombre, Raza raza, Clase clase, int nivel) {
         super(gp);
         this.nombre=nombre;
@@ -34,9 +34,9 @@ public class Monstruo extends Entidad {
         zonaDeColisionDefectoX = zonaDeColision.x;
         zonaDeColisionDefectoY = zonaDeColision.y;
         try{
-            String imagePath = "src/recursos/imagenes/caballero.png";
+            String imagePath = "src/recursos/imagenes/Orco/Orc with shadows/Orc.png";
             BufferedImage imagenPlantillaBuffered = ImageIO.read(new File(imagePath));
-            plantillaSprite = new Spritesheet(imagenPlantillaBuffered, 6, 4);
+            plantillaSprite = new Spritesheet(imagenPlantillaBuffered, 8, 6);
         }catch(
                 IOException e){
             e.printStackTrace();
@@ -45,19 +45,28 @@ public class Monstruo extends Entidad {
 
 
 
-public BufferedImage tomarImagen(){
+    public BufferedImage tomarImagen(){
     if (gp.estadoJuego==gp.menuInicio) {
-        return sprite = plantillaSprite.getImg(numSprite, 2, gp.getTamañofinalBaldosa());
+        return plantillaSprite.getImg(0, 0, gp.getTamañofinalBaldosa());
     }
-    return switch (direccion) {
-        case "izquierda" ->
-                sprite = plantillaSprite.getImg(2, numSprite+2, gp.getTamañofinalBaldosa());
-        case "derecha" ->
-                sprite = plantillaSprite.getImg(3, numSprite+2, gp.getTamañofinalBaldosa());
-        case "arriba" -> sprite = plantillaSprite.getImg(numSprite, 3, gp.getTamañofinalBaldosa());
-        case "abajo" -> sprite = plantillaSprite.getImg(numSprite, 2, gp.getTamañofinalBaldosa());
-        default -> sprite = plantillaSprite.getImg(1, 3, gp.getTamañofinalBaldosa());
-    };
+    if (gp.estadoJuego==gp.continuar) {
+        return switch (direccion) {
+            case "izquierda" ->
+                    sprite = plantillaSprite.invertir(plantillaSprite.getImg(numSprite, 1, gp.getTamañofinalBaldosa()));
+            case "derecha", "abajo", "arriba" ->
+                    sprite = plantillaSprite.getImg(numSprite, 1, gp.getTamañofinalBaldosa());
+            default -> sprite = plantillaSprite.invertir(plantillaSprite.getImg(0, 0, gp.getTamañofinalBaldosa()));
+        };
+    }
+    if (gp.estadoJuego==gp.combate) {
+        if (isTurno()){
+            return sprite = plantillaSprite.invertir(plantillaSprite.getImg(gp.gc.getNumSprite(), 2, gp.getTamañofinalBaldosa()));
+        }else{
+            return sprite =  plantillaSprite.invertir(plantillaSprite.getImg(0, 0, gp.getTamañofinalBaldosa()));
+        }
+
+    }
+   return sprite = plantillaSprite.getImg(0, 0, gp.getTamañofinalBaldosa());
 }
 
 @Override
@@ -106,7 +115,8 @@ public BufferedImage tomarImagen(){
 public void dibujar(Graphics2D g2d){
     g2d.setColor(Color.red);
     g2d.fillRect((int) (x + 8), (int) (y + 16), 32, 32);
-    g2d.drawImage(tomarImagen(),(int) x,(int) y,gp.getTamañofinalBaldosa(),gp.getTamañofinalBaldosa(),null);
+    Image imgEscalada = tomarImagen().getScaledInstance(300, 300, Image.SCALE_SMOOTH);
+    g2d.drawImage(imgEscalada, (int) x-125, (int) y-125, null);
 }
 }
 
