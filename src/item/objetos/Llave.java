@@ -23,6 +23,7 @@ public class Llave extends Objetos {
             BufferedImage imagenPlantillaBuffered = ImageIO.read(new File("src/recursos/imagenes/AssetsDeInventario.png"));
             Spritesheet plantillaInventario = new Spritesheet(imagenPlantillaBuffered, 13, 9);
             imagen = plantillaInventario.rotarImagen(plantillaInventario.getImg(6, 5, 48), 180);
+            sprite = plantillaInventario.rotarImagen(plantillaInventario.getImg(6, 5, 48), 90);
         } catch (IOException e) {
             e.printStackTrace();
         }

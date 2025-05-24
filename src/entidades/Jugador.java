@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Jugador extends Entidad {
+    public boolean cofreAbierto;
     //atributos relacionados con movimiento
     private DetectorTeclas teclado;
     protected BufferedImage sprite;
@@ -349,9 +350,9 @@ public class Jugador extends Entidad {
         int random = UtilDiego.numRandomentero(1, 5);
         if (random <= 2) {
             dañoAtaque = dañoAtaque * 2;
-            gp.getInterfaz().enseñarMensaje("CRITICO!!!! Has hecho un ataque de un total de " + dañoAtaque + " daño!");
+            gp.getInterfaz().enseñarMensaje("CRITICO!!!! "+ nombre+ "ha hecho un ataque \n de un total de " + dañoAtaque + "de daño!");
         } else {
-            gp.getInterfaz().enseñarMensaje("Ha hecho un ataque de un total de " + dañoAtaque + " daño!");
+            gp.getInterfaz().enseñarMensaje(nombre+" ha hecho un ataque de un total de " + dañoAtaque + " daño!");
         }
         return dañoAtaque;
     }
@@ -375,6 +376,13 @@ public class Jugador extends Entidad {
                 default -> sprite = plantillaSprite.getImg(numSprite, y, gp.getTamañofinalBaldosa());
             };
         }
+        if (gp.estadoJuego==gp.combate) {
+            if (isTurno()){
+                return sprite = plantillaSprite.getImg(gp.gc.getNumSpritesJugador()+2, 2, gp.getTamañofinalBaldosa());
+            }else{
+                return sprite =  plantillaSprite.getImg(0, 0, gp.getTamañofinalBaldosa());
+            }
+        }
         return sprite = plantillaSprite.getImg(1, 2, gp.getTamañofinalBaldosa());
 
     }
@@ -391,16 +399,16 @@ public class Jugador extends Entidad {
         }
         switch (nombreObjeto) {
             case "llave":
-                objetoInteractuado = 1;
                 gp.arrayobjetos[index] = null;
                 llaves++;
+
                 break;
-            case "cofre":
+            case "cofre1":
                 if (llaves > 0) {
-                    gp.arrayobjetos[index].setImagen(gp.arrayobjetos[index].plantillaSprite.getImg(9, 0, gp.getTamañofinalBaldosa()));
-                    if (contadorUpdates % 18 == 0) {
-                        gp.arrayobjetos[index] = null;
-                    }
+                        gp.arrayobjetos[index].abrirCofre = true;
+                            cofreAbierto=true;
+                            llaves--;
+                            gp.arrayobjetos[index].setColision(false);
                     gp.getInterfaz().enseñarMensaje("ENHORABUENA \n has conseguido...");
                 } else {
                     gp.getInterfaz().enseñarMensaje("No tienes LLaves");
@@ -521,5 +529,13 @@ public class Jugador extends Entidad {
 
     public void setOpcionAtacar(boolean opcionAtacar) {
         this.opcionAtacar = opcionAtacar;
+    }
+
+    public int getLlaves() {
+        return llaves;
+    }
+
+    public void setLlaves(int llaves) {
+        this.llaves = llaves;
     }
 }

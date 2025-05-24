@@ -141,6 +141,11 @@ public class GamePanel extends JPanel implements Runnable {
                     arrayEnemigos[i].update();
                 }
             }
+            for (int i = 0; i < arrayobjetos.length; i++) {
+                if (arrayobjetos[i] != null) {
+                    arrayobjetos[i].update();
+                }
+            }
         } else if (estadoJuego == pausa) {
             //no sucede nada
         } else if (estadoJuego == inventario) {
