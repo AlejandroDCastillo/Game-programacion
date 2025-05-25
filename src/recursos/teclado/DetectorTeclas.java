@@ -602,7 +602,7 @@ public class DetectorTeclas implements KeyListener {
                 }
                 if (tecla == KeyEvent.VK_ENTER) {
                     if (!consumir) {
-                        if (gp.getInterfaz().getNumeroMenu() == 0 && gp.gc.jugador.isTurno()) {
+                        if (gp.getInterfaz().getNumeroMenu() == 0 && gp.gc.jugador.isTurno()&&!gp.gc.jugador.isOpcionAtacar()) {
                             gp.gc.monstruo.recibirDaño(gp.gc.jugador.atacar());
                             gp.gc.jugador.setOpcionAtacar(true);
                             gp.gc.contadorUpdates = 0;
@@ -616,7 +616,7 @@ public class DetectorTeclas implements KeyListener {
                             }
 
                         }
-                        if (gp.getInterfaz().getNumeroMenu() == 2 && gp.gc.jugador.isTurno()) {
+                        if (gp.getInterfaz().getNumeroMenu() == 2 && gp.gc.jugador.isTurno()&&gp.gc.jugador.isOpcionHuir()) {
                             gp.gc.jugador.huir();
                             gp.gc.jugador.setOpcionHuir(true);
                             gp.gc.jugador.setTurno(false);
