@@ -26,6 +26,7 @@ public class UI {
     public int numeroMenuCons = 0;
     public String[] Dialogos = new String[3];
     public int pantallaDelTitulo = 0;// pantalla del titulo
+    BufferedImage spriteLlave;
 
     /**
      * constructor de la interfaz
@@ -39,6 +40,10 @@ public class UI {
             File archivoFuente = new File("src/recursos/font/Minecraft.ttf");
             System.out.printf(archivoFuente.getAbsolutePath());
             fonte = Font.createFont(Font.TRUETYPE_FONT, archivoFuente);
+                BufferedImage imagenPlantillaBuffered = ImageIO.read(new File("src/recursos/imagenes/AssetsDeInventario.png"));
+                Spritesheet plantillaInventario = new Spritesheet(imagenPlantillaBuffered, 13, 9);
+                spriteLlave  = plantillaInventario.rotarImagen(plantillaInventario.getImg(6, 5, 48), 90);
+
         } catch (FontFormatException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -147,17 +152,20 @@ public class UI {
         dibujarTextoSombreado("Defensa: " + stat, 590, y + 90, 20);
         stat = String.valueOf(gp.getJugador().getNivel());
         dibujarTextoSombreado("Nivel: " + stat, 590, y + 120, 20);
-        gp.getInterfaz().dibujarTextoSombreado("EXP:", 590, y + 140, 20);
+        stat = String.valueOf(gp.getJugador().getLlaves());
+        g2d.drawImage(spriteLlave,585,y+125,30,30,null);
+        dibujarTextoSombreado(" x " + stat, 605, y + 145, 20);
+        gp.getInterfaz().dibujarTextoSombreado("EXP:", 590, y + 175, 20);
         stat = String.valueOf(gp.getJugador().getExpSubirNivel());
-        gp.getInterfaz().dibujarTextoSombreado("/" + stat, 590+100, y + 140, 20);
+        gp.getInterfaz().dibujarTextoSombreado("/" + stat, 590+100, y + 175, 20);
         stat = String.valueOf(gp.getJugador().getExp());
-        gp.getInterfaz().dibujarTextoSombreado(stat, 590+80, y + 140, 20);
+        gp.getInterfaz().dibujarTextoSombreado(stat, 590+80, y + 175, 20);
         g2d.setColor(Color.white);
         int x = 590;
         //bucle para dibujar el cuadrado rojo
         for (int i = 0; i < gp.getJugador().getExp(); i++) {
             //cuadrado rojo por cada punto de vida
-            g2d.fillRect(x, y + 160, 2, 4);
+            g2d.fillRect(x, y + 190, 2, 4);
             x += 1;
         }
         dibujarTextoSombreado("Salir", 590, 370, 20);
@@ -1131,6 +1139,7 @@ public class UI {
             //sombreado
             g2d.setColor(Color.WHITE);
             g2d.drawString(linea, x + 3, y + 3);
+            y+=20;
         }
     }
 

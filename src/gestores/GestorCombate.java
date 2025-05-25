@@ -10,7 +10,9 @@ public class GestorCombate {
     GamePanel gp;
     public int contadorUpdates = 1;
     boolean expRecibida = false;
-    private int numSprites = 0;
+    private int numSpritesEnemigo = 0;
+    private int numSpritesJugador = 0;
+    boolean finalAnimacion;
 
     /**
      * constructor del gestor
@@ -71,18 +73,43 @@ public class GestorCombate {
         }
         //turno del enemigo
         if (monstruo.isTurno()) {
-            if (contadorUpdates >= 80) {
-                gp.efectoSonido(5);
-                jugador.recibirDaño(monstruo.atacar());
-                monstruo.setTurno(false);
-                jugador.setTurno(true);
-                jugador.setOpcionAtacar(false);
-                jugador.setOpcionHuir(false);
-                monstruo.setOpcionAtacar(true);
+            monstruo.setOpcionAtacar(true);
+            if (monstruo.isOpcionAtacar()) {
+                if (contadorUpdates==1){
+                    jugador.recibirDaño(monstruo.atacar());
+                }
+                if (contadorUpdates>=80){
+                    monstruo.setOpcionAtacar(false);
+                    monstruo.setTurno(false);
+                    gp.efectoSonido(5);
+                    jugador.setTurno(true);
+                    jugador.setOpcionAtacar(false);
+                    jugador.setOpcionHuir(false);
+                    finalAnimacion = false;
+                }
+                if (numSpritesEnemigo>=4){
+                    numSpritesEnemigo=0;
+                    finalAnimacion = true;
+                }
 
             }
-        }else if (jugador.isTurno()) {
-            monstruo.setOpcionAtacar(false);
+        }if (jugador.isTurno()) {
+
+            if (jugador.isOpcionAtacar()) {
+                if (contadorUpdates>=80){
+                    gp.efectoSonido(5);
+                    jugador.setOpcionAtacar(false);
+                    jugador.setOpcionHuir(false);
+                    gp.gc.jugador.setTurno(false);
+                    gp.gc.monstruo.setTurno(true);
+                    monstruo.setOpcionAtacar(false);
+                    finalAnimacion = false;
+                }
+                if (numSpritesJugador>=3){
+                    numSpritesJugador=0;
+                    finalAnimacion = true;
+                }
+            }
         }
     }
 
@@ -92,20 +119,33 @@ public class GestorCombate {
     public void update() {
         combate();
         //estipulamos la duracion de cada turno
-        if (contadorUpdates%8==0&&(monstruo.isOpcionAtacar()||jugador.isOpcionAtacar())) {
-            numSprites++;
+        if (contadorUpdates%8==0&&(monstruo.isOpcionAtacar())&&!finalAnimacion) {
+            numSpritesEnemigo++;
         }
-        if (numSprites>=4){
-            numSprites=0;
+
+       if (contadorUpdates%8==0&&(jugador.isOpcionAtacar())&&!finalAnimacion) {
+            numSpritesJugador++;
         }
         if (contadorUpdates >= 80) {
             contadorUpdates = 0;
-
         }
+
         contadorUpdates++;
     }
 
-    public int getNumSprite() {
-        return numSprites;
+    public int getNumSpritesEnemigo() {
+        return numSpritesEnemigo;
+    }
+
+    public void setNumSpritesEnemigo(int numSpritesEnemigo) {
+        this.numSpritesEnemigo = numSpritesEnemigo;
+    }
+
+    public int getNumSpritesJugador() {
+        return numSpritesJugador;
+    }
+
+    public void setNumSpritesJugador(int numSpritesJugador) {
+        this.numSpritesJugador = numSpritesJugador;
     }
 }

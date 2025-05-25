@@ -605,8 +605,6 @@ public class DetectorTeclas implements KeyListener {
                         if (gp.getInterfaz().getNumeroMenu() == 0 && gp.gc.jugador.isTurno()) {
                             gp.gc.monstruo.recibirDaño(gp.gc.jugador.atacar());
                             gp.gc.jugador.setOpcionAtacar(true);
-                            gp.gc.jugador.setTurno(false);
-                            gp.gc.monstruo.setTurno(true);
                             gp.gc.contadorUpdates = 0;
                         }
                         if (gp.getInterfaz().getNumeroMenu() == 1 && gp.gc.jugador.isTurno()) {

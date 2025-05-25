@@ -14,6 +14,7 @@ public abstract class Objetos extends Entidad {
     public Rectangle zonaDeColision = new Rectangle(0, 0, 48, 48);
     public int zonaDeColisionDefectoX = 0, zonaDeColisionDefectoY = 0;
     protected int objetoInteractuado = 0;
+    public boolean abrirCofre;
 
     /**
      * constructor de objetos del suelo
@@ -34,6 +35,9 @@ public abstract class Objetos extends Entidad {
         g2d.drawImage(imagen, (int) x, (int) y, gp.getTamañofinalBaldosa(), gp.getTamañofinalBaldosa(), null);
     }
 
+    public void update(){
+
+    }
     //getters y setters
 
     public String getNombre() {

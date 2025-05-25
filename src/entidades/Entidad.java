@@ -317,7 +317,7 @@ public abstract class Entidad {
         int random = UtilDiego.numRandomentero(1,10);
         if (random <= 2) {
             dañoAtaque = dañoAtaque *2;
-            gp.getInterfaz().enseñarMensaje("CRITICO!!!! El enemigo ha hecho un ataque de un total de "+dañoAtaque+" daño");
+            gp.getInterfaz().enseñarMensaje("CRITICO!!!! El enemigo ha hecho un ataque de un total de\n "+dañoAtaque+" daño");
         }else{
             gp.getInterfaz().enseñarMensaje("El enemigo ha hecho un ataque de un total de "+dañoAtaque+" daño");
         }

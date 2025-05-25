@@ -60,7 +60,7 @@ public abstract class Monstruo extends Entidad {
     }
     if (gp.estadoJuego==gp.combate) {
         if (isTurno()){
-            return sprite = plantillaSprite.invertir(plantillaSprite.getImg(gp.gc.getNumSprite(), 2, gp.getTamañofinalBaldosa()));
+            return sprite = plantillaSprite.invertir(plantillaSprite.getImg(gp.gc.getNumSpritesEnemigo(), 2, gp.getTamañofinalBaldosa()));
         }else{
             return sprite =  plantillaSprite.invertir(plantillaSprite.getImg(0, 0, gp.getTamañofinalBaldosa()));
         }
