@@ -1,9 +1,5 @@
 package utiles;
 
-
-import entidades.Entidad;
-
-import javax.naming.ldap.Control;
 import java.time.LocalDate;
 import java.util.Scanner;
 

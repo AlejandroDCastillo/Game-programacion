@@ -61,6 +61,7 @@ public class Inventario {
         Armadura talisman = new Armadura("talismanSecreto", 1, 10, 7, 4);
         Armadura yelmo = new Armadura("yelmo", 1, 1, 7, 5);
         Armadura peto = new Armadura("peto", 1, 6, 7, 5);
+        Item Zanahoria = new Item("Zanahoria", 0, 6, 6); //sprite temporal
         //faltan yelmo, peto,escudo oro, talisman
 
         inventario.add(escudoOro);

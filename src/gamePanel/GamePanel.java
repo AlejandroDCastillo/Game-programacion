@@ -4,6 +4,7 @@ import entidades.*;
 import gamePanel.escenarios.MenuInventario;
 import gestores.*;
 import item.objetos.Objetos;
+import gamePanel.escenarios.casa.Casa;
 import recursos.mapas.GeneradorMapa;
 import recursos.musica.Musica;
 import recursos.teclado.DetectorTeclas;
@@ -37,9 +38,12 @@ public class GamePanel extends JPanel implements Runnable {
     protected int FPS = 60;
     //MUSICA
     Musica musica = new Musica();
+    //tiempo
+    public RelojJuego relojJuego = RelojJuego.getInstance(this);
     //Cosas de la pantalla
     private Jugador jugador;
     private MenuInventario menuInventario = new MenuInventario(this);
+    private Casa casaClass = new Casa(this);
     public GeneradorMapa generadorMapa = new GeneradorMapa(this);
     private GestorBaldosas gestorBaldosas = new GestorBaldosas(this);
     public DetectorDeColisiones detectorDeColisiones = new DetectorDeColisiones(this);
@@ -58,6 +62,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int craftear = 6;
     public final int combate = 7;
     public int gameOver = 8;
+    public final int casa = 10;
     public int mapa = 9;
     //conbate
     public GestorDeEventos gestorDeEventos = new GestorDeEventos(this);
@@ -150,9 +155,13 @@ public class GamePanel extends JPanel implements Runnable {
             //no sucede nada
         } else if (estadoJuego == inventario) {
             menuInventario.update();
+        } else if (estadoJuego == casa) {
+            casaClass.update();
         } else if (estadoJuego == combate) {
             gc.update();
         }
+        //actualiza el tiempop en cada vuelta
+        relojJuego.update();
     }
 
     /**
@@ -200,10 +209,8 @@ public class GamePanel extends JPanel implements Runnable {
             }
             interfaz.dibujar(g2d);
             menuInventario.dibujar(g2d);
-
         }
         g2d.dispose();
-
 
     }
 

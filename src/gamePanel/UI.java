@@ -213,6 +213,8 @@ public class UI {
         dibujarTextoSombreado("Movimiento: con A W S D", 450, 520, 15);
         dibujarTextoSombreado("Pausa y volver: ESC", 450, 540, 15);
         dibujarTextoSombreado("Inventario: E", 450, 560, 15);
+        // Dibujar el tiempo
+        gp.relojJuego.dibujar(g2d);
 
     }
 

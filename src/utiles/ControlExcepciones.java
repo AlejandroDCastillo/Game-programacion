@@ -78,9 +78,10 @@ public class ControlExcepciones {
         do {
             try {
                 numero = teclado.nextDouble();
+                verificarDecimal=true;
                 return numero;
             } catch (Exception e) {
-                System.out.println("Solo se admiten numeros enteros");
+                System.out.println("Solo se admiten numeros decimales");
                 teclado.nextLine();//limpiamos el buffer
             }
         } while (!verificarDecimal);
