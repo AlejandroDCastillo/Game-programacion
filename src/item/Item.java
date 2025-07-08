@@ -23,23 +23,41 @@ public class Item implements Aumento {
 
     /**
      * constructor de Item
+     *
      * @param idNombre
      * @param cantidad
      * @param spriteX
      * @param spriteY
      */
-    public Item(String idNombre, int cantidad,int spriteX,int spriteY) {
+    public Item(String idNombre, int cantidad, int spriteX, int spriteY, String imagePath) {
         this.idNombre = idNombre;
         this.cantidad = cantidad;
         //posicion del sprite para cada item
-        this.x=spriteX;
-        this.y=spriteY;
+        this.x = spriteX;
+        this.y = spriteY;
+        //cargams la imagen para guardarla en cada uno de los item
+        try {
+//            imagePath = "src/recursos/imagenes/AssetsDeInventario.png";
+            BufferedImage imagenPlantillaBuffered = ImageIO.read(new File(imagePath));
+            this.plantillaInventario = new Spritesheet(imagenPlantillaBuffered, 13, 9);
+            imagen = plantillaInventario.getImg(spriteX, spriteY);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Item(String idNombre, int cantidad, int spriteX, int spriteY) {
+        this.idNombre = idNombre;
+        this.cantidad = cantidad;
+        //posicion del sprite para cada item
+        this.x = spriteX;
+        this.y = spriteY;
         //cargams la imagen para guardarla en cada uno de los item
         try {
             String imagePath = "src/recursos/imagenes/AssetsDeInventario.png";
             BufferedImage imagenPlantillaBuffered = ImageIO.read(new File(imagePath));
-            this.plantillaInventario  = new Spritesheet(imagenPlantillaBuffered,13,9);
-            imagen=plantillaInventario.getImg(spriteX,spriteY);
+            this.plantillaInventario = new Spritesheet(imagenPlantillaBuffered, 13, 9);
+            imagen = plantillaInventario.getImg(spriteX, spriteY);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -47,6 +65,7 @@ public class Item implements Aumento {
 
     /**
      * metodo toString para comprobaciones por consola
+     *
      * @return
      */
     @Override

@@ -59,9 +59,9 @@ public class Inventario {
         Armadura escudo = new Armadura("escudo", 1, 12, 6, 6);
         Armadura escudoOro = new Armadura("escudo_oro", 1, 11, 6, 12);
         Armadura talisman = new Armadura("talismanSecreto", 1, 10, 7, 4);
-        Armadura yelmo = new Armadura("yelmo", 1, 1, 7, 5);
-        Armadura peto = new Armadura("peto", 1, 6, 7, 5);
-        Item Zanahoria = new Item("Zanahoria", 0, 6, 6); //sprite temporal
+        Armadura yelmo = new Armadura("yelmo", 0, 1, 7, 5);
+        Armadura peto = new Armadura("peto", 0, 6, 7, 5);
+        Item zanahoria = new Item("Zanahoria", 8, 6, 7); //sprite temporal
         //faltan yelmo, peto,escudo oro, talisman
 
         inventario.add(escudoOro);
@@ -80,6 +80,7 @@ public class Inventario {
         inventario.add(talisman);
         inventario.add(yelmo);
         inventario.add(peto);
+        inventario.add(zanahoria);
 
         return inventario;
     }

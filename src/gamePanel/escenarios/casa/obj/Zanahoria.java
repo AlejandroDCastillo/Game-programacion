@@ -11,8 +11,8 @@ public class Zanahoria extends Cultivo implements Cultivos {
     public Zanahoria(int x, int y, int estados) {
         //iniciamos el loot
         Item loot = Inventario.getInstance().buscarObjeto("Zanahoria");
-        super(x, y, estados, "Zanahoria", loot);
-        //iniciamos el tiempo que tarda la zanahoria en crecer
+        super("Zanahoria",0,x, y, estados,"src/recursos/imagenes/AssetsDeCultivo.png");
+                //iniciamos el tiempo que tarda la zanahoria en crecer
         this.tiempo = 200;
 
 

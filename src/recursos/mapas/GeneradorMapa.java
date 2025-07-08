@@ -32,7 +32,7 @@ public class GeneradorMapa {
         for (int i = 0; i < canidadNumeroColumnas; i++) {
             for (int j = 0; j < canidadNumeroFilas; j++) {
                 if (j == 8 && i == 0) {
-                    numeros.append(12);
+                    numeros.append(0);
                     numeros.append(" ");
                 }
                 if ((j == canidadNumeroFilas - 1 || j == 0) && (i <= 6 && i > 3)) {
@@ -42,9 +42,9 @@ public class GeneradorMapa {
                         numeros.append(1);
                     } else {
                         if ((j == canidadNumeroFilas - 2 || j == 1) || (i == canidadNumeroColumnas - 2 || i == 1)) {
-                            numeros.append(0);
+                            numeros.append(22);
                         } else {
-                            int numero = UtilDiego.numRandomentero(2, 6);
+                            int numero = UtilDiego.numRandomentero(21, 24);
                             if ((j == canidadNumeroFilas - 1 || j == 0) && (i <= 9 && i > 6)) {
                                 numeros.append(3);
                             } else {
