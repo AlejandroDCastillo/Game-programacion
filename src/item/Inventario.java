@@ -2,6 +2,8 @@ package item;
 
 import entidades.Jugador;
 import gamePanel.escenarios.MenuInventario;
+import gamePanel.escenarios.casa.obj.Patata;
+import gamePanel.escenarios.casa.obj.Zanahoria;
 import item.armadura.Armadura;
 import item.armas.Arma;
 import item.armas.Elemento;
@@ -61,7 +63,8 @@ public class Inventario {
         Armadura talisman = new Armadura("talismanSecreto", 1, 10, 7, 4);
         Armadura yelmo = new Armadura("yelmo", 0, 1, 7, 5);
         Armadura peto = new Armadura("peto", 0, 6, 7, 5);
-        Item zanahoria = new Item("Zanahoria", 8, 6, 7); //sprite temporal
+        Item zana = new Item("zanahoria", 8, 6, 3);//sprite temporal
+        Item pat = new Item("patata", 8, 7, 2);//sprite temporal
         //faltan yelmo, peto,escudo oro, talisman
 
         inventario.add(escudoOro);
@@ -80,7 +83,13 @@ public class Inventario {
         inventario.add(talisman);
         inventario.add(yelmo);
         inventario.add(peto);
+
+        //creamos los cultivos tras añadir el item al inv
+        Zanahoria zanahoria = new Zanahoria("zanahoria", 8, 6, 3,8);//sprite temporal
+        Patata patata = new Patata( "patata", 8, 7, 2,8);//sprite temporal
+        //añadimos los cultivos ya creados
         inventario.add(zanahoria);
+        inventario.add(patata);
 
         return inventario;
     }

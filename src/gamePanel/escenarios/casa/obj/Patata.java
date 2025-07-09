@@ -1,32 +1,32 @@
 package gamePanel.escenarios.casa.obj;
 
+import entidades.Entidad;
+import gamePanel.escenarios.casa.clases.Cultivo;
+import gamePanel.escenarios.casa.clases.Cultivos;
 import item.Inventario;
 import item.Item;
-import gamePanel.escenarios.casa.clases.Cultivos;
-import gamePanel.escenarios.casa.clases.Cultivo;
 import recursos.imagenes.Spritesheet;
 
-public class Zanahoria extends Cultivo implements Cultivos {
+public class Patata extends Cultivo implements Cultivos {
 
 
-    public Zanahoria(String idNombre,int cantidad,int x, int y, int estados) {
-        //iniciamos el loot
-
-        super(idNombre,cantidad,x,y,estados,2,"src/recursos/imagenes/AssetsDeCultivo.png");
-                //iniciamos el tiempo que tarda la zanahoria en crecer
+    public Patata(String idNombre,int cantidad,int x, int y, int estados) {
+        //buscamos la patata
+        super(idNombre,cantidad,x,y,estados,4,"src/recursos/imagenes/AssetsDeCultivo.png");
+        //iniciamos el tiempo que tarda la patata en crecer
         this.tiempo = 200;
-        super.loot=3;
+        this.loot = 4;
     }
 
     @Override
     public boolean plantarse() {
-        Inventario inv=Inventario.getInstance();
-        Item item= inv.buscarObjeto("zanahoria");
-        if(item.getCantidad()>1){
-            System.out.println("Plantando zanahoria");
-            item.setCantidad(item.getCantidad()-1);
+        Inventario inv = Inventario.getInstance();
+        Item item = inv.buscarObjeto("patata");
+        if (item.getCantidad() > 1) {
+            System.out.println("Plantando patata");
+            item.setCantidad(item.getCantidad() - 1);
             return true;
-        }else{
+        } else {
             System.out.println("No se pudo plantar");
             return false;
         }
@@ -34,13 +34,13 @@ public class Zanahoria extends Cultivo implements Cultivos {
 
     @Override
     public boolean recogerse() {
-        if(estado==estados){
+        if (estado == estados) {
             System.out.println("Se puede recoger");
 //            añadimos el loot
-            Item item= Inventario.getInstance().buscarObjeto("zanahoria");
-            item.setCantidad(item.getCantidad()+loot);
+            Item item = Inventario.getInstance().buscarObjeto("patata");
+            item.setCantidad(item.getCantidad() + loot);
             return true;
-        }else{
+        } else {
             System.out.println("Aun no esta preparada para recogerse");
             return false;
         }
@@ -54,10 +54,6 @@ public class Zanahoria extends Cultivo implements Cultivos {
     @Override
     public Item darItem() {
         return null;
-    }
-
-    public Zanahoria(String idNombre, int cantidad, int spriteX, int spriteY, int estados, String imagePath) {
-        super(idNombre, cantidad, spriteX, spriteY, estados, imagePath);
     }
 
     @Override
@@ -81,18 +77,23 @@ public class Zanahoria extends Cultivo implements Cultivos {
     }
 
     @Override
-    public int getEstados() {
-        return super.getEstados();
-    }
-
-    @Override
     public void setEstados(int estados) {
         super.setEstados(estados);
     }
 
     @Override
+    public int getEstados() {
+        return super.getEstados();
+    }
+
+    @Override
     public int getLoot() {
         return super.getLoot();
+    }
+
+    @Override
+    public void setLoot(int loot) {
+        super.setLoot(loot);
     }
 
     @Override
@@ -143,5 +144,10 @@ public class Zanahoria extends Cultivo implements Cultivos {
     @Override
     public void setY(int y) {
         super.setY(y);
+    }
+
+    @Override
+    public void aumentar(Entidad entidad, int numero) {
+        super.aumentar(entidad, numero);
     }
 }

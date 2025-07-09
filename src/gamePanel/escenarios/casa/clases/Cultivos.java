@@ -1,10 +1,10 @@
-package gamePanel.escenarios.casa;
+package gamePanel.escenarios.casa.clases;
 
 import item.Item;
 
 public interface Cultivos {
-    abstract void plantarse();
+    abstract boolean plantarse();
     abstract boolean recogerse();
-    abstract int crecer();
+    abstract void crecer();
     abstract Item darItem();
 }
